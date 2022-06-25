@@ -1,4 +1,4 @@
-import { model, Schema, SchemaTypes } from "mongoose";
+import { model, models, Schema, SchemaTypes } from "mongoose";
 import dayjs from "dayjs";
 
 const ObjectId = SchemaTypes.ObjectId;
@@ -33,4 +33,4 @@ const ChatSchema = new Schema({
     ],
 });
 
-export const Chat = model("Chat", ChatSchema);
+export const Chat = models.Chat || model("Chat", ChatSchema);

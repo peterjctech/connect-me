@@ -1,4 +1,4 @@
-import { model, Schema, SchemaTypes } from "mongoose";
+import { model, models, Schema, SchemaTypes } from "mongoose";
 import dayjs from "dayjs";
 
 const ObjectId = SchemaTypes.ObjectId;
@@ -67,4 +67,4 @@ const GroupSchema = new Schema({
     },
 });
 
-export const Group = model("Group", GroupSchema);
+export const Group = models.Group || model("Group", GroupSchema);

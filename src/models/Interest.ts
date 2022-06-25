@@ -1,4 +1,4 @@
-import { model, Schema, SchemaTypes } from "mongoose";
+import { model, models, Schema, SchemaTypes } from "mongoose";
 
 const ObjectId = SchemaTypes.ObjectId;
 
@@ -18,4 +18,4 @@ const InterestSchema = new Schema({
     },
 });
 
-export const Interest = model("Interest", InterestSchema);
+export const Interest = models.Interest || model("Interest", InterestSchema);

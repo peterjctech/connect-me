@@ -1,4 +1,4 @@
-import { model, Schema, SchemaTypes } from "mongoose";
+import { model, models, Schema, SchemaTypes } from "mongoose";
 import dayjs from "dayjs";
 
 const ObjectId = SchemaTypes.ObjectId;
@@ -51,4 +51,4 @@ const PostSchema = new Schema({
     updated_at: Number,
 });
 
-export const Post = model("Post", PostSchema);
+export const Post = models.Post || model("Post", PostSchema);

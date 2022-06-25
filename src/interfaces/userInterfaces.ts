@@ -39,3 +39,12 @@ export interface UserModel {
         timestamp: number;
     }[];
 }
+
+export interface CreateUserArgs {
+    username: string;
+    password: string;
+    confirmPassword: string;
+    firstName: string;
+    lastName: string;
+    profilePicture: string;
+}

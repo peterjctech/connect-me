@@ -16,7 +16,11 @@
         "incremental": true,
         "baseUrl": "./src",
         "paths": {
-            "@interfaces": ["./interfaces"]
+            "@database": ["./database"],
+            "@helpers": ["./helpers"],
+            "@interfaces": ["./interfaces"],
+            "@models": ["./models"],
+            "@services": ["./services"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
