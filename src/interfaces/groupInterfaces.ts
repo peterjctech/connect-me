@@ -1,13 +1,10 @@
 export interface GroupModel {
     group_id: string;
-    name: string;
-    description: string;
-    // Private, Open, Invite
+    group_name: string;
+    description?: string;
+    group_image: string;
     visibility: string;
-    location: string;
-    // Interest
-    tags: string[];
-    // User
+    location?: string;
     users: {
         user_id: string;
         is_admin: boolean;
@@ -16,15 +13,10 @@ export interface GroupModel {
             day_of_year: number;
             time: string;
         }[];
+        join_date: number;
     }[];
-    meetups: {
-        title: string;
-        description: string;
-        date: string;
-        timestamp: number;
-        // User
-        confirmed: string[];
-        // User
-        maybe: string[];
-    };
+    meetups: string[];
+    posts: string[];
+    tags: string[];
+    created_at: number;
 }

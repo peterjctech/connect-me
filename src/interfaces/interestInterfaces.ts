@@ -1,6 +1,6 @@
 export interface InterestModel {
     interest_id: string;
     interest: string;
-    image: string;
+    icon: string;
     color: string;
 }

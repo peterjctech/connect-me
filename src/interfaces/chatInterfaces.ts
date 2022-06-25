@@ -1,12 +1,10 @@
 export interface ChatModel {
     chat_id: string;
-    // User
+    chat_name: string;
     members: string[];
     messages: {
+        user_id: string;
         message: string;
-        sender_id: string;
-        sender_name: string;
-        date: string;
-        timestamp: string;
+        timestamp: number;
     }[];
 }

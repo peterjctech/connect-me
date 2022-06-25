@@ -3,29 +3,39 @@ export interface UserModel {
     username: string;
     password: string;
     first_name: string;
-    last_name: string;
-    profile_picture: string;
-    // User
-    friends: string[];
-    // Chat
-    messages: string[];
-    // Group
+    last_name?: string;
+    profile_picture: {
+        image: string;
+        timestamp: number;
+    };
+    is_online: boolean;
+    friends: {
+        user_id: string;
+        friendship_date: number;
+    }[];
+    messages: {
+        chat_id: string;
+        last_checked: number;
+    }[];
     groups: string[];
-    // Status
-    statuses: string[];
-    // Interest
+    posts: string[];
     interests: string[];
+    events: string[];
     notifications: {
         title: string;
         message: string;
         path: string;
+        timestamp: number;
         is_read: boolean;
     }[];
-    // User
-    friend_requests: string[];
+    friend_requests: {
+        user_id: string;
+        timestamp: number;
+    }[];
     chat_notifs: {
         user_id: string;
-        user: string;
+        chat_id: string;
         message: string;
-    };
+        timestamp: number;
+    }[];
 }
