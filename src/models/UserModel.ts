@@ -1,10 +1,9 @@
 import { model, models, Schema, SchemaTypes } from "mongoose";
 import dayjs from "dayjs";
 
-const ObjectId = SchemaTypes.ObjectId;
+const ObjectId = Schema.Types.ObjectId;
 
 const UserSchema = new Schema({
-    user_id: ObjectId,
     username: {
         type: String,
         required: true,
@@ -20,22 +19,20 @@ const UserSchema = new Schema({
     },
     last_name: String,
     profile_picture: {
-        image: {
-            type: String,
-            default: "@assets/images/default-profile-picture.jpg",
-        },
-        timestamp: {
-            type: Number,
-            default: dayjs().unix(),
-        },
+        type: String,
+        default: "@assets/images/default-profile-picture.jpg",
     },
     is_online: {
         type: Boolean,
         default: true,
     },
+    join_date: {
+        type: Number,
+        default: dayjs().unix(),
+    },
     friends: [
         {
-            user_id: {
+            _id: {
                 type: ObjectId,
                 ref: "User",
                 required: true,
@@ -48,7 +45,7 @@ const UserSchema = new Schema({
     ],
     messages: [
         {
-            chat_id: {
+            _id: {
                 type: ObjectId,
                 ref: "Chat",
                 required: true,
@@ -63,7 +60,6 @@ const UserSchema = new Schema({
         {
             type: ObjectId,
             ref: "Group",
-            required: true,
         },
     ],
     posts: [
@@ -72,10 +68,10 @@ const UserSchema = new Schema({
             ref: "Post",
         },
     ],
-    interests: [
+    tags: [
         {
             type: ObjectId,
-            ref: "Interests",
+            ref: "Tags",
         },
     ],
     events: [
@@ -110,7 +106,7 @@ const UserSchema = new Schema({
     ],
     friend_requests: [
         {
-            user_id: {
+            _id: {
                 type: ObjectId,
                 ref: "User",
                 required: true,
@@ -123,14 +119,9 @@ const UserSchema = new Schema({
     ],
     chat_notifs: [
         {
-            user_id: {
+            _id: {
                 type: ObjectId,
-                ref: "User",
-                required: true,
-            },
-            chat_id: {
-                type: ObjectId,
-                ref: "User",
+                ref: "Chat",
             },
             message: String,
             timestamp: {
@@ -141,4 +132,4 @@ const UserSchema = new Schema({
     ],
 });
 
-export const User = models.User || model("User", UserSchema);
+export const UserModel = models.User || model("User", UserSchema);

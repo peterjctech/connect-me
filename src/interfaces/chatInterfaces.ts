@@ -1,10 +1,12 @@
-export interface ChatModel {
-    chat_id: string;
-    chat_name: string;
-    members: string[];
+import { Types } from "mongoose";
+
+export interface Chat {
+    _id: Types.ObjectId;
+    title: string;
+    members: Types.ObjectId[];
     messages: {
-        user_id: string;
-        message: string;
+        _id: Types.ObjectId;
+        content: string;
         timestamp: number;
     }[];
 }

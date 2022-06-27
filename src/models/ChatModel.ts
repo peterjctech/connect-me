@@ -4,8 +4,7 @@ import dayjs from "dayjs";
 const ObjectId = SchemaTypes.ObjectId;
 
 const ChatSchema = new Schema({
-    chat_id: ObjectId,
-    chat_name: {
+    title: {
         type: String,
         required: true,
     },
@@ -13,15 +12,16 @@ const ChatSchema = new Schema({
         {
             type: ObjectId,
             ref: "User",
+            required: true,
         },
     ],
     messages: [
         {
-            user_id: {
+            _id: {
                 type: ObjectId,
                 ref: "User",
             },
-            message: {
+            content: {
                 type: String,
                 required: true,
             },
@@ -33,4 +33,4 @@ const ChatSchema = new Schema({
     ],
 });
 
-export const Chat = models.Chat || model("Chat", ChatSchema);
+export const ChatModel = models.Chat || model("Chat", ChatSchema);

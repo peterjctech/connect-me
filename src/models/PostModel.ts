@@ -4,15 +4,30 @@ import dayjs from "dayjs";
 const ObjectId = SchemaTypes.ObjectId;
 
 const PostSchema = new Schema({
-    post_id: ObjectId,
-    post: {
+    author: {
+        type: ObjectId,
+        ref: "User",
+        required: true,
+    },
+    content: {
         type: String,
         required: true,
     },
+    ref_id: {
+        type: ObjectId,
+        required: true,
+        refPath: "ref_model",
+    },
+    ref_model: {
+        type: String,
+        required: true,
+        enum: ["User", "Group"],
+    },
     reactions: [
         {
-            user_id: {
+            _id: {
                 type: ObjectId,
+                ref: "User",
                 required: true,
             },
             reaction: {
@@ -23,25 +38,8 @@ const PostSchema = new Schema({
     ],
     comments: [
         {
-            user_id: {
-                type: ObjectId,
-                required: true,
-            },
-            comment: {
-                type: String,
-                required: true,
-            },
-            created_at: {
-                type: Number,
-                default: dayjs().unix(),
-            },
-            updated_at: Number,
-        },
-    ],
-    tags: [
-        {
             type: ObjectId,
-            ref: "Interest",
+            ref: "Comment",
         },
     ],
     created_at: {
@@ -51,4 +49,4 @@ const PostSchema = new Schema({
     updated_at: Number,
 });
 
-export const Post = models.Post || model("Post", PostSchema);
+export const PostModel = models.Post || model("Post", PostSchema);

@@ -15,8 +15,6 @@ export const checkCreateUser = async (args: CreateUserArgs) => {
         password: args.password,
         first_name: args.firstName,
         last_name: args.lastName || null,
-        profile_picture: {
-            image: args.profilePicture || null,
-        },
+        profile_picture: args.profilePicture || null,
     };
 };

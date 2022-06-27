@@ -1,22 +1,19 @@
-export interface GroupModel {
-    group_id: string;
-    group_name: string;
-    description?: string;
+import { Types } from "mongoose";
+
+export interface Group {
+    _id: Types.ObjectId;
+    name: string;
+    founder: Types.ObjectId;
+    description: string;
     group_image: string;
     visibility: string;
-    location?: string;
-    users: {
-        user_id: string;
+    members: {
+        _id: Types.ObjectId;
         is_admin: boolean;
-        availability: {
-            year: number;
-            day_of_year: number;
-            time: string;
-        }[];
         join_date: number;
     }[];
-    meetups: string[];
-    posts: string[];
-    tags: string[];
+    tags: Types.ObjectId[];
+    events: Types.ObjectId[];
+    posts: Types.ObjectId[];
     created_at: number;
 }

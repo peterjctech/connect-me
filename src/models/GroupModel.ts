@@ -4,9 +4,13 @@ import dayjs from "dayjs";
 const ObjectId = SchemaTypes.ObjectId;
 
 const GroupSchema = new Schema({
-    group_id: ObjectId,
-    group_name: {
+    name: {
         type: String,
+        required: true,
+    },
+    founder: {
+        type: ObjectId,
+        ref: "User",
         required: true,
     },
     description: String,
@@ -18,10 +22,9 @@ const GroupSchema = new Schema({
         type: String,
         default: "Invite",
     },
-    location: String,
-    users: [
+    members: [
         {
-            user_id: {
+            _id: {
                 type: ObjectId,
                 ref: "User",
                 required: true,
@@ -30,23 +33,22 @@ const GroupSchema = new Schema({
                 type: Boolean,
                 default: false,
             },
-            availability: [
-                {
-                    year: Number,
-                    day_of_year: Number,
-                    time: String,
-                },
-            ],
             join_date: {
                 type: Number,
                 default: dayjs().unix(),
             },
         },
     ],
-    meetups: [
+    tags: [
         {
             type: ObjectId,
-            ref: "Meetup",
+            ref: "Tag",
+        },
+    ],
+    events: [
+        {
+            type: ObjectId,
+            ref: "Event",
         },
     ],
     posts: [
@@ -55,16 +57,10 @@ const GroupSchema = new Schema({
             ref: "Post",
         },
     ],
-    tags: [
-        {
-            type: ObjectId,
-            ref: "Interest",
-        },
-    ],
     created_at: {
         type: Number,
         default: dayjs().unix(),
     },
 });
 
-export const Group = models.Group || model("Group", GroupSchema);
+export const GroupModel = models.Group || model("Group", GroupSchema);

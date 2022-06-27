@@ -1,12 +1,16 @@
-export interface EventModel {
-    event_id: string;
+import { Types } from "mongoose";
+
+export interface Event {
+    _id: Types.ObjectId;
     event: string;
-    description?: string;
-    users: {
-        user_id: string;
+    creator: Types.ObjectId;
+    group: Types.ObjectId;
+    description: string;
+    attending: {
+        _id: Types.ObjectId;
         is_confirmed: boolean;
     }[];
-    posts: string[];
+    comments: Types.ObjectId[];
     starts_at: number;
     ends_at?: number;
     created_at: number;

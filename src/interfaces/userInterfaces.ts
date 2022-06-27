@@ -1,50 +1,41 @@
-export interface UserModel {
-    user_id: string;
+import { Types } from "mongoose";
+
+export interface User {
+    _id: Types.ObjectId;
     username: string;
     password: string;
     first_name: string;
-    last_name?: string;
-    profile_picture: {
-        image: string;
-        timestamp: number;
-    };
+    last_name: string;
+    profile_picture: string;
     is_online: boolean;
+    join_date: number;
     friends: {
-        user_id: string;
+        _id: Types.ObjectId;
         friendship_date: number;
     }[];
     messages: {
-        chat_id: string;
+        _id: Types.ObjectId;
         last_checked: number;
     }[];
-    groups: string[];
-    posts: string[];
-    interests: string[];
-    events: string[];
+    groups: Types.ObjectId[];
+    posts: Types.ObjectId[];
+    tags: Types.ObjectId[];
+    events: Types.ObjectId[];
     notifications: {
+        _id: Types.ObjectId;
+        ref: string;
         title: string;
         message: string;
-        path: string;
         timestamp: number;
         is_read: boolean;
     }[];
     friend_requests: {
-        user_id: string;
+        _id: Types.ObjectId;
         timestamp: number;
     }[];
     chat_notifs: {
-        user_id: string;
-        chat_id: string;
+        _id: Types.ObjectId;
         message: string;
         timestamp: number;
     }[];
-}
-
-export interface CreateUserArgs {
-    username: string;
-    password: string;
-    confirmPassword: string;
-    firstName: string;
-    lastName: string;
-    profilePicture: string;
 }

@@ -3,16 +3,11 @@ import { sendPostRequest } from "@helpers";
 
 const Home: NextPage = () => {
     const toBackend = async () => {
-        await sendPostRequest("/api/user", {
-            username: "John Cena 2",
-            password: "12345",
-            confirmPassword: "12345",
-            firstName: "John",
-        });
+        await sendPostRequest("/api/seed", {});
     };
     return (
         <main className="home-page">
-            <button onClick={toBackend}>CLICK ME LOL</button>
+            <button onClick={toBackend}>SEED DATABASE</button>
         </main>
     );
 };

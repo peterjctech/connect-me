@@ -4,15 +4,24 @@ import dayjs from "dayjs";
 const ObjectId = SchemaTypes.ObjectId;
 
 const EventSchema = new Schema({
-    event_id: ObjectId,
     event: {
         type: String,
         required: true,
     },
+    creator: {
+        type: ObjectId,
+        ref: "User",
+        required: true,
+    },
+    group: {
+        type: ObjectId,
+        ref: "Group",
+        required: true,
+    },
     description: String,
-    users: [
+    attending: [
         {
-            user_id: {
+            _id: {
                 type: ObjectId,
                 ref: "User",
             },
@@ -22,10 +31,10 @@ const EventSchema = new Schema({
             },
         },
     ],
-    posts: [
+    comments: [
         {
             type: ObjectId,
-            ref: "Post",
+            ref: "Comment",
         },
     ],
     starts_at: {
@@ -39,4 +48,4 @@ const EventSchema = new Schema({
     },
 });
 
-export const Event = models.Event || model("Event", EventSchema);
+export const EventModel = models.Event || model("Event", EventSchema);
