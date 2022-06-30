@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { Layout } from "@components";
 import { LoginForm, RegisterForm } from "@domain";
-import { useState } from "react";
 
 export default function () {
     const [isLoginForm, setIsLoginForm] = useState(true);

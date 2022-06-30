@@ -10,7 +10,7 @@ export default function ({ title, children }: LayoutProps) {
     return (
         <>
             <Head>
-                <title>{title} | Connect Me</title>
+                <title>{`Connect Me | ${title}`}</title>
             </Head>
             <Navbar />
             {children}

@@ -1,5 +1,5 @@
-import { Button, InputGroup } from "@components";
-import { useForm } from "@hooks";
+import { Button, Dialog, InputGroup } from "@components";
+import { useForm, useHotkey, useDialog } from "@hooks";
 import { CREATE_USER } from "@queries";
 import { useMutation } from "@apollo/client";
 
@@ -8,6 +8,8 @@ interface RegisterFormProps {
 }
 
 export default function ({ changeForm }: RegisterFormProps) {
+    const { dialog, openDialog, dialogProps } = useDialog();
+    const [createUser] = useMutation(CREATE_USER);
     const { formData, handleChange } = useForm({
         firstName: "",
         lastName: "",
@@ -15,11 +17,16 @@ export default function ({ changeForm }: RegisterFormProps) {
         password: "",
         confirmPassword: "",
     });
-    const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
 
     const registerUser = async () => {
-        const data = await createUser({ variables: formData });
+        const response = await createUser({ variables: formData });
+        if (response.data.createUser.message) openDialog(response.data.createUser.message);
     };
+
+    useHotkey({
+        code: "Enter",
+        callback: registerUser,
+    });
     return (
         <div className="form">
             <h2 className="form__title">Register to ConnectMe</h2>
@@ -64,6 +71,7 @@ export default function ({ changeForm }: RegisterFormProps) {
             <h5 onClick={changeForm} className="form__link">
                 Already have an account? Login here
             </h5>
+            {dialog && <Dialog {...dialogProps} />}
         </div>
     );
 }

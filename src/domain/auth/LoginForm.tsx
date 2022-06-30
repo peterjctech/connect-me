@@ -1,5 +1,5 @@
 import { Button, InputGroup } from "@components";
-import { useForm } from "@hooks";
+import { useForm, useHotkey } from "@hooks";
 
 interface LoginFormProps {
     changeForm: () => void;
@@ -14,6 +14,11 @@ export default function ({ changeForm }: LoginFormProps) {
     const loginUser = () => {
         console.log("Logging in => ", formData);
     };
+
+    useHotkey({
+        code: "Enter",
+        callback: loginUser,
+    });
     return (
         <div className="form">
             <h2 className="form__title">Login to ConnectMe</h2>

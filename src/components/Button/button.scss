@@ -5,6 +5,7 @@
     padding: 0.5rem;
     border-radius: 0.4rem;
     cursor: pointer;
+    min-width: 6rem;
 
     &.primary {
         background-color: $c-primary;
@@ -38,6 +39,14 @@
             background-color: darken($c-success, 10%);
         }
     }
+    &.info {
+        background-color: $c-info;
+        color: white;
+
+        &:hover {
+            background-color: darken($c-info, 5%);
+        }
+    }
     &.warning {
         background-color: $c-warning;
         color: darken($c-warning, 40%);
@@ -48,7 +57,7 @@
     }
     &.danger {
         background-color: $c-danger;
-        color: darken($c-danger, 40%);
+        color: white;
 
         &:hover {
             background-color: darken($c-danger, 5%);
