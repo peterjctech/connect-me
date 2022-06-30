@@ -1,0 +1,25 @@
+.container {
+    -webkit-box-shadow: 3px 3px 10px 2px $c-shadow;
+    box-shadow: 3px 3px 10px 2px $c-shadow;
+    padding: 2rem;
+    margin: 2rem;
+    border-radius: 0.5rem;
+}
+
+.form {
+    &__title {
+        text-align: center;
+        font-family: $ff-heading;
+        margin-bottom: 1.5rem;
+        letter-spacing: 1px;
+    }
+    &__link {
+        color: $c-neutral;
+        cursor: pointer;
+        margin-top: 1.5rem;
+
+        &:hover {
+            color: $c-secondary;
+        }
+    }
+}

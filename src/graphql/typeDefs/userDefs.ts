@@ -56,23 +56,20 @@ export default gql`
     }
 
     type Query {
-        getUser: User
-        getAllUsers: [User]!
-        me: User!
-        loginUser: User!
+        getAllUsers: [User]
     }
 
-    type CreateUserArgs {
-        username: String!
-        password: String!
-        confirmPassword: String!
-        firstName: String!
-        lastName: String
-        profilePicture: String
+    type CreateUserReturn {
+        message: String
     }
 
-    # type Mutation {
-    #     createUser: (CreateUserArgs!): User!
-    #     deleteUser: (userId: ID!): Boolean!
-    # }
+    type Mutation {
+        createUser(
+            firstName: String
+            lastName: String
+            username: String
+            password: String
+            confirmPassword: String
+        ): CreateUserReturn
+    }
 `;

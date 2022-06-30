@@ -120,7 +120,6 @@ export const seedDatabase = async () => {
             tags: [],
             events: [],
             notifications: [],
-            friend_requests: [],
             chat_notifs: [],
         };
 

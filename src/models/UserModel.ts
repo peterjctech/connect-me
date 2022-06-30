@@ -104,19 +104,6 @@ const UserSchema = new Schema({
             },
         },
     ],
-    friend_requests: [
-        {
-            _id: {
-                type: ObjectId,
-                ref: "User",
-                required: true,
-            },
-            timestamp: {
-                type: Number,
-                default: dayjs().unix(),
-            },
-        },
-    ],
     chat_notifs: [
         {
             _id: {

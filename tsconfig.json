@@ -16,11 +16,15 @@
         "incremental": true,
         "baseUrl": "./src",
         "paths": {
+            "@components": ["./components"],
             "@database": ["./database"],
+            "@domain": ["./domain"],
             "@graphql": ["./graphql"],
+            "@hooks": ["./hooks"],
             "@queries": ["./graphql/queries"],
             "@interfaces": ["./interfaces"],
-            "@models": ["./models"]
+            "@models": ["./models"],
+            "@services": ["./services"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

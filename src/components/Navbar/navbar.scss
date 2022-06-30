@@ -1,0 +1,21 @@
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 8rem;
+    background-color: $c-primary;
+    border-top: solid darken($c-primary, 40%) 5px;
+
+    &__icons {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        justify-content: space-around;
+    }
+
+    &__icon {
+        width: 4rem;
+        height: 4rem;
+        color: darken($c-primary, 40%);
+    }
+}

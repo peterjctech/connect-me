@@ -1,32 +1,21 @@
-import { UserModel } from "@models";
 import { Resolvers } from "@apollo/client";
+import { UserModel } from "@models";
+import { createUserProps } from "@services";
 
 const userResolvers: Resolvers = {
     Query: {
         async getAllUsers() {
-            console.log("running in resolvers");
-            const users = await UserModel.find();
-            return users;
-        },
-        async getUser(_, args) {
-            const user = await UserModel.findOne({ _id: args.id });
-            return user;
-        },
-        async me() {
-            console.log("me");
-        },
-        async loginUser() {
-            console.log("loginUser");
+            return;
         },
     },
-    // Mutation: {
-    //     async createUser(_, args) {
-    //         console.log("createUser => ", args);
-    //     },
-    //     async deleteUser(_, args) {
-    //         console.log("deleteUser => ", args);
-    //     },
-    // },
+    Mutation: {
+        async createUser(_, args) {
+            const props = await createUserProps(args);
+            if (props.errors) throw new Error(props.errors[0]);
+            await UserModel.create(props);
+            return { message: `Successfully created user ${props.username}` };
+        },
+    },
 };
 
 export default userResolvers;

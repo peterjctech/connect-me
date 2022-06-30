@@ -1,0 +1,57 @@
+.button {
+    font: 1.5rem $ff-heading;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+
+    &.primary {
+        background-color: $c-primary;
+        color: darken($c-primary, 40%);
+
+        &:hover {
+            background-color: darken($c-primary, 5%);
+        }
+    }
+    &.secondary {
+        background-color: $c-secondary;
+        color: darken($c-secondary, 40%);
+
+        &:hover {
+            background-color: darken($c-secondary, 5%);
+        }
+    }
+    &.tertiary {
+        background-color: $c-tertiary;
+        color: darken($c-tertiary, 40%);
+
+        &:hover {
+            background-color: darken($c-tertiary, 5%);
+        }
+    }
+    &.success {
+        background-color: $c-success;
+        color: white;
+
+        &:hover {
+            background-color: darken($c-success, 10%);
+        }
+    }
+    &.warning {
+        background-color: $c-warning;
+        color: darken($c-warning, 40%);
+
+        &:hover {
+            background-color: darken($c-warning, 5%);
+        }
+    }
+    &.danger {
+        background-color: $c-danger;
+        color: darken($c-danger, 40%);
+
+        &:hover {
+            background-color: darken($c-danger, 5%);
+        }
+    }
+}

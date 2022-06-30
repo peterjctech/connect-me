@@ -29,10 +29,6 @@ export interface User {
         timestamp: number;
         is_read: boolean;
     }[];
-    friend_requests: {
-        _id: Types.ObjectId;
-        timestamp: number;
-    }[];
     chat_notifs: {
         _id: Types.ObjectId;
         message: string;
