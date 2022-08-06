@@ -3,28 +3,7 @@ import { GET_ME } from "@queries";
 import { LOGIN_USER, LOGOUT_USER, CREATE_USER } from "@mutations";
 import { useQuery, useMutation } from "@apollo/client";
 
-export default function () {
-    // const [loginUser] = useMutation(LOGIN_USER)
-    // const [logoutUser] = useMutation(LOGOUT_USER)
-    // const [createUser] = useMutation(CREATE_USER)
-    // const [getMe] = useQuery(GET_ME)
-
-    // const submit1 = async () => {
-    //     const response = await client.query({ query: GET_ME });
-    //     console.log(response);
-    // };
-    // const submit2 = async () => {
-    //     const response = await client.query({ query: LOGIN_USER });
-    //     console.log(response);
-    // };
-    // const submit3 = async () => {
-    //     const response = await client.query({ query: LOGOUT_USER });
-    //     console.log(response);
-    // };
-    // const submit4 = async () => {
-    //     const response = await client.query({ query: CREATE_USER });
-    //     console.log(response);
-    // };
+export default function (props: any) {
     const getMe = async () => {
         const response = await client.query({ query: GET_ME });
         console.log(response.data.getMe);

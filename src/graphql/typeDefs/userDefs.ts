@@ -61,9 +61,21 @@ export default gql`
     type GetMeReturn {
         _id: ID!
         username: String!
+        password: String!
         first_name: String!
-        last_name: String!
+        last_name: String
         full_name: String!
+        profile_picture: String!
+        is_online: Boolean!
+        join_date: Int!
+        friends: [UserFriends]!
+        messages: [UserMessages]!
+        groups: [ID]!
+        posts: [ID]!
+        tags: [ID]!
+        events: [ID]!
+        notifications: [UserNotification]!
+        chat_notifs: [UserChatNotification]!
         friend_count: Int!
     }
 
