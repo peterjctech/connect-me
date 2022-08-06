@@ -36,4 +36,4 @@ const CommentSchema = new Schema({
     updated_at: Number,
 });
 
-export const CommentModel = models.Comment || model("Comment", CommentSchema);
+export const Comment = models.Comment || model("Comment", CommentSchema);

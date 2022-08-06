@@ -25,4 +25,4 @@ const TagSchema = new Schema({
     ],
 });
 
-export const TagModel = models.Tag || model("Tag", TagSchema);
+export const Tag = models.Tag || model("Tag", TagSchema);

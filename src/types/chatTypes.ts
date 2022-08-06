@@ -1,6 +1,11 @@
 import { Types } from "mongoose";
 
-export interface Chat {
+export interface ChatProps {
+    title: string;
+    members: Types.ObjectId[];
+}
+
+export interface ChatModel {
     _id: Types.ObjectId;
     title: string;
     members: Types.ObjectId[];

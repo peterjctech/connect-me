@@ -33,4 +33,4 @@ const ChatSchema = new Schema({
     ],
 });
 
-export const ChatModel = models.Chat || model("Chat", ChatSchema);
+export const Chat = models.Chat || model("Chat", ChatSchema);

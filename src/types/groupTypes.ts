@@ -1,6 +1,15 @@
 import { Types } from "mongoose";
 
-export interface Group {
+export interface GroupProps {
+    name: string;
+    founder: Types.ObjectId;
+    description: string;
+    group_image: string;
+    visibility: string;
+    tags: Types.ObjectId[];
+}
+
+export interface GroupModel {
     _id: Types.ObjectId;
     name: string;
     founder: Types.ObjectId;

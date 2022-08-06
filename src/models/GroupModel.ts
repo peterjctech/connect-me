@@ -63,4 +63,4 @@ const GroupSchema = new Schema({
     },
 });
 
-export const GroupModel = models.Group || model("Group", GroupSchema);
+export const Group = models.Group || model("Group", GroupSchema);

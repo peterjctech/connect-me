@@ -1,6 +1,11 @@
 import { Types } from "mongoose";
 
-export interface Tag {
+export interface TagProps {
+    title: string;
+    color: string;
+}
+
+export interface TagModel {
     _id: Types.ObjectId;
     title: string;
     color: string;

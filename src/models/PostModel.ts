@@ -49,4 +49,4 @@ const PostSchema = new Schema({
     updated_at: Number,
 });
 
-export const PostModel = models.Post || model("Post", PostSchema);
+export const Post = models.Post || model("Post", PostSchema);

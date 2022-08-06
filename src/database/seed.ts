@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { Types } from "mongoose";
-import { User, Group, Comment, Post, Event, Tag, Chat } from "@types";
-import { UserModel, GroupModel, CommentModel, PostModel, EventModel, TagModel } from "@models";
+import { UserModel, GroupModel, CommentModel, PostModel, EventModel, TagModel, ChatModel } from "@types";
+import { User, Group, Comment, Post, Event, Tag } from "@models";
 import dayjs from "dayjs";
 import bcrypt from "bcrypt";
 
@@ -27,7 +27,7 @@ interface CreatePost {
 }
 
 const createPost = (args: CreatePost) => {
-    const comments: Comment[] = [];
+    const comments: CommentModel[] = [];
     const recently = dayjs().subtract(3, "hour").unix();
 
     const postId = getId();
@@ -87,11 +87,11 @@ export const seedDatabase = async () => {
         future: dayjs().add(4, "month").unix(),
     };
 
-    const comments: Comment[] = [];
-    const posts: Post[] = [];
+    const comments: CommentModel[] = [];
+    const posts: PostModel[] = [];
 
     // Create 25 tags
-    const tags: Tag[] = faker.helpers.uniqueArray(faker.random.word, 25).map((word) => {
+    const tags: TagModel[] = faker.helpers.uniqueArray(faker.random.word, 25).map((word) => {
         const newTag = {
             _id: getId(),
             title: word,
@@ -104,7 +104,7 @@ export const seedDatabase = async () => {
     });
 
     // Create 100 users
-    const users: User[] = faker.helpers.uniqueArray(faker.internet.userName, 100).map((username) => {
+    const users: UserModel[] = faker.helpers.uniqueArray(faker.internet.userName, 100).map((username) => {
         const newUser = {
             _id: getId(),
             username: username,
@@ -162,7 +162,7 @@ export const seedDatabase = async () => {
 
     // Add 10 groups, populate with members, add groups to users
     const groupNames = faker.helpers.uniqueArray(faker.music.songName, 10);
-    const groups: Group[] = [];
+    const groups: GroupModel[] = [];
     for (let i = 0; i < groupNames.length; i++) {
         const groupId = getId();
         const createdAt = randomTimestamp(users[i].join_date, seedDates.last_week);
@@ -207,7 +207,7 @@ export const seedDatabase = async () => {
     }
 
     // Add events to each group, and populate with comments, add the event to relevant users and groups
-    const events: Event[] = [];
+    const events: EventModel[] = [];
     for (let i = 0; i < groups.length; i++) {
         const numOfEvents = Math.floor(Math.random() * 4);
 
@@ -309,7 +309,7 @@ export const seedDatabase = async () => {
     const hackermanPassword = await bcrypt.hash("12345", 10);
     const adminPassword = await bcrypt.hash("admin", 10);
 
-    const hackerman: User = {
+    const hackerman: UserModel = {
         _id: getId(),
         username: "hackerman123",
         password: hackermanPassword,
@@ -375,7 +375,7 @@ export const seedDatabase = async () => {
         }
     }
 
-    const chats: Chat[] = [];
+    const chats: ChatModel[] = [];
     for (let i = 0; i < 4; i++) {
         const { post, postComments } = createPost({
             author: hackerman._id,
@@ -392,7 +392,7 @@ export const seedDatabase = async () => {
         const chatId = getId();
         const otherMember = hackerman.friends[i]._id;
 
-        const newChat: Chat = {
+        const newChat: ChatModel = {
             _id: chatId,
             title: faker.animal.bear(),
             members: [hackerman._id, otherMember],
@@ -415,7 +415,7 @@ export const seedDatabase = async () => {
         });
     }
 
-    const admin: User = {
+    const admin: UserModel = {
         _id: getId(),
         username: "admin",
         password: adminPassword,
@@ -448,17 +448,17 @@ export const seedDatabase = async () => {
     users.push(admin);
 
     try {
-        await UserModel.insertMany(users);
+        await User.insertMany(users);
         console.log("Seeded Users");
-        await TagModel.insertMany(tags);
+        await Tag.insertMany(tags);
         console.log("Seeded Tags");
-        await EventModel.insertMany(events);
+        await Event.insertMany(events);
         console.log("Seeded Events");
-        await CommentModel.insertMany(comments);
+        await Comment.insertMany(comments);
         console.log("Seeded Comments");
-        await PostModel.insertMany(posts);
+        await Post.insertMany(posts);
         console.log("Seeded Posts");
-        await GroupModel.insertMany(groups);
+        await Group.insertMany(groups);
         console.log("Seeded Groups");
     } catch (error) {
         console.log("ERROR => ", error);

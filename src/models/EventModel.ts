@@ -48,4 +48,4 @@ const EventSchema = new Schema({
     },
 });
 
-export const EventModel = models.Event || model("Event", EventSchema);
+export const Event = models.Event || model("Event", EventSchema);

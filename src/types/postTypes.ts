@@ -1,6 +1,13 @@
 import { Types } from "mongoose";
 
-export interface Post {
+export interface PostProps {
+    author: Types.ObjectId;
+    content: string;
+    ref_id: Types.ObjectId;
+    ref_model: string;
+}
+
+export interface PostModel {
     _id: Types.ObjectId;
     author: Types.ObjectId;
     content: string;
