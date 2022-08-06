@@ -2,7 +2,7 @@ import { ApolloServer } from "apollo-server-micro";
 import Cors from "micro-cors";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { PageConfig } from "next";
-import { connectDB } from "../../database";
+import { connectDB } from "@database";
 import { resolvers, typeDefs } from "../../graphql";
 
 connectDB();

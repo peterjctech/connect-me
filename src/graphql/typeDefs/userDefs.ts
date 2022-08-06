@@ -55,4 +55,14 @@ export default gql`
         notifications: [UserNotification]!
         chat_notifs: [UserChatNotification]!
     }
+
+    # Queries
+
+    type Message {
+        message: String!
+    }
+
+    type Query {
+        test: Message
+    }
 `;

@@ -1,7 +1,11 @@
-import type { NextPage } from "next";
+import { client } from "@utils";
+import { TEST } from "@queries";
 
-const Home: NextPage = () => {
-    return <h1>Hello World</h1>;
-};
+export default function () {
+    const hello = async () => {
+        const response = await client.query({ query: TEST });
+        console.log(response.data.test.message);
+    };
 
-export default Home;
+    return <button onClick={hello}>Hello</button>;
+}

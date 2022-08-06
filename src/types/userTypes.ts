@@ -7,7 +7,7 @@ export interface User {
     first_name: string;
     last_name: string;
     profile_picture: string;
-    is_online: string;
+    is_online: boolean;
     join_date: number;
     friends: {
         _id: Types.ObjectId;
