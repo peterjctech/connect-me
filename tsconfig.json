@@ -17,6 +17,8 @@
         "baseUrl": "./src",
         "paths": {
             "@utils": ["./utils"],
+            "@components": ["./components"],
+            "@store": ["./store"],
             "@database": ["./database"],
             "@models": ["./models"],
             "@types": ["./types"],

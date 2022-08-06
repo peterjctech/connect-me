@@ -28,7 +28,7 @@ export default gql`
         ref_id: ID!
         ref_model: UserNotificationRef!
         timestamp: Int!
-        is_read: Int!
+        is_read: Boolean!
     }
 
     type UserChatNotification {
