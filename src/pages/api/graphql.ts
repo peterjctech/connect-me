@@ -4,6 +4,8 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 import { PageConfig } from "next";
 import { connectDB } from "@database";
 import { resolvers, typeDefs } from "../../graphql";
+import { getCookie } from "cookies-next";
+import jwt from "jsonwebtoken";
 
 connectDB();
 
@@ -12,6 +14,22 @@ const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+    formatError: (err) => {
+        if (err.message.startsWith("Database Error: ")) {
+            return new Error("Internal server error");
+        }
+        return err;
+    },
+    context: async ({ res, req }) => {
+        let username = null;
+        const cookie: any = getCookie("server-key", { req, res });
+        if (cookie) {
+            const decoded: any = jwt.verify(cookie, process.env.TOKEN_SECRET!);
+            if (decoded.username) username = decoded.username;
+        }
+
+        return { req, res, auth: username };
+    },
 });
 
 const startServer = apolloServer.start();

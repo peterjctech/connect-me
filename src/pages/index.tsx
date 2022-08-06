@@ -1,11 +1,51 @@
 import { client } from "@utils";
-import { TEST } from "@queries";
+import { GET_ME } from "@queries";
+import { LOGIN_USER, LOGOUT_USER, CREATE_USER } from "@mutations";
+import { useQuery, useMutation } from "@apollo/client";
 
 export default function () {
-    const hello = async () => {
-        const response = await client.query({ query: TEST });
-        console.log(response.data.test.message);
-    };
+    // const [loginUser] = useMutation(LOGIN_USER)
+    // const [logoutUser] = useMutation(LOGOUT_USER)
+    // const [createUser] = useMutation(CREATE_USER)
+    // const [getMe] = useQuery(GET_ME)
 
-    return <button onClick={hello}>Hello</button>;
+    // const submit1 = async () => {
+    //     const response = await client.query({ query: GET_ME });
+    //     console.log(response);
+    // };
+    // const submit2 = async () => {
+    //     const response = await client.query({ query: LOGIN_USER });
+    //     console.log(response);
+    // };
+    // const submit3 = async () => {
+    //     const response = await client.query({ query: LOGOUT_USER });
+    //     console.log(response);
+    // };
+    // const submit4 = async () => {
+    //     const response = await client.query({ query: CREATE_USER });
+    //     console.log(response);
+    // };
+    const getMe = async () => {
+        const response = await client.query({ query: GET_ME });
+        console.log(response.data.getMe);
+    };
+    const logoutUser = async () => {
+        const response = await client.mutate({ mutation: LOGOUT_USER });
+        console.log(response.data.logoutUser);
+    };
+    const loginUser = async () => {
+        const response = await client.mutate({
+            mutation: LOGIN_USER,
+            variables: { username: "hackerman123", password: "12345" },
+        });
+        console.log(response.data.loginUser);
+    };
+    return (
+        <main>
+            <button onClick={getMe}>getMe</button>
+            <button onClick={logoutUser}>logoutUser</button>
+            <button onClick={loginUser}>loginUser</button>
+            <button onClick={getMe}>getMe</button>
+        </main>
+    );
 }

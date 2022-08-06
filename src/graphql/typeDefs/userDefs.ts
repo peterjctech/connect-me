@@ -58,11 +58,34 @@ export default gql`
 
     # Queries
 
+    type GetMeReturn {
+        _id: ID!
+        username: String!
+        first_name: String!
+        last_name: String!
+        full_name: String!
+        friend_count: Int!
+    }
+
     type Message {
         message: String!
     }
 
     type Query {
-        test: Message
+        getMe: GetMeReturn
+    }
+
+    # Mutations
+
+    type Mutation {
+        createUser(
+            firstName: String!
+            lastName: String
+            username: String!
+            password: String!
+            confirmPassword: String!
+        ): Message
+        loginUser(username: String!, password: String!): Message
+        logoutUser: Message
     }
 `;
