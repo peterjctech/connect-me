@@ -21,14 +21,14 @@ const apolloServer = new ApolloServer({
         return err;
     },
     context: async ({ res, req }) => {
-        let username = null;
+        let id = null;
         const cookie: any = getCookie("server-key", { req, res });
         if (cookie) {
             const decoded: any = jwt.verify(cookie, process.env.TOKEN_SECRET!);
-            if (decoded.username) username = decoded.username;
+            if (decoded.id) id = decoded.id;
         }
 
-        return { req, res, auth: username };
+        return { req, res, auth: id };
     },
 });
 

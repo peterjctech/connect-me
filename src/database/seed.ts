@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { Types } from "mongoose";
 import { UserModel, GroupModel, CommentModel, PostModel, EventModel, TagModel, ChatModel } from "@types";
-import { User, Group, Comment, Post, Event, Tag } from "@models";
+import { User, Group, Comment, Post, Event, Tag, Chat } from "@models";
 import dayjs from "dayjs";
 import bcrypt from "bcrypt";
 
@@ -460,6 +460,8 @@ export const seedDatabase = async () => {
         console.log("Seeded Posts");
         await Group.insertMany(groups);
         console.log("Seeded Groups");
+        await Chat.insertMany(chats);
+        console.log("Seeded chats");
     } catch (error) {
         console.log("ERROR => ", error);
         console.log("ERROR");
