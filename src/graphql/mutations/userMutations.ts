@@ -15,7 +15,7 @@ export const CREATE_USER = gql`
 `;
 
 export const LOGIN_USER = gql`
-    mutation ($username: String!, $password: String!) {
+    mutation ($username: String, $password: String) {
         loginUser(username: $username, password: $password) {
             message
         }
@@ -25,6 +25,14 @@ export const LOGIN_USER = gql`
 export const LOGOUT_USER = gql`
     mutation {
         logoutUser {
+            message
+        }
+    }
+`;
+
+export const DELETE_USER = gql`
+    mutation ($id: String!) {
+        deleteUser(id: $id) {
             message
         }
     }

@@ -82,7 +82,7 @@ export default gql`
 
     # Queries
 
-    type GetMeReturn {
+    type GetMeResponse {
         _id: ID!
         full_name: String!
         profile_picture: String!
@@ -99,25 +99,50 @@ export default gql`
         is_initialized: Boolean!
     }
 
+    type GetUserResponse {
+        _id: ID!
+        full_name: String!
+        profile_picture: String!
+        join_date: String!
+        friends: [UserFriend]!
+        groups: [UserGroup]!
+        posts: [UserPost]!
+        tags: [UserTag]!
+        friend_count: Int!
+    }
+
+    type SingleUser {
+        _id: ID!
+        full_name: String!
+        profile_picture: String!
+    }
+
+    type GetAllUsersResponse {
+        users: [SingleUser]!
+    }
+
     type Message {
         message: String!
     }
 
     type Query {
-        getMe: GetMeReturn!
+        getMe: GetMeResponse!
+        getUser(id: String!): GetUserResponse!
+        getAllUsers: GetAllUsersResponse!
     }
 
     # Mutations
 
     type Mutation {
         createUser(
-            firstName: String!
+            firstName: String
             lastName: String
-            username: String!
-            password: String!
-            confirmPassword: String!
+            username: String
+            password: String
+            confirmPassword: String
         ): Message
-        loginUser(username: String!, password: String!): Message
+        loginUser(username: String, password: String): Message
         logoutUser: Message
+        deleteUser(id: String!): Message
     }
 `;

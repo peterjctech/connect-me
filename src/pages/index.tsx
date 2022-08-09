@@ -1,21 +1,26 @@
 import { client } from "@utils";
-import { GET_ME } from "@queries";
+import { GET_ALL_USERS, GET_ME, GET_USER } from "@queries";
 import { MainLayout } from "@components";
-import { LOGIN_USER } from "@mutations";
+import { DELETE_USER } from "@mutations";
 import { useSelector, useDispatch } from "react-redux";
 import { StateInterface } from "@types";
 import { setUserStore } from "../store";
 
 export default function () {
     const userStore = useSelector((state: StateInterface) => state.user);
-    const getMe = async () => {
-        console.log(userStore.full_name);
+    const deleteUser = async () => {
+        const response = await client.mutate({
+            mutation: DELETE_USER,
+            variables: {
+                id: "62f2cf2b0f7a6fd22099ddb7",
+            },
+        });
+        console.log(response);
     };
 
-    const loginUser = async () => {
-        const response = await client.mutate({
-            mutation: LOGIN_USER,
-            variables: { username: "hackerman123", password: "12345" },
+    const getAllUsers = async () => {
+        const response = await client.query({
+            query: GET_ALL_USERS,
         });
         console.log(response);
 
@@ -25,8 +30,8 @@ export default function () {
         <MainLayout title="Home">
             <main>
                 <hr />
-                <button onClick={getMe}>getMe</button>
-                <button onClick={loginUser}>login</button>
+                <button onClick={deleteUser}>deleteUser</button>
+                <button onClick={getAllUsers}>getAllUsers</button>
             </main>
         </MainLayout>
     );
