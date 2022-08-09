@@ -7,6 +7,15 @@ export default gql`
         is_confirmed: Boolean!
     }
 
+    type GeneralEvent {
+        _id: ID!
+        event: String!
+        creator: ID!
+        description: String!
+        starts_at: Int!
+        created_at: Int!
+    }
+
     type Event {
         _id: ID!
         event: String!

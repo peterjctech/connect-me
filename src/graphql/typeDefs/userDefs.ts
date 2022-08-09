@@ -26,6 +26,7 @@ export default gql`
 
     type UserPost {
         _id: ID!
+        author_id: ID!
         author: String!
         content: String!
         ref_id: ID!
@@ -119,10 +120,6 @@ export default gql`
 
     type GetAllUsersResponse {
         users: [SingleUser]!
-    }
-
-    type Message {
-        message: String!
     }
 
     type Query {

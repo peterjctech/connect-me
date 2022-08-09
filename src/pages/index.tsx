@@ -1,37 +1,36 @@
 import { client } from "@utils";
-import { GET_ALL_USERS, GET_ME, GET_USER } from "@queries";
 import { MainLayout } from "@components";
-import { DELETE_USER } from "@mutations";
-import { useSelector, useDispatch } from "react-redux";
-import { StateInterface } from "@types";
-import { setUserStore } from "../store";
+import { GET_GROUP } from "@queries";
+import { DELETE_GROUP } from "@mutations";
+import { useSelector } from "react-redux";
 
 export default function () {
-    const userStore = useSelector((state: StateInterface) => state.user);
-    const deleteUser = async () => {
+    const userStore = useSelector((state: any) => state.user);
+    const deleteGroup = async () => {
         const response = await client.mutate({
-            mutation: DELETE_USER,
+            mutation: DELETE_GROUP,
             variables: {
-                id: "62f2cf2b0f7a6fd22099ddb7",
+                id: "62f2d943418cbdb4f2c37f58",
             },
         });
         console.log(response);
     };
 
-    const getAllUsers = async () => {
+    const getGroup = async () => {
         const response = await client.query({
-            query: GET_ALL_USERS,
+            query: GET_GROUP,
+            variables: {
+                id: "62efb979f2b0aa3d6e1835f8",
+            },
         });
         console.log(response);
-
-        // fetch("/api/seed");
     };
     return (
         <MainLayout title="Home">
             <main>
                 <hr />
-                <button onClick={deleteUser}>deleteUser</button>
-                <button onClick={getAllUsers}>getAllUsers</button>
+                <button onClick={deleteGroup}>deleteGroup</button>
+                <button onClick={getGroup}>getGroup</button>
             </main>
         </MainLayout>
     );

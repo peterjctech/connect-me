@@ -21,6 +21,20 @@ export default gql`
         reaction: PostReactions!
     }
 
+    type ParsedPost {
+        _id: ID!
+        author_id: ID!
+        author: String!
+        content: String!
+        ref_id: ID!
+        ref_model: PostReference!
+        reaction_count: Int!
+        comment_count: Int!
+        created_at: String!
+        updated_at: String!
+        timestamp: Int!
+    }
+
     type Post {
         _id: ID!
         author: String!

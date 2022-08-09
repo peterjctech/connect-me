@@ -2,11 +2,11 @@ import { Types } from "mongoose";
 
 export interface GroupProps {
     name: string;
-    founder: Types.ObjectId;
+    founder: string;
     description: string;
-    group_image: string;
+    groupImage: string;
     visibility: string;
-    tags: Types.ObjectId[];
+    tags: string[];
 }
 
 export interface GroupModel {

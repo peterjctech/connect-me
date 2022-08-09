@@ -5,6 +5,7 @@ import groupDefs from "./typeDefs/groupDefs";
 import postDefs from "./typeDefs/postDefs";
 import tagDefs from "./typeDefs/tagDefs";
 import userDefs from "./typeDefs/userDefs";
+import miscDefs from "./typeDefs/miscDefs";
 
 import userResolvers from "./resolvers/userResolvers";
 import postResolvers from "./resolvers/postResolvers";
@@ -14,7 +15,7 @@ import chatResolvers from "./resolvers/chatResolvers";
 import commentResolvers from "./resolvers/commentResolvers";
 import eventResolvers from "./resolvers/eventResolvers";
 
-const typeDefs = [chatDefs, commentDefs, eventDefs, groupDefs, postDefs, tagDefs, userDefs];
+const typeDefs = [miscDefs, chatDefs, commentDefs, eventDefs, groupDefs, postDefs, tagDefs, userDefs];
 const resolvers = [
     userResolvers,
     postResolvers,

@@ -1,8 +1,8 @@
 import { User } from "@models";
 import dayjs from "dayjs";
 import bcrypt from "bcrypt";
-import { EventModel, ChatModel, PostModel, UserModel, UserStore, Notification, ChatNotif, UserProps } from "@types";
-import { formatTimestamp } from "@utils";
+import { EventModel, ChatModel, UserModel, UserStore, Notification, ChatNotif, UserProps } from "@types";
+import { formatTimestamp, getFullName, parsePost } from "@utils";
 
 interface Friend {
     _id: UserModel;
@@ -14,32 +14,13 @@ interface Message {
     timestamp: number;
 }
 
-const getPosts = (arr: PostModel[]) => {
-    const posts = arr.map((obj) => {
-        return {
-            _id: obj._id,
-            author: obj.author,
-            content: obj.content,
-            ref_id: obj.ref_id,
-            ref_model: obj.ref_model,
-            reaction_count: obj.reactions.length,
-            comment_count: obj.comments.length,
-            created_at: formatTimestamp(obj.created_at, "fulldate"),
-            updated_at: obj.updated_at ? formatTimestamp(obj.updated_at, "fulldate") : "",
-            timestamp: obj.updated_at || obj.created_at,
-        };
-    });
-
-    return posts;
-};
-
 const getFriends = (arr: Friend[]) => {
     const friends = arr.map((obj) => {
         const friend = obj._id;
 
         return {
             _id: friend._id,
-            full_name: `${friend.first_name} ${friend.last_name}`,
+            full_name: getFullName(friend),
             profile_picture: friend.profile_picture,
             friendship_date: formatTimestamp(obj.timestamp, "date"),
             timestamp: obj.timestamp,
@@ -72,14 +53,22 @@ export const createUserModel = async ({ firstName, lastName, username, password,
 export const parseUserData = async (id: string) => {
     const user = await User.findById(id).populate("friends._id").populate("groups").populate("posts").populate("tags");
 
+    const posts = [];
+
+    for (let i = 0; i < user.posts.length; i++) {
+        const obj = user.posts[i];
+        const author = await User.findById(obj.author);
+        posts.push(parsePost(obj, author));
+    }
+
     const response = {
         _id: user._id,
-        full_name: `${user.first_name} ${user.last_name}`,
+        full_name: getFullName(user),
         profile_picture: user.profile_picture,
         join_date: formatTimestamp(user.join_timestamp, "date"),
         friends: getFriends(user.friends),
         groups: user.groups,
-        posts: getPosts(user.posts),
+        posts,
         tags: user.tags,
         friend_count: user.friends.length,
     };
@@ -96,9 +85,17 @@ export const parseMe = async (id: string) => {
         .populate("tags")
         .populate("events");
 
+    const posts = [];
+
+    for (let i = 0; i < user.posts.length; i++) {
+        const obj = user.posts[i];
+        const author = await User.findById(obj.author);
+        posts.push(parsePost(obj, author));
+    }
+
     const response: UserStore = {
         _id: user._id,
-        full_name: `${user.first_name} ${user.last_name}`,
+        full_name: getFullName(user),
         profile_picture: user.profile_picture,
         join_date: formatTimestamp(user.join_timestamp, "date"),
         friends: getFriends(user.friends),
@@ -113,7 +110,7 @@ export const parseMe = async (id: string) => {
             };
         }),
         groups: user.groups,
-        posts: getPosts(user.posts),
+        posts,
         tags: user.tags,
         events: user.events.map((obj: EventModel) => {
             return {

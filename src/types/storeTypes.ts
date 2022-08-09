@@ -26,7 +26,8 @@ export interface UserStore {
     }[];
     posts: {
         _id: Types.ObjectId;
-        author: Types.ObjectId;
+        author_id: Types.ObjectId;
+        author: string;
         content: string;
         ref_id: Types.ObjectId;
         ref_model: string;

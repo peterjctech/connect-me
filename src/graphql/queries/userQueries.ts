@@ -94,6 +94,7 @@ export const GET_USER = gql`
             }
             posts {
                 _id
+                author_id
                 author
                 content
                 ref_id
