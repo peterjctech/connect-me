@@ -113,7 +113,7 @@ export const seedDatabase = async () => {
             last_name: faker.name.lastName(),
             profile_picture: faker.image.avatar(),
             is_online: 0.4 > Math.random() ? true : false,
-            join_date: randomTimestamp(seedDates.created, seedDates.last_week),
+            join_timestamp: randomTimestamp(seedDates.created, seedDates.last_week),
             friends: [],
             messages: [],
             groups: [],
@@ -129,19 +129,19 @@ export const seedDatabase = async () => {
 
     // Add friends
     for (let i = 0; i < users.length; i++) {
-        const joinDate = users[i].join_date;
+        const joinDate = users[i].join_timestamp;
         for (let j = i + 1; j < users.length; j++) {
             if (0.2 > Math.random()) {
-                const earliestDate = joinDate > users[j].join_date ? joinDate : users[j].join_date;
+                const earliestDate = joinDate > users[j].join_timestamp ? joinDate : users[j].join_timestamp;
                 const friendshipDate = randomTimestamp(earliestDate, seedDates.now);
 
                 users[i].friends.push({
                     _id: users[j]._id,
-                    friendship_date: friendshipDate,
+                    timestamp: friendshipDate,
                 });
                 users[j].friends.push({
                     _id: users[i]._id,
-                    friendship_date: friendshipDate,
+                    timestamp: friendshipDate,
                 });
             }
         }
@@ -165,7 +165,7 @@ export const seedDatabase = async () => {
     const groups: GroupModel[] = [];
     for (let i = 0; i < groupNames.length; i++) {
         const groupId = getId();
-        const createdAt = randomTimestamp(users[i].join_date, seedDates.last_week);
+        const createdAt = randomTimestamp(users[i].join_timestamp, seedDates.last_week);
         const groupTags = cutArray(tags, 1, 3).map((obj) => obj._id);
         const groupMembers = cutArray(users, 1, 20, i);
         const members = [
@@ -269,7 +269,7 @@ export const seedDatabase = async () => {
         for (let j = 0; j < postCount; j++) {
             const { post, postComments } = createPost({
                 author: users[i]._id,
-                postCreationDate: randomTimestamp(users[i].join_date, seedDates.yesterday),
+                postCreationDate: randomTimestamp(users[i].join_timestamp, seedDates.yesterday),
                 connectedUsers: users[i].friends.map((obj) => obj._id),
                 ref_id: users[i]._id,
                 ref_model: "User",
@@ -315,9 +315,9 @@ export const seedDatabase = async () => {
         password: hackermanPassword,
         first_name: "John",
         last_name: "Cena",
-        profile_picture: "/default-profile-picture",
+        profile_picture: "/default-profile-picture.jpg",
         is_online: true,
-        join_date: seedDates.last_week,
+        join_timestamp: seedDates.last_week,
         friends: [],
         messages: [],
         groups: [],
@@ -331,15 +331,16 @@ export const seedDatabase = async () => {
     // Give hackerman friends
     for (let i = 0; i < users.length; i++) {
         if (i % 2 === 0) {
-            const earliestDate = hackerman.join_date > users[i].join_date ? hackerman.join_date : users[i].join_date;
+            const earliestDate =
+                hackerman.join_timestamp > users[i].join_timestamp ? hackerman.join_timestamp : users[i].join_timestamp;
             const friendshipDate = randomTimestamp(earliestDate, seedDates.now);
             users[i].friends.push({
                 _id: hackerman._id,
-                friendship_date: friendshipDate,
+                timestamp: friendshipDate,
             });
             hackerman.friends.push({
                 _id: users[i]._id,
-                friendship_date: friendshipDate,
+                timestamp: friendshipDate,
             });
         }
     }
@@ -359,7 +360,7 @@ export const seedDatabase = async () => {
             groups[i].members.push({
                 _id: hackerman._id,
                 is_admin: i === 3 ? true : false,
-                join_date: randomTimestamp(hackerman.join_date, seedDates.yesterday),
+                join_date: randomTimestamp(hackerman.join_timestamp, seedDates.yesterday),
             });
 
             for (let j = 0; j < groups[i].events.length; j++) {
@@ -379,7 +380,7 @@ export const seedDatabase = async () => {
     for (let i = 0; i < 4; i++) {
         const { post, postComments } = createPost({
             author: hackerman._id,
-            postCreationDate: randomTimestamp(hackerman.join_date, seedDates.yesterday),
+            postCreationDate: randomTimestamp(hackerman.join_timestamp, seedDates.yesterday),
             connectedUsers: hackerman.friends.map((obj) => obj._id),
             ref_id: hackerman._id,
             ref_model: "User",
@@ -403,7 +404,7 @@ export const seedDatabase = async () => {
             const newMessage = {
                 _id: Math.random() > 0.5 ? hackerman._id : otherMember,
                 content: faker.random.words(3),
-                timestamp: randomTimestamp(hackerman.join_date, seedDates.now),
+                timestamp: randomTimestamp(hackerman.join_timestamp, seedDates.now),
             };
             newChat.messages.push(newMessage);
         }
@@ -411,7 +412,7 @@ export const seedDatabase = async () => {
         chats.push(newChat);
         hackerman.messages.push({
             _id: chatId,
-            last_checked: seedDates.now,
+            timestamp: seedDates.now,
         });
     }
 
@@ -423,11 +424,11 @@ export const seedDatabase = async () => {
         last_name: "face",
         profile_picture: "/default-profile-picture",
         is_online: true,
-        join_date: seedDates.yesterday,
+        join_timestamp: seedDates.yesterday,
         friends: [
             {
                 _id: hackerman._id,
-                friendship_date: seedDates.recently,
+                timestamp: seedDates.recently,
             },
         ],
         messages: [],
@@ -441,7 +442,7 @@ export const seedDatabase = async () => {
 
     hackerman.friends.push({
         _id: admin._id,
-        friendship_date: seedDates.recently,
+        timestamp: seedDates.recently,
     });
 
     users.push(hackerman);

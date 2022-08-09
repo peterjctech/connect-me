@@ -2,51 +2,55 @@ import { gql } from "apollo-server-micro";
 
 export default gql`
     # Model
-    type Friends {
+    type UserFriend {
         _id: ID!
         full_name: String!
         profile_picture: String!
         friendship_date: String!
+        timestamp: Int!
     }
 
-    type Messages {
+    type UserMessage {
         _id: ID!
         title: String!
         last_checked: String!
+        timestamp: Int!
     }
 
-    type Groups {
+    type UserGroup {
         _id: ID!
         name: String!
         description: String!
         group_image: String!
     }
 
-    type Posts {
+    type UserPost {
         _id: ID!
         author: String!
         content: String!
-        ref_id: String!
-        ref_model: String!
+        ref_id: ID!
+        ref_model: PostReference!
         reaction_count: Int!
         comment_count: Int!
         created_at: String!
-        updated_at: String
+        updated_at: String!
     }
 
-    type Tags {
+    type UserTag {
         _id: ID!
         title: String!
         color: String!
     }
 
-    type Events {
+    type UserEvent {
         _id: ID!
         event: String!
-        group: String!
+        group_id: ID!
+        group_name: String!
         description: String!
         starts_at: String!
-        ends_at: String
+        ends_at: String!
+        timestamp: Int!
     }
 
     enum UserNotificationRef {
@@ -59,19 +63,21 @@ export default gql`
         Tag
     }
 
-    type Notifications {
+    type UserNotification {
         title: String!
         message: String!
         ref_id: ID!
         ref_model: UserNotificationRef!
         timestamp: Int!
         is_read: Boolean!
+        datetime: String!
     }
 
-    type ChatNotif {
+    type UserChatNotif {
         _id: ID!
         message: String!
         timestamp: Int!
+        datetime: String!
     }
 
     # Queries
@@ -81,15 +87,16 @@ export default gql`
         full_name: String!
         profile_picture: String!
         join_date: String!
-        friends: [Friends]!
-        messages: [Messages]!
-        groups: [Groups]!
-        posts: [Posts]!
-        tags: [Tags]!
-        events: [Events]!
-        notifications: [Notifications]!
-        chat_notifs: [ChatNotif]!
+        friends: [UserFriend]!
+        messages: [UserMessage]!
+        groups: [UserGroup]!
+        posts: [UserPost]!
+        tags: [UserTag]!
+        events: [UserEvent]!
+        notifications: [UserNotification]!
+        chat_notifs: [UserChatNotif]!
         friend_count: Int!
+        is_initialized: Boolean!
     }
 
     type Message {
@@ -97,7 +104,7 @@ export default gql`
     }
 
     type Query {
-        getMe: GetMeReturn
+        getMe: GetMeReturn!
     }
 
     # Mutations

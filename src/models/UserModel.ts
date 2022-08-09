@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { model, models, Schema } from "mongoose";
 
 const ObjectId = Schema.Types.ObjectId;
@@ -25,9 +26,9 @@ const UserSchema = new Schema({
         type: Boolean,
         default: true,
     },
-    join_date: {
+    join_timestamp: {
         type: Number,
-        required: true,
+        default: dayjs().unix(),
     },
     friends: [
         {
@@ -36,7 +37,7 @@ const UserSchema = new Schema({
                 ref: "User",
                 required: true,
             },
-            friendship_date: {
+            timestamp: {
                 type: Number,
                 required: true,
             },
@@ -49,7 +50,7 @@ const UserSchema = new Schema({
                 ref: "Chat",
                 required: true,
             },
-            last_checked: {
+            timestamp: {
                 type: Number,
                 required: true,
             },

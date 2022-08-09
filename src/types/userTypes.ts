@@ -17,14 +17,14 @@ export interface UserModel {
     last_name: string;
     profile_picture: string;
     is_online: boolean;
-    join_date: number;
+    join_timestamp: number;
     friends: {
         _id: Types.ObjectId;
-        friendship_date: number;
+        timestamp: number;
     }[];
     messages: {
         _id: Types.ObjectId;
-        last_checked: number;
+        timestamp: number;
     }[];
     groups: Types.ObjectId[];
     posts: Types.ObjectId[];
@@ -32,9 +32,10 @@ export interface UserModel {
     events: Types.ObjectId[];
     notifications: {
         _id: Types.ObjectId;
-        ref: string;
         title: string;
         message: string;
+        ref_id: string;
+        ref_model: string;
         timestamp: number;
         is_read: boolean;
     }[];

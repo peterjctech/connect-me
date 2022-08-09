@@ -2,21 +2,28 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { setUserStore } from "../store";
 import { useSelector, useDispatch } from "react-redux";
-import { Loading } from "@components";
+import { Loading, Navbar } from "@components";
 import { client } from "@utils";
 import { GET_ME } from "@queries";
+import { StateInterface } from "@types";
 
-interface LayoutProps {
+interface MainLayoutProps {
     title: string;
     children: React.ReactNode;
 }
 
-export default function ({ title, children }: LayoutProps) {
-    const userStore = useSelector((state: any) => state.user);
+export default function ({ title, children }: MainLayoutProps) {
+    const userStore = useSelector((state: StateInterface) => state.user);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const initializeStore = async () => {
+            const response = await client.query({ query: GET_ME });
+            dispatch(setUserStore(response.data.getMe));
+            setLoading(false);
+        };
+
         if (userStore.is_initialized) {
             setLoading(false);
         } else {
@@ -24,18 +31,14 @@ export default function ({ title, children }: LayoutProps) {
         }
     }, []);
 
-    const initializeStore = async () => {
-        const response = await client.query({ query: GET_ME });
-        dispatch(setUserStore(response.data.getMe));
-        setLoading(false);
-    };
+    const pageTitle = `${title} | ConnectMe`;
 
     return (
         <>
             <Head>
-                <title>{`ConnectMe | ${title}`}</title>
+                <title>{pageTitle}</title>
             </Head>
-            <h1>Layout</h1>
+            <Navbar />
             {loading ? <Loading /> : children}
         </>
     );

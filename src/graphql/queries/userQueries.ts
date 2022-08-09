@@ -12,19 +12,13 @@ export const GET_ME = gql`
                 full_name
                 profile_picture
                 friendship_date
+                timestamp
             }
             messages {
                 _id
                 title
                 last_checked
-            }
-            notifications {
-                title
-                message
-                ref_id
-                ref_model
                 timestamp
-                is_read
             }
             groups {
                 _id
@@ -51,10 +45,11 @@ export const GET_ME = gql`
             events {
                 _id
                 event
-                group
+                group_id
                 description
                 starts_at
                 ends_at
+                timestamp
             }
             notifications {
                 title
@@ -63,13 +58,16 @@ export const GET_ME = gql`
                 ref_model
                 timestamp
                 is_read
+                datetime
             }
             chat_notifs {
                 _id
                 message
                 timestamp
+                datetime
             }
             friend_count
+            is_initialized
         }
     }
 `;

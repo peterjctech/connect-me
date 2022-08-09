@@ -1,32 +1,33 @@
 import { client } from "@utils";
-import { LOGIN_USER, LOGOUT_USER } from "@mutations";
-import { Layout } from "@components";
-import { useSelector } from "react-redux";
+import { GET_ME } from "@queries";
+import { MainLayout } from "@components";
+import { LOGIN_USER } from "@mutations";
+import { useSelector, useDispatch } from "react-redux";
+import { StateInterface } from "@types";
+import { setUserStore } from "../store";
 
 export default function () {
-    const userStore = useSelector((state: any) => state.user);
+    const userStore = useSelector((state: StateInterface) => state.user);
     const getMe = async () => {
-        console.log(userStore);
+        console.log(userStore.full_name);
     };
-    const logoutUser = async () => {
-        const response = await client.mutate({ mutation: LOGOUT_USER });
-        console.log(response.data.logoutUser);
-    };
+
     const loginUser = async () => {
         const response = await client.mutate({
             mutation: LOGIN_USER,
             variables: { username: "hackerman123", password: "12345" },
         });
-        console.log(response.data.loginUser);
+        console.log(response);
+
+        // fetch("/api/seed");
     };
     return (
-        <Layout title="Home">
+        <MainLayout title="Home">
             <main>
+                <hr />
                 <button onClick={getMe}>getMe</button>
-                <button onClick={logoutUser}>logoutUser</button>
-                <button onClick={loginUser}>loginUser</button>
-                <button onClick={getMe}>getMe</button>
+                <button onClick={loginUser}>login</button>
             </main>
-        </Layout>
+        </MainLayout>
     );
 }
