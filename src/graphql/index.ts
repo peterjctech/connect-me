@@ -1,28 +1,25 @@
-import chatDefs from "./typeDefs/chatDefs";
-import commentDefs from "./typeDefs/commentDefs";
+import conversationDefs from "./typeDefs/conversationDefs";
 import eventDefs from "./typeDefs/eventDefs";
 import groupDefs from "./typeDefs/groupDefs";
 import postDefs from "./typeDefs/postDefs";
-import tagDefs from "./typeDefs/tagDefs";
+import interestDefs from "./typeDefs/interestDefs";
 import userDefs from "./typeDefs/userDefs";
 import miscDefs from "./typeDefs/miscDefs";
 
 import userResolvers from "./resolvers/userResolvers";
 import postResolvers from "./resolvers/postResolvers";
-import tagResolvers from "./resolvers/tagResolvers";
+import interestResolvers from "./resolvers/interestResolvers";
 import groupResolvers from "./resolvers/groupResolvers";
-import chatResolvers from "./resolvers/chatResolvers";
-import commentResolvers from "./resolvers/commentResolvers";
+import conversationResolvers from "./resolvers/conversationResolvers";
 import eventResolvers from "./resolvers/eventResolvers";
 
-const typeDefs = [miscDefs, chatDefs, commentDefs, eventDefs, groupDefs, postDefs, tagDefs, userDefs];
+const typeDefs = [miscDefs, conversationDefs, eventDefs, groupDefs, postDefs, interestDefs, userDefs];
 const resolvers = [
     userResolvers,
     postResolvers,
-    tagResolvers,
+    interestResolvers,
     groupResolvers,
-    chatResolvers,
-    commentResolvers,
+    conversationResolvers,
     eventResolvers,
 ];
 

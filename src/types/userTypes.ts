@@ -1,22 +1,11 @@
 import { Types } from "mongoose";
+import { SinglePost } from "./postTypes";
+import { InterestSummary } from "./interestTypes";
+import { ColorThemes, EventMemberStatus, GroupStatus, Notification, Visibility } from "./miscTypes";
+import { GroupSummary } from "./groupTypes";
+import { EventSummary } from "./eventTypes";
 
-export interface ChatNotif {
-    id: string;
-    message: string;
-    timestamp: number;
-}
-
-export interface Notification {
-    id: string;
-    title: string;
-    message: string;
-    ref_id: string;
-    ref_model: string;
-    timestamp: number;
-    is_read: boolean;
-}
-
-export interface UserProps {
+export interface CreateUserProps {
     username: string;
     password: string;
     confirmPassword: string;
@@ -32,20 +21,60 @@ export interface UserModel {
     first_name: string;
     last_name: string;
     profile_picture: string;
-    is_online: boolean;
     join_timestamp: number;
     friends: {
-        _id: Types.ObjectId;
-        timestamp: number;
+        user_id: Types.ObjectId;
+        friendship_timestamp: number;
     }[];
-    messages: {
-        _id: Types.ObjectId;
-        timestamp: number;
+    groups: {
+        group_id: Types.ObjectId;
+        join_timestamp: number;
+        status: GroupStatus;
     }[];
-    groups: Types.ObjectId[];
     posts: Types.ObjectId[];
-    tags: Types.ObjectId[];
-    events: Types.ObjectId[];
+    interests: {
+        interest_id: Types.ObjectId;
+        added_timestamp: number;
+    }[];
+    events: {
+        event_id: Types.ObjectId;
+        join_timestamp: number;
+        status: EventMemberStatus;
+    }[];
+    conversations: {
+        conversation_id: Types.ObjectId;
+        is_read: boolean;
+    }[];
     notifications: Notification[];
-    chat_notifs: ChatNotif[];
+    preferences: {
+        theme: ColorThemes;
+        visibility: {
+            friends: Visibility;
+            groups: Visibility;
+            events: Visibility;
+            interests: Visibility;
+            posts: Visibility;
+        };
+    };
+}
+
+export interface UserSummary {
+    id: string;
+    full_name: string;
+    profile_picture: string;
+}
+
+export interface SingleUser {
+    id: string;
+    full_name: string;
+    profile_picture: string;
+    join_date: string;
+    mutual_friends: UserSummary[];
+    mutual_friend_count: number;
+    friends?: UserSummary[];
+    friend_count?: number;
+    groups?: GroupSummary[];
+    posts?: SinglePost[];
+    interests?: InterestSummary[];
+    events?: EventSummary[];
 }

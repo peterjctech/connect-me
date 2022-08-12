@@ -1,51 +1,29 @@
-import { model, models, Schema, SchemaTypes } from "mongoose";
 import dayjs from "dayjs";
-
-const ObjectId = SchemaTypes.ObjectId;
+import { model, models, Schema, Types } from "mongoose";
+import { reactionEnum, CommentModelSlice } from "@utils";
 
 const EventSchema = new Schema({
-    event: {
-        type: String,
-        required: true,
-    },
-    creator: {
-        type: ObjectId,
-        ref: "User",
-        required: true,
-    },
-    group: {
-        type: ObjectId,
-        ref: "Group",
-        required: true,
-    },
-    description: String,
-    attending: [
+    event: { type: String, required: true },
+    creator_id: { type: Types.ObjectId, required: true, ref: "User" },
+    group_id: { type: Types.ObjectId, required: true, ref: "Group" },
+    description: { type: String, required: true },
+    members: [
         {
-            _id: {
-                type: ObjectId,
-                ref: "User",
-            },
-            is_confirmed: {
-                type: Boolean,
-                default: false,
-            },
+            user_id: { type: Types.ObjectId, required: true, ref: "User" },
+            status: ["Yes", "Maybe", "No", "Unresponsive"],
         },
     ],
-    comments: [
+    reactions: [
         {
-            type: ObjectId,
-            ref: "Comment",
+            user_id: { type: Types.ObjectId, required: true, ref: "User" },
+            reaction: { type: String, required: true, enum: reactionEnum },
+            reaction_timestamp: { type: Number, default: dayjs().unix() },
         },
     ],
-    starts_at: {
-        type: Number,
-        required: true,
-    },
-    ends_at: Number,
-    created_at: {
-        type: Number,
-        default: dayjs().unix(),
-    },
+    comments: CommentModelSlice,
+    start_timestamp: { type: Number, required: true },
+    end_timestamp: Number,
+    created_timestamp: { type: Number, default: dayjs().unix() },
 });
 
 export const Event = models.Event || model("Event", EventSchema);

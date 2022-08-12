@@ -1,23 +1,51 @@
 import { Types } from "mongoose";
+import { CommentModel, SingleComment, Reaction } from "./miscTypes";
 
-export interface PostProps {
-    author: Types.ObjectId;
+export interface CreatePostProps {
+    authorId: string;
     content: string;
-    ref_id: Types.ObjectId;
-    ref_model: string;
+    picture: string;
 }
 
 export interface PostModel {
     _id: Types.ObjectId;
-    author: Types.ObjectId;
-    content: string;
-    ref_id: Types.ObjectId;
-    ref_model: string;
+    author_id: Types.ObjectId;
+    content?: string;
+    picture?: string;
     reactions: {
-        _id: Types.ObjectId;
-        reaction: string;
+        user_id: Types.ObjectId;
+        reaction: Reaction;
+        last_reaction_timestamp: number;
     }[];
-    comments: Types.ObjectId[];
-    created_at: number;
-    updated_at?: number;
+    comments: CommentModel[];
+    created_timestamp: number;
+    is_edited: boolean;
+}
+
+export interface SinglePost {
+    id: string;
+    author_id: string;
+    author_name: string;
+    content?: string;
+    picture?: string;
+    reaction_list: [Reaction];
+    reaction_summary: string;
+    reactions: {
+        user_id: string;
+        full_name: string;
+        reaction: Reaction;
+        is_friend: boolean;
+    }[];
+    comment_count: number;
+    comments: SingleComment[];
+    created_at: {
+        approximate: string;
+        exact: string;
+    };
+    is_edited: boolean;
+}
+
+export interface SingleGroupPost extends SinglePost {
+    group_id: string;
+    group_name: string;
 }

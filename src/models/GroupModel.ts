@@ -1,66 +1,26 @@
-import { model, models, Schema, SchemaTypes } from "mongoose";
 import dayjs from "dayjs";
-
-const ObjectId = SchemaTypes.ObjectId;
+import { model, models, Schema, Types } from "mongoose";
 
 const GroupSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    founder: {
-        type: ObjectId,
-        ref: "User",
-        required: true,
-    },
-    description: String,
-    group_image: {
-        type: String,
-        default: "/default-group-image.jpg",
-    },
-    visibility: {
-        type: String,
-        default: "Invite",
-    },
-    members: [
+    group: { type: String, required: true },
+    founder: { type: Types.ObjectId, required: true, ref: "User" },
+    description: { type: String, required: true },
+    group_image: { type: String, required: true },
+    join_restriction: { type: String, required: true, enum: ["Private", "Invite", "Open", "Friends"] },
+    admins: [{ type: Types.ObjectId, ref: "User" }],
+    members: [{ type: Types.ObjectId, ref: "User" }],
+    join_requests: [{ type: Types.ObjectId, ref: "User" }],
+    interests: [{ type: Types.ObjectId, ref: "Interest" }],
+    events: [{ type: Types.ObjectId, ref: "Event" }],
+    posts: [{ type: Types.ObjectId, ref: "Post" }],
+    created_timestamp: { type: Number, default: dayjs().unix() },
+    update_history: [
         {
-            _id: {
-                type: ObjectId,
-                ref: "User",
-                required: true,
-            },
-            is_admin: {
-                type: Boolean,
-                default: false,
-            },
-            join_date: {
-                type: Number,
-                default: dayjs().unix(),
-            },
+            user_id: { type: Types.ObjectId, ref: "User", required: true },
+            update: { type: String, required: true },
+            timestamp: { type: Number, default: dayjs().unix() },
         },
     ],
-    tags: [
-        {
-            type: ObjectId,
-            ref: "Tag",
-        },
-    ],
-    events: [
-        {
-            type: ObjectId,
-            ref: "Event",
-        },
-    ],
-    posts: [
-        {
-            type: ObjectId,
-            ref: "Post",
-        },
-    ],
-    created_at: {
-        type: Number,
-        default: dayjs().unix(),
-    },
 });
 
 export const Group = models.Group || model("Group", GroupSchema);

@@ -1,52 +1,21 @@
-import { model, models, Schema, SchemaTypes } from "mongoose";
 import dayjs from "dayjs";
-
-const ObjectId = SchemaTypes.ObjectId;
+import { model, models, Schema, Types } from "mongoose";
+import { reactionEnum, CommentModelSlice } from "@utils";
 
 const PostSchema = new Schema({
-    author: {
-        type: ObjectId,
-        ref: "User",
-        required: true,
-    },
-    content: {
-        type: String,
-        required: true,
-    },
-    ref_id: {
-        type: ObjectId,
-        required: true,
-        refPath: "ref_model",
-    },
-    ref_model: {
-        type: String,
-        required: true,
-        enum: ["User", "Group"],
-    },
+    author_id: { type: Types.ObjectId, required: true, ref: "User" },
+    content: String,
+    picture: String,
     reactions: [
         {
-            _id: {
-                type: ObjectId,
-                ref: "User",
-                required: true,
-            },
-            reaction: {
-                type: String,
-                required: true,
-            },
+            user_id: { type: Types.ObjectId, required: true, ref: "User" },
+            reaction: { type: String, required: true, enum: reactionEnum },
+            last_reaction_timestamp: { type: Number, default: dayjs().unix() },
         },
     ],
-    comments: [
-        {
-            type: ObjectId,
-            ref: "Comment",
-        },
-    ],
-    created_at: {
-        type: Number,
-        default: dayjs().unix(),
-    },
-    updated_at: Number,
+    comments: CommentModelSlice,
+    created_timestamp: { type: Number, default: dayjs().unix() },
+    is_edited: { type: Boolean, default: false },
 });
 
 export const Post = models.Post || model("Post", PostSchema);

@@ -1,128 +1,69 @@
 import dayjs from "dayjs";
-import { model, models, Schema } from "mongoose";
-
-const ObjectId = Schema.Types.ObjectId;
+import { model, models, Schema, Types } from "mongoose";
+import { v4 as uuidv4 } from "uuid";
+import { visibilityEnum } from "@utils";
 
 const UserSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    first_name: {
-        type: String,
-        required: true,
-    },
-    last_name: String,
-    profile_picture: {
-        type: String,
-        default: "/default-profile-picture.jpg",
-    },
-    is_online: {
-        type: Boolean,
-        default: true,
-    },
-    join_timestamp: {
-        type: Number,
-        default: dayjs().unix(),
-    },
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    first_name: { type: String, required: true },
+    last_name: { type: String, required: true },
+    profile_picture: { type: String, default: "/default-profile-picture.jpg" },
+    join_timestamp: { type: Number, default: dayjs().unix() },
     friends: [
         {
-            _id: {
-                type: ObjectId,
-                ref: "User",
-                required: true,
-            },
-            timestamp: {
-                type: Number,
-                required: true,
-            },
-        },
-    ],
-    messages: [
-        {
-            _id: {
-                type: ObjectId,
-                ref: "Chat",
-                required: true,
-            },
-            timestamp: {
-                type: Number,
-                required: true,
-            },
+            user_id: { type: Types.ObjectId, ref: "User", required: true },
+            friendship_timestamp: { type: Number, default: dayjs().unix() },
         },
     ],
     groups: [
         {
-            type: ObjectId,
-            ref: "Group",
+            group_id: { type: Types.ObjectId, ref: "Group", required: true },
+            join_timestamp: { type: Number, default: dayjs().unix() },
+            status: { type: String, required: true, enum: ["Admin", "Member", "Pending"] },
         },
     ],
-    posts: [
+    posts: [{ type: Types.ObjectId, ref: "Post" }],
+    interests: [
         {
-            type: ObjectId,
-            ref: "Post",
-        },
-    ],
-    tags: [
-        {
-            type: ObjectId,
-            ref: "Tag",
+            interest_id: { type: Types.ObjectId, required: true, ref: "Interest" },
+            added_timestamp: { type: Number, default: dayjs().unix() },
         },
     ],
     events: [
         {
-            type: ObjectId,
-            ref: "Event",
+            event_id: { type: Types.ObjectId, required: true, ref: "Event" },
+            join_timestamp: { type: Number, default: dayjs().unix() },
+            status: { type: String, default: "Unresponsive", enum: ["Yes", "Maybe", "No", "Unresponsive"] },
+        },
+    ],
+    conversations: [
+        {
+            conversation_id: { type: Types.ObjectId, required: true, ref: "Conversation" },
+            is_read: { type: Boolean, default: false },
         },
     ],
     notifications: [
         {
-            title: {
-                type: String,
-                required: true,
-            },
-            message: {
-                type: String,
-                required: true,
-            },
-            ref_id: {
-                type: ObjectId,
-                required: true,
-                refPath: "ref_model",
-            },
-            ref_model: {
-                type: String,
-                required: true,
-                enum: ["User", "Group", "Post", "Comment", "Chat", "Event", "Tag"],
-            },
-            timestamp: {
-                type: Number,
-                required: true,
-            },
-            is_read: {
-                type: Boolean,
-                default: false,
-            },
+            id: { type: String, default: uuidv4() },
+            title: { type: String, required: true },
+            message: { type: String, required: true },
+            ref_id: { type: Types.ObjectId, required: true, refPath: "ref_model" },
+            ref_model: { type: String, required: true, enum: ["User", "Group", "Post", "Event", "Comment"] },
+            timestamp: { type: Number, default: dayjs().unix() },
+            is_read: { type: Boolean, default: false },
         },
     ],
-    chat_notifs: [
-        {
-            _id: {
-                type: ObjectId,
-                ref: "Chat",
-            },
-            message: String,
-            timestamp: {
-                type: Number,
-                required: true,
-            },
+    preferences: {
+        theme: { type: String, default: "Light", enum: ["Light", "Dark"] },
+        visibility: {
+            friends: { type: String, default: "Friends Only", enum: visibilityEnum },
+            groups: { type: String, default: "Friends Only", enum: visibilityEnum },
+            events: { type: String, default: "Friends Only", enum: visibilityEnum },
+            interests: { type: String, default: "Friends Only", enum: visibilityEnum },
+            posts: { type: String, default: "Friends Only", enum: visibilityEnum },
         },
-    ],
+    },
 });
 
 export const User = models.User || model("User", UserSchema);

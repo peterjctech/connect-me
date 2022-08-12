@@ -1,0 +1,92 @@
+Global (state)
+    GETME
+        _id
+        full_name
+        profile_picture
+        join_date
+        friends
+            _id
+            full_name
+            profile_picture
+        groups
+            _id
+            name
+            description
+            group_image
+        posts
+            _id
+            author_id
+            author_name
+            content
+            ref_id
+            ref_model
+            reaction_count
+            comment_count
+            last_updated
+        tags
+            _id
+            title
+            color
+        events
+            _id
+            event
+            group_id
+            group_name
+            description
+            starts_at
+        notifications
+            id
+            title
+            message
+            ref_id
+            ref_model
+            datetime
+            is_read
+        chat_notifs
+            _id
+            message
+            datetime
+            is_read
+        friend_count
+        theme
+
+/
+    FEED
+        [name] joins group [group]
+            Name is friend AND you're in group
+        [name] is going to event [event]
+            Name is friend AND you're in event's group
+        [name] added [tag] to their interests
+            Name is friend
+        [name] adds [name] as a friend
+            One of the names is friend
+        [name] commented on [name]'s post ?in group [group]?
+            You're in group
+        [name] [reaction] to [name]'s post ?in group [group]?
+            You're in group
+        [name] [post]
+            Name is friend
+        [name] posted to [group]
+            You're in group
+        [name] commented on event [event]
+            You're participating in the event
+
+/profile
+    FEED (see above, but first [name] is you)
+/profile/groups
+    state.groups
+/profile/events
+    state.events
+/profile/tags
+    state.tags
+/profile/posts
+    state.posts
+
+/groups
+    getAllGroups
+        _id
+        name
+        description
+        group_image
+        visibility
+/groups/[slug]
