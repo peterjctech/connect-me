@@ -10,16 +10,6 @@ export const CommentModelSlice = [
         likes: [{ type: Types.ObjectId, ref: "User" }],
         created_timestamp: { type: Number, default: dayjs().unix() },
         is_edited: { type: Boolean, default: false },
-        replies: [
-            {
-                id: { type: String, default: uuidv4() },
-                author_id: { type: Types.ObjectId, required: true, ref: "User" },
-                content: { type: String, required: true },
-                likes: [{ type: Types.ObjectId, ref: "User" }],
-                created_timestamp: { type: Number, default: dayjs().unix() },
-                is_edited: { type: Boolean, default: false },
-            },
-        ],
     },
 ];
 

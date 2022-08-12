@@ -10,7 +10,7 @@ export interface Notification {
     is_read: boolean;
 }
 
-interface CommentModelOutline {
+export interface CommentModel {
     id: string;
     author_id: Types.ObjectId;
     content: string;
@@ -19,11 +19,7 @@ interface CommentModelOutline {
     is_edited: boolean;
 }
 
-export interface CommentModel extends CommentModelOutline {
-    replies: CommentModelOutline[];
-}
-
-interface SingleCommentOutline {
+export interface SingleComment {
     author: {
         id: string;
         full_name: string;
@@ -34,10 +30,6 @@ interface SingleCommentOutline {
     time_summary: string;
     created_at: string;
     is_edited: boolean;
-}
-
-export interface SingleComment extends SingleCommentOutline {
-    replies: SingleCommentOutline[];
 }
 
 export type Colors = "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "purple" | "magenta" | "pink" | "white";

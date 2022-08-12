@@ -15,7 +15,7 @@ export interface PostModel {
     reactions: {
         user_id: Types.ObjectId;
         reaction: Reaction;
-        last_reaction_timestamp: number;
+        reaction_timestamp: number;
     }[];
     comments: CommentModel[];
     created_timestamp: number;

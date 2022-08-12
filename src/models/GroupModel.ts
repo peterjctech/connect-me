@@ -10,6 +10,7 @@ const GroupSchema = new Schema({
     admins: [{ type: Types.ObjectId, ref: "User" }],
     members: [{ type: Types.ObjectId, ref: "User" }],
     join_requests: [{ type: Types.ObjectId, ref: "User" }],
+    banned_users: [{ type: Types.ObjectId, ref: "User" }],
     interests: [{ type: Types.ObjectId, ref: "Interest" }],
     events: [{ type: Types.ObjectId, ref: "Event" }],
     posts: [{ type: Types.ObjectId, ref: "Post" }],

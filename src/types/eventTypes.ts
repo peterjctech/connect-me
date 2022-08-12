@@ -8,9 +8,10 @@ interface SingleEventMembers extends UserSummary {
 
 export interface CreateEventProps {
     event: string;
-    creatorId: string;
     groupId: string;
     description: string;
+    startsAt: number;
+    endsAt: number;
 }
 
 export interface EventModel {

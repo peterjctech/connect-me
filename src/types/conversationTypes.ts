@@ -29,6 +29,11 @@ export interface DirectMessageNotification {
     is_read: boolean;
 }
 
+export interface ConversationSummary {
+    id: string;
+    title: string;
+}
+
 export interface FullConversation {
     id: string;
     title: string;
@@ -40,7 +45,7 @@ export interface FullConversation {
         };
         full_name: string;
         profile_picture: string;
-    };
+    }[];
     messages: {
         user_id: string;
         profile_picture: string;

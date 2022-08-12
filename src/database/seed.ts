@@ -137,6 +137,7 @@ export const seedDatabase = async () => {
             admins,
             members,
             join_requests,
+            banned_users: [],
             interests: cutArray({ array: interests, range: [1, 3] }).map((obj) => obj._id),
             events: [],
             posts: [],
@@ -216,7 +217,6 @@ export const seedDatabase = async () => {
                         likes: cutArray({ array: allMembers, range: [0, 10] }),
                         created_timestamp: getRandomTimestamp(createdAt, dates.now),
                         is_edited: 0.1 > Math.random() ? true : false,
-                        replies: [],
                     };
                 }),
                 start_timestamp: startsAt,

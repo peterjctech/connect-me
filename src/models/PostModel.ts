@@ -10,7 +10,7 @@ const PostSchema = new Schema({
         {
             user_id: { type: Types.ObjectId, required: true, ref: "User" },
             reaction: { type: String, required: true, enum: reactionEnum },
-            last_reaction_timestamp: { type: Number, default: dayjs().unix() },
+            reaction_timestamp: { type: Number, default: dayjs().unix() },
         },
     ],
     comments: CommentModelSlice,

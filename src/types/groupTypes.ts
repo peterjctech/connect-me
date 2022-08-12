@@ -24,6 +24,7 @@ export interface GroupModel {
     admins: Types.ObjectId[];
     members: Types.ObjectId[];
     join_requests: Types.ObjectId[];
+    banned_users: Types.ObjectId[];
     interests: Types.ObjectId[];
     events: Types.ObjectId[];
     posts: Types.ObjectId[];

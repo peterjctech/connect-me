@@ -72,7 +72,7 @@ export const createPost = (props: CreatePostProps) => {
             return {
                 user_id: id,
                 reaction: selectRandomReaction(),
-                last_reaction_timestamp: props.postCreationDate,
+                reaction_timestamp: props.postCreationDate,
             };
         }),
         comments: cutArray({ array: props.connectedUsers, range: [0] }).map((id) => {
@@ -83,7 +83,6 @@ export const createPost = (props: CreatePostProps) => {
                 likes: cutArray({ array: props.connectedUsers, range: [0] }),
                 created_timestamp: getRandomTimestamp(props.postCreationDate, dayjs().unix()),
                 is_edited: 0.1 > Math.random() ? true : false,
-                replies: [],
             };
         }),
         created_timestamp: props.postCreationDate,
