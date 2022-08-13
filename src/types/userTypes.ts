@@ -62,12 +62,10 @@ export interface UserData {
     profile_picture: string;
     join_date: string;
     is_friend: boolean;
-    friends: {
-        mutual: UserSummary[];
-        mutual_count: number;
-        non_mutual?: UserSummary[];
-        total_count?: number;
-    };
+    mutual_friends: UserSummary[];
+    mutual_friend_count: number;
+    non_mutual_friends?: UserSummary[];
+    total_friend_count?: number;
     groups: {
         mutual: GroupSummary[];
         mutual_count: number;

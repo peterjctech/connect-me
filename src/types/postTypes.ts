@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { CommentModel, Reaction, ReactionData, SingleComment } from "./miscTypes";
+import { CommentModel, Reaction, ReactionData, Comment } from "./miscTypes";
 import { UserSummary } from "./userTypes";
 
 export interface PostModel {
@@ -35,7 +35,7 @@ export interface PostSummary {
 
 export interface PostData extends PostSummary {
     reactions: ReactionData[];
-    comments: SingleComment[];
+    comments: Comment[];
 }
 
 export interface GroupPostData extends PostData {

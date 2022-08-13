@@ -1,12 +1,12 @@
 import { Types } from "mongoose";
 import { GroupSummary } from "./groupTypes";
-import { Colors } from "./miscTypes";
+import { Color } from "./miscTypes";
 import { UserSummary } from "./userTypes";
 
 export interface InterestModel {
     _id: Types.ObjectId;
     interest: string;
-    color: Colors;
+    color: Color;
     user_list: Types.ObjectId[];
     group_list: Types.ObjectId[];
 }
@@ -14,7 +14,7 @@ export interface InterestModel {
 export interface InterestSummary {
     id: Types.ObjectId;
     interest: string;
-    color: Colors;
+    color: Color;
     is_added: boolean;
 }
 

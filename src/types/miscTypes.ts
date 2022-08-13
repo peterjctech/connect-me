@@ -19,7 +19,7 @@ export interface CommentModel {
     is_edited: boolean;
 }
 
-export interface SingleComment {
+export interface Comment {
     author: {
         id: Types.ObjectId;
         full_name: string;
@@ -39,7 +39,7 @@ export interface ReactionData {
     is_friend: boolean;
 }
 
-export type Colors = "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "purple" | "magenta" | "pink" | "white";
+export type Color = "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "purple" | "magenta" | "pink" | "white";
 
 export type GroupStatus = "Admin" | "Member" | "Pending";
 

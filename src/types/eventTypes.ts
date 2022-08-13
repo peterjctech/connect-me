@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { UserSummary } from "./userTypes";
-import { CommentModel, Reaction, EventMemberStatus, SingleComment, ReactionData } from "./miscTypes";
+import { CommentModel, Reaction, EventMemberStatus, Comment, ReactionData } from "./miscTypes";
 
 export interface EventModel {
     _id: Types.ObjectId;
@@ -39,8 +39,8 @@ export interface EventSummary {
     confirmed_count: number;
     maybe_count: number;
     reaction_list: [Reaction];
-    reaction_summary: string;
-    comment_count: number;
+    reaction_summary?: string;
+    comment_count?: number;
     starts_at: string;
     ends_at?: string;
 }
@@ -50,6 +50,6 @@ export interface EventData extends EventSummary {
     no_count: number;
     unresponsive_count: number;
     reactions: ReactionData[];
-    comments: SingleComment[];
-    join_date: string;
+    comments: Comment[];
+    join_date?: string;
 }

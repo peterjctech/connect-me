@@ -1,8 +1,8 @@
-// import conversationDefs from "./typeDefs/conversationDefs";
-// import eventDefs from "./typeDefs/eventDefs";
-// import groupDefs from "./typeDefs/groupDefs";
-// import postDefs from "./typeDefs/postDefs";
-// import interestDefs from "./typeDefs/interestDefs";
+import conversationDefs from "./typeDefs/conversationDefs";
+import eventDefs from "./typeDefs/eventDefs";
+import groupDefs from "./typeDefs/groupDefs";
+import postDefs from "./typeDefs/postDefs";
+import interestDefs from "./typeDefs/interestDefs";
 import userDefs from "./typeDefs/userDefs";
 import miscDefs from "./typeDefs/miscDefs";
 
@@ -13,7 +13,7 @@ import groupResolvers from "./resolvers/groupResolvers";
 import conversationResolvers from "./resolvers/conversationResolvers";
 import eventResolvers from "./resolvers/eventResolvers";
 
-const typeDefs = [miscDefs, userDefs];
+const typeDefs = [miscDefs, userDefs, conversationDefs, eventDefs, groupDefs, postDefs, interestDefs];
 const resolvers = [
     userResolvers,
     postResolvers,
