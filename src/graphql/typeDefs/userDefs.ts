@@ -7,24 +7,6 @@ export default gql`
         Dark
     }
 
-    type UserDataGroup {
-        mutual: [GroupSummary]!
-        mutual_count: Int!
-        non_mutual: [GroupSummary]
-        total_count: Int
-    }
-
-    type UserDataInterest {
-        mutual: [InterestSummary]!
-        mutual_count: Int!
-        non_mutual: [InterestSummary]
-    }
-
-    type UserDataEvent {
-        mutual: [EventSummary]!
-        non_mutual: [EventSummary]
-    }
-
     # Data
     type UserStoreData {
         id: ID!
@@ -38,6 +20,7 @@ export default gql`
         full_name: String!
         profile_picture: String!
         mutual_friend_count: Int!
+        is_friend: Boolean!
     }
 
     type FriendSummary {
@@ -54,14 +37,16 @@ export default gql`
         profile_picture: String!
         join_date: String!
         is_friend: Boolean!
-        mutual_friends: [UserSummary]!
+        friends: [UserSummary]!
         mutual_friend_count: Int!
-        non_mutual_friends: [UserSummary]
         total_friend_count: Int
-        group: [UserDataGroup]!
+        groups: [GroupSummary]!
+        group_count: Int
         posts: [PostSummary]
-        interests: [UserDataInterest]!
-        events: [UserDataEvent]!
+        mutual_group_count: Int!
+        mutual_interest_count: Int!
+        interests: [InterestSummary]!
+        events: [EventSummary]!
     }
 
     type ProfileData {

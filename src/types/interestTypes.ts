@@ -19,11 +19,8 @@ export interface InterestSummary {
 }
 
 export interface InterestData extends InterestSummary {
-    users: {
-        friends: UserSummary[];
-        non_friends: UserSummary[];
-        friend_count: number;
-        total_count: number;
-    };
+    users: UserSummary[];
+    friend_count: number;
+    total_count: number;
     groups: GroupSummary[];
 }

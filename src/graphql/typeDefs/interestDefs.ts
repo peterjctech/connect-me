@@ -15,13 +15,6 @@ export default gql`
         white
     }
 
-    type InterestDataUsers {
-        friends: [UserSummary]!
-        non_friends: [UserSummary]!
-        friend_count: Int!
-        total_count: Int!
-    }
-
     # Data
     type InterestSummary {
         id: ID!
@@ -35,7 +28,9 @@ export default gql`
         interest: String!
         color: Color!
         is_added: Boolean!
-        users: [InterestDataUsers]!
+        users: [UserSummary]!
+        friend_count: Int!
+        total_count: Int!
         groups: [GroupSummary]!
     }
 

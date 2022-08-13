@@ -54,6 +54,7 @@ export interface UserSummary {
     full_name: string;
     profile_picture: string;
     mutual_friend_count: number;
+    is_friend: boolean;
 }
 
 export interface UserData {
@@ -62,29 +63,23 @@ export interface UserData {
     profile_picture: string;
     join_date: string;
     is_friend: boolean;
-    mutual_friends: UserSummary[];
+    friends: UserSummary[];
     mutual_friend_count: number;
-    non_mutual_friends?: UserSummary[];
     total_friend_count?: number;
-    groups: {
-        mutual: GroupSummary[];
-        mutual_count: number;
-        non_mutual?: GroupSummary[];
-        total_count?: number;
-    };
+    groups: GroupSummary[];
+    group_count?: number;
+    mutual_group_count: number;
     posts?: PostSummary[];
-    interests: {
-        mutual: InterestSummary[];
-        mutual_count: number;
-        non_mutual?: InterestSummary[];
-    };
-    events: {
-        mutual: EventSummary[];
-        non_mutual: EventSummary[];
-    };
+    mutual_interest_count: number;
+    interests?: InterestSummary[];
+    events?: EventSummary[];
 }
 
-interface FriendSummary extends UserSummary {
+interface FriendSummary {
+    id: Types.ObjectId;
+    full_name: string;
+    profile_picture: string;
+    mutual_friend_count: number;
     friendship_date: string;
 }
 

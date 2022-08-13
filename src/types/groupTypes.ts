@@ -35,18 +35,16 @@ export interface GroupSummary {
     my_status: "Admin" | "Member" | "Pending" | "None";
     is_joined: boolean;
     join_restriction: JoinRestriction;
-    total_member_count: number;
-    friends_in_group: UserSummary[];
+    user_count: number;
     friends_in_group_count: number;
 }
 
 export interface GroupData extends GroupSummary {
+    member_count: number;
+    admin_count: number;
     founder_id: Types.ObjectId;
     founder_name: string;
-    admins: UserSummary[];
-    admin_count: number;
-    members: UserSummary[];
-    member_count: number;
+    users: UserSummary[];
     interests: InterestSummary[];
     events: EventSummary[];
     posts: PostSummary[];

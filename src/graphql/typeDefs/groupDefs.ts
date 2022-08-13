@@ -23,16 +23,19 @@ export default gql`
     }
 
     type GroupUpdateHistory {
+        updated_by: UserSummary
         update: String!
         updated_at: String!
     }
 
-    type GroupAdminUpdateHistory {
-        updated_by: UserSummary!
-        update: String!
-        updated_at: String!
+    type GroupMember {
+        id: ID!
+        full_name: String!
+        profile_picture: String!
+        mutual_friend_count: Int!
+        is_friend: Boolean!
+        is_admin: Boolean!
     }
-
     # Data
     type GroupSummary {
         id: ID!
@@ -42,8 +45,7 @@ export default gql`
         my_status: MyGroupStatus!
         is_joined: Boolean!
         join_restriction: JoinRestriction!
-        total_member_count: Int!
-        friends_in_group: [UserSummary]!
+        user_count: Int!
         friends_in_group_count: Int!
     }
 
@@ -55,48 +57,21 @@ export default gql`
         my_status: MyGroupStatus!
         is_joined: Boolean!
         join_restriction: JoinRestriction!
-        total_member_count: Int!
-        friends_in_group: [UserSummary]!
+        user_count: Int!
         friends_in_group_count: Int!
+        member_count: Int!
+        admin_count: Int!
         founder_id: ID!
         founder_name: String!
-        admins: [UserSummary]!
-        admin_count: Int!
-        members: [UserSummary]!
-        member_count: Int!
+        users: [UserSummary]!
         interests: [InterestSummary]!
         events: [EventSummary]!
         posts: [PostSummary]!
         join_date: String!
         created_at: String!
         update_history: [GroupUpdateHistory]!
-    }
-
-    type AdminGroupData {
-        id: ID!
-        group: String!
-        description: String!
-        group_image: String!
-        my_status: MyGroupStatus!
-        is_joined: Boolean!
-        join_restriction: JoinRestriction!
-        total_member_count: Int!
-        friends_in_group: [UserSummary]!
-        friends_in_group_count: Int!
-        founder_id: ID!
-        founder_name: String!
-        admins: [UserSummary]!
-        admin_count: Int!
-        members: [UserSummary]!
-        member_count: Int!
-        interests: [InterestSummary]!
-        events: [EventSummary]!
-        posts: [PostSummary]!
-        join_date: String!
-        created_at: String!
-        update_history: [GroupAdminUpdateHistory]!
-        join_requests: [UserSummary]!
-        banned_users: [UserSummary]!
+        join_requests: [UserSummary]
+        banned_users: [UserSummary]
     }
 
     # Queries

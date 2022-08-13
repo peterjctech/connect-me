@@ -14,6 +14,7 @@ export default gql`
         full_name: String!
         profile_picture: String!
         mutual_friend_count: Int!
+        is_friend: Boolean!
         status: EventMemberStatus
     }
 
