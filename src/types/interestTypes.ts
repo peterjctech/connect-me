@@ -1,12 +1,7 @@
 import { Types } from "mongoose";
+import { GroupSummary } from "./groupTypes";
 import { Colors } from "./miscTypes";
 import { UserSummary } from "./userTypes";
-import { GroupSummary } from "./groupTypes";
-
-export interface CreateInterestProps {
-    interest: string;
-    color: Colors;
-}
 
 export interface InterestModel {
     _id: Types.ObjectId;
@@ -17,15 +12,18 @@ export interface InterestModel {
 }
 
 export interface InterestSummary {
-    id: string;
+    id: Types.ObjectId;
     interest: string;
     color: Colors;
+    is_added: boolean;
 }
 
-export interface SingleInterest {
-    id: string;
-    interest: string;
-    color: Colors;
-    users: UserSummary[];
+export interface InterestData extends InterestSummary {
+    users: {
+        friends: UserSummary[];
+        non_friends: UserSummary[];
+        friend_count: number;
+        total_count: number;
+    };
     groups: GroupSummary[];
 }

@@ -1,8 +1,5 @@
 import { Types } from "mongoose";
-
-export interface CreateConversationProps {
-    members: string[];
-}
+import { UserSummary } from "./userTypes";
 
 export interface ConversationModel {
     _id: Types.ObjectId;
@@ -18,8 +15,9 @@ export interface ConversationModel {
     }[];
 }
 
-export interface DirectMessageNotification {
-    id: string;
+export interface ConversationSummary {
+    id: Types.ObjectId;
+    title: string;
     most_recent_message: {
         profile_picture: string;
         full_name: string;
@@ -29,29 +27,18 @@ export interface DirectMessageNotification {
     is_read: boolean;
 }
 
-export interface ConversationSummary {
-    id: string;
+export interface ConversationData {
+    id: Types.ObjectId;
     title: string;
-}
-
-export interface FullConversation {
-    id: string;
-    title: string;
-    members: {
-        user_id: string;
-        last_read: {
-            text: string;
-            timestamp: number;
-        };
-        full_name: string;
-        profile_picture: string;
-    }[];
     messages: {
-        user_id: string;
+        author_id: Types.ObjectId;
+        author_name: string;
         profile_picture: string;
-        full_name: string;
         content: string;
-        sent_at: string;
-        sent_timestamp: number;
+        datetime: string;
+        timestamp: number;
     }[];
+    members: UserSummary[];
+    is_read: boolean;
+    read_timestamp: number;
 }

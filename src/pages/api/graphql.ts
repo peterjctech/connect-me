@@ -20,7 +20,8 @@ const apolloServer = new ApolloServer({
         }
         return err;
     },
-    context: async ({ res, req }) => {
+    context: (context) => {
+        const { req, res } = context;
         let id = null;
         const cookie: any = getCookie("server-key", { req, res });
         if (cookie) {

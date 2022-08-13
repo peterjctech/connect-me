@@ -1,18 +1,6 @@
 import { Types } from "mongoose";
-import { CommentModel, Reaction, SingleComment, EventMemberStatus } from "./miscTypes";
 import { UserSummary } from "./userTypes";
-
-interface SingleEventMembers extends UserSummary {
-    status: EventMemberStatus;
-}
-
-export interface CreateEventProps {
-    event: string;
-    groupId: string;
-    description: string;
-    startsAt: number;
-    endsAt: number;
-}
+import { CommentModel, Reaction, EventMemberStatus, SingleComment, ReactionData } from "./miscTypes";
 
 export interface EventModel {
     _id: Types.ObjectId;
@@ -35,36 +23,33 @@ export interface EventModel {
     created_timestamp: number;
 }
 
-export interface EventSummary {
-    id: string;
-    event: string;
-    description: string;
-    starts_at: string;
-    ends_at?: string;
-    confirmed_count: number;
+interface SingleEventMember extends UserSummary {
+    status: EventMemberStatus;
 }
 
-export interface SingleEvent {
-    id: string;
+export interface EventSummary {
+    id: Types.ObjectId;
     event: string;
-    creator_id: string;
+    my_status: EventMemberStatus;
+    creator_id: Types.ObjectId;
     creator_name: string;
+    group_id: Types.ObjectId;
+    group_name: string;
     description: string;
-    members: SingleEventMembers[];
     confirmed_count: number;
     maybe_count: number;
-    no_count: number;
-    unresponsive_count: number;
     reaction_list: [Reaction];
     reaction_summary: string;
-    reactions: {
-        user_id: string;
-        full_name: string;
-        reaction: Reaction;
-        is_friend: boolean;
-    }[];
     comment_count: number;
-    comments: SingleComment[];
     starts_at: string;
     ends_at?: string;
+}
+
+export interface EventData extends EventSummary {
+    members: SingleEventMember[];
+    no_count: number;
+    unresponsive_count: number;
+    reactions: ReactionData[];
+    comments: SingleComment[];
+    join_date: string;
 }

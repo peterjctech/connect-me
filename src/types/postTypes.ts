@@ -1,11 +1,6 @@
 import { Types } from "mongoose";
-import { CommentModel, SingleComment, Reaction } from "./miscTypes";
-
-export interface CreatePostProps {
-    authorId: string;
-    content: string;
-    picture: string;
-}
+import { CommentModel, Reaction, ReactionData, SingleComment } from "./miscTypes";
+import { UserSummary } from "./userTypes";
 
 export interface PostModel {
     _id: Types.ObjectId;
@@ -22,22 +17,15 @@ export interface PostModel {
     is_edited: boolean;
 }
 
-export interface SinglePost {
-    id: string;
-    author_id: string;
-    author_name: string;
+export interface PostSummary {
+    id: Types.ObjectId;
+    author: UserSummary;
+    is_mine: boolean;
     content?: string;
     picture?: string;
     reaction_list: [Reaction];
     reaction_summary: string;
-    reactions: {
-        user_id: string;
-        full_name: string;
-        reaction: Reaction;
-        is_friend: boolean;
-    }[];
     comment_count: number;
-    comments: SingleComment[];
     created_at: {
         approximate: string;
         exact: string;
@@ -45,7 +33,12 @@ export interface SinglePost {
     is_edited: boolean;
 }
 
-export interface SingleGroupPost extends SinglePost {
-    group_id: string;
-    group_name: string;
+export interface PostData extends PostSummary {
+    reactions: ReactionData[];
+    comments: SingleComment[];
+}
+
+export interface GroupPostData extends PostData {
+    group_id: Types.ObjectId;
+    group: string;
 }

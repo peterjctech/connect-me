@@ -1,18 +1,9 @@
 import { Types } from "mongoose";
-import { InterestSummary } from "./interestTypes";
-import { GroupStatus, JoinRestriction } from "./miscTypes";
-import { SinglePost } from "./postTypes";
+import { JoinRestriction } from "./miscTypes";
 import { UserSummary } from "./userTypes";
+import { InterestSummary } from "./interestTypes";
+import { PostSummary } from "./postTypes";
 import { EventSummary } from "./eventTypes";
-
-export interface CreateGroupProps {
-    group: string;
-    founderId: string;
-    description: string;
-    groupImage: string;
-    joinRestriction: JoinRestriction;
-    interests: string[];
-}
 
 export interface GroupModel {
     _id: Types.ObjectId;
@@ -37,29 +28,29 @@ export interface GroupModel {
 }
 
 export interface GroupSummary {
-    id: string;
+    id: Types.ObjectId;
     group: string;
     description: string;
     group_image: string;
+    my_status: "Admin" | "Member" | "Pending" | "None";
+    is_joined: boolean;
     join_restriction: JoinRestriction;
-    my_status: GroupStatus;
+    total_member_count: number;
+    friends_in_group: UserSummary[];
+    friends_in_group_count: number;
 }
 
-export interface SingleGroup {
-    id: string;
-    group: string;
-    founder: {
-        id: string;
-        full_name: string;
-    };
-    description: string;
-    group_image: string;
-    join_restriction: JoinRestriction;
+export interface GroupData extends GroupSummary {
+    founder_id: Types.ObjectId;
+    founder_name: string;
     admins: UserSummary[];
+    admin_count: number;
     members: UserSummary[];
+    member_count: number;
     interests: InterestSummary[];
     events: EventSummary[];
-    posts: SinglePost[];
+    posts: PostSummary[];
+    join_date: string;
     created_at: string;
     update_history: {
         update: string;
@@ -67,13 +58,11 @@ export interface SingleGroup {
     }[];
 }
 
-export interface SingleGroupAdmin extends SingleGroup {
+export interface AdminGroupData extends GroupData {
     join_requests: UserSummary[];
+    banned_users: UserSummary[];
     update_history: {
-        updated_by: {
-            user_id: string;
-            full_name: string;
-        };
+        updated_by: UserSummary;
         update: string;
         updated_at: string;
     }[];

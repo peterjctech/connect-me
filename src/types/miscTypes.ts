@@ -21,7 +21,7 @@ export interface CommentModel {
 
 export interface SingleComment {
     author: {
-        id: string;
+        id: Types.ObjectId;
         full_name: string;
         profile_picture: string;
     };
@@ -30,6 +30,13 @@ export interface SingleComment {
     time_summary: string;
     created_at: string;
     is_edited: boolean;
+}
+
+export interface ReactionData {
+    user_id: Types.ObjectId;
+    full_name: string;
+    reaction: Reaction;
+    is_friend: boolean;
 }
 
 export type Colors = "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "purple" | "magenta" | "pink" | "white";

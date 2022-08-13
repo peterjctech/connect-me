@@ -1,15 +1,17 @@
-import { DirectMessageNotification } from "./conversationTypes";
-import { Notification, ColorThemes } from "./miscTypes";
+import { Types } from "mongoose";
+import { ColorThemes } from "./miscTypes";
 
-export interface Me {
-    id: string;
+export interface UserStoreData {
+    id: Types.ObjectId;
     full_name: string;
     profile_picture: string;
-    notifications: Notification[];
-    direct_messages: DirectMessageNotification[];
     theme: ColorThemes;
 }
 
-export interface UserStoreInterface extends Me {
+export interface UserStoreInterface extends UserStoreData {
     is_initialized: boolean;
+}
+
+export interface StoreInterface {
+    user: UserStoreInterface;
 }

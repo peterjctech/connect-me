@@ -441,6 +441,16 @@ export const seedDatabase = async () => {
         });
     }
 
+    hackerman.conversations.push({
+        conversation_id: convo._id,
+        is_read: false,
+    });
+
+    admin.conversations.push({
+        conversation_id: convo._id,
+        is_read: false,
+    });
+
     users.push(hackerman);
     users.push(admin);
 

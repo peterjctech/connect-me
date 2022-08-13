@@ -20,6 +20,7 @@
             "@components": ["./components"],
             "@store": ["./store"],
             "@database": ["./database"],
+            "@layout": ["./layout"],
             "@models": ["./models"],
             "@types": ["./types"],
             "@queries": ["./graphql/queries"],

@@ -1,18 +1,9 @@
 import { Types } from "mongoose";
-import { SinglePost } from "./postTypes";
+import { EventSummary } from "./eventTypes";
+import { GroupSummary } from "./groupTypes";
 import { InterestSummary } from "./interestTypes";
 import { ColorThemes, EventMemberStatus, GroupStatus, Notification, Visibility } from "./miscTypes";
-import { GroupSummary } from "./groupTypes";
-import { EventSummary } from "./eventTypes";
-
-export interface CreateUserProps {
-    username: string;
-    password: string;
-    confirmPassword: string;
-    firstName: string;
-    lastName: string;
-    profilePicture: string;
-}
+import { PostSummary } from "./postTypes";
 
 export interface UserModel {
     _id: Types.ObjectId;
@@ -59,22 +50,58 @@ export interface UserModel {
 }
 
 export interface UserSummary {
-    id: string;
+    id: Types.ObjectId;
     full_name: string;
     profile_picture: string;
+    mutual_friend_count: number;
 }
 
-export interface SingleUser {
-    id: string;
+export interface UserData {
+    id: Types.ObjectId;
     full_name: string;
     profile_picture: string;
     join_date: string;
-    mutual_friends: UserSummary[];
-    mutual_friend_count: number;
-    friends?: UserSummary[];
-    friend_count?: number;
-    groups?: GroupSummary[];
-    posts?: SinglePost[];
-    interests?: InterestSummary[];
-    events?: EventSummary[];
+    is_friend: boolean;
+    friends: {
+        mutual: UserSummary[];
+        mutual_count: number;
+        non_mutual?: UserSummary[];
+        total_count?: number;
+    };
+    groups: {
+        mutual: GroupSummary[];
+        mutual_count: number;
+        non_mutual?: GroupSummary[];
+        total_count?: number;
+    };
+    posts?: PostSummary[];
+    interests: {
+        mutual: InterestSummary[];
+        mutual_count: number;
+        non_mutual?: InterestSummary[];
+    };
+    events: {
+        mutual: EventSummary[];
+        non_mutual: EventSummary[];
+    };
+}
+
+interface FriendSummary extends UserSummary {
+    friendship_date: string;
+}
+
+export interface ProfileData {
+    id: Types.ObjectId;
+    full_name: string;
+    profile_picture: string;
+    join_date: string;
+    friends: FriendSummary[];
+    friend_count: number;
+    groups: GroupSummary[];
+    group_count: number;
+    posts: PostSummary[];
+    interests: InterestSummary[];
+    interest_count: number;
+    events: EventSummary[];
+    event_count: number;
 }

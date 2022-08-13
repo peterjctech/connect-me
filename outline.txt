@@ -1,3 +1,27 @@
+/ => getFeed
+/profile => getProfileData
+/users/ => getAllUsers
+/user/[id] => getUserData
+/groups => getAllGroups
+/groups/[id] => getGroupData
+
+
+/ = getFeed
+
+/profile = getProfileData
+/profile/events = getMyEvents
+/profile/groups = getMyGroups
+/profile/interests = getMyInterests
+/profile/friends = getMyFriends
+
+/groups = getAllGroups
+/groups/[id] = getGroup
+/groups/[id]/interests = getGroupInterests
+/groups/[id]/events = getGroupEvents
+/groups/[id]/events/[id] = getEvent
+
+/events = getAllEvents
+
 Conversation
     getConversation
     getMyConversations
@@ -48,7 +72,6 @@ Post
     likePostComment
     deletePost
 User
-    getMe
     getUser
     getFriends
     getUserFriends
@@ -58,6 +81,12 @@ User
     createUser
     updateUserSettings
     updateUserPreferences
-    loginUser
-    logoutUser
     deleteUser
+Feed
+    getMyFeed
+    getUserFeed
+    getGroupFeed
+
+
+/
+/profile
