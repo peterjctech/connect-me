@@ -1,8 +1,8 @@
 import { model, models, Schema, Types } from "mongoose";
-import { colorEnum } from "@utils";
+import { colorEnum } from "./modelUtils";
 
 const InterestSchema = new Schema({
-    interest: { type: String, required: true },
+    name: { type: String, required: true },
     color: { type: String, required: true, enum: colorEnum },
     user_list: [{ type: Types.ObjectId, ref: "User" }],
     group_list: [{ type: Types.ObjectId, ref: "Group" }],

@@ -2,9 +2,10 @@ import { Resolvers } from "@apollo/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { setCookie, deleteCookie } from "cookies-next";
-import { UserModel, UserStoreData } from "@types";
+import { UserData, UserModel, UserStoreData, UserSummary, ProfileData } from "@types";
 import { User } from "@models";
 import { getFullName } from "@utils";
+import { getMe, getUserSummary, getUserData, getProfileData } from "@services";
 
 const userResolvers: Resolvers = {
     Query: {
@@ -22,6 +23,48 @@ const userResolvers: Resolvers = {
                 profile_picture: user.profile_picture,
                 theme: user.preferences.theme,
             };
+            return response;
+        },
+        getAllUsers: async (_, __, context) => {
+            const me = await getMe(context.auth);
+            const users: UserModel[] = me ? await User.find({ _id: { $ne: me._id } }) : await User.find();
+
+            const response: UserSummary[] = users.map((obj) => getUserSummary(obj, me));
+            return { users: response };
+        },
+        getUserData: async (_, args, context) => {
+            const me = await getMe(context.auth);
+            const user = await User.findById(args.userId)
+                .populate("friends.user_id")
+                .populate("groups.group_id")
+                .populate("posts")
+                .populate("interests.interest_id")
+                .populate("events.event_id");
+            if (!user) throw new Error("User does not exist!");
+
+            const response: UserData = getUserData(user, me);
+            return response;
+        },
+        getProfileData: async (_, __, context) => {
+            // const me = await getMe(context.auth);
+            if (!context.auth) throw new Error("User is not logged in!");
+            const model = await User.findById(context.auth);
+            if (!model) throw new Error("User does not exist anymore");
+            const populated = await model
+                .populate("friends.user_id")
+                .populate("groups.group_id")
+                .populate({
+                    path: "posts",
+                    model: "Post",
+                    populate: {
+                        path: "author_id",
+                        model: "User",
+                    },
+                })
+                .popluate("interests.interest_id")
+                .populate("events.event_id");
+
+            const response: ProfileData = getProfileData(populated, model);
             return response;
         },
     },

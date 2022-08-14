@@ -35,7 +35,7 @@ export const seedDatabase = async () => {
     let interests: InterestModel[] = faker.helpers.uniqueArray(faker.random.word, 25).map((word) => {
         return {
             _id: getId(),
-            interest: word,
+            name: word,
             color: selectRandomColor(),
             user_list: [],
             group_list: [],
@@ -81,12 +81,12 @@ export const seedDatabase = async () => {
                 const friendshipDate = getRandomTimestamp(earliestDate, dates.now);
 
                 users[index1].friends.push({
-                    user_id: user2._id,
+                    user: user2._id,
                     friendship_timestamp: friendshipDate,
                 });
 
                 users[index2].friends.push({
-                    user_id: user1._id,
+                    user: user1._id,
                     friendship_timestamp: friendshipDate,
                 });
             }
@@ -103,71 +103,66 @@ export const seedDatabase = async () => {
             }
         });
 
-        users[index].interests = userInterests.map((id) => {
-            return { interest_id: id, added_timestamp: getRandomTimestamp(users[index].join_timestamp, dates.now) };
-        });
+        users[index].interests = userInterests;
     });
 
     // Add 10 groups, populate with members, and add groups to users
     const groups: GroupModel[] = faker.helpers.uniqueArray(faker.music.songName, 10).map((name, index) => {
         const createdAt = getRandomTimestamp(users[index].join_timestamp, dates.last_week);
-        const admins: Types.ObjectId[] = [users[index]._id];
-        const members: Types.ObjectId[] = [];
-        const join_requests: Types.ObjectId[] = [];
         const groupMembers = cutArray({ array: users, range: [1, 20], neglectedIndex: index }).map((obj) => obj._id);
+        const groupUsers: { user: Types.ObjectId; status: GroupStatus; join_timestamp: number }[] = [];
 
-        groupMembers.forEach((id) => {
-            const random = Math.random();
-            if (random < 0.2) {
-                admins.push(id);
-            } else if (random < 0.7) {
-                members.push(id);
+        groupMembers.forEach((id, index) => {
+            if (index === 0) {
+                groupUsers.push({
+                    user: id,
+                    status: "Founder",
+                    join_timestamp: createdAt,
+                });
             } else {
-                join_requests.push(id);
+                const random = Math.random();
+                const timestamp = getRandomTimestamp(createdAt, dates.last_week);
+                let status: GroupStatus;
+                if (random < 0.2) {
+                    status = "Admin";
+                } else if (random < 0.7) {
+                    status = "Member";
+                } else if (random < 0.95) {
+                    status = "Pending";
+                } else {
+                    status = "Banned";
+                }
+                groupUsers.push({
+                    user: id,
+                    status,
+                    join_timestamp: timestamp,
+                });
             }
         });
 
         const group: GroupModel = {
             _id: getId(),
-            group: name,
-            founder: users[index]._id,
+            name,
             description: faker.commerce.productDescription(),
             group_image: "https://loremflickr.com/640/480/abstract",
             join_restriction: selectRandomJoinRestriction(),
-            admins,
-            members,
-            join_requests,
-            banned_users: [],
+            users: groupUsers,
             interests: cutArray({ array: interests, range: [1, 3] }).map((obj) => obj._id),
             events: [],
             posts: [],
             created_timestamp: createdAt,
             update_history: [
                 {
-                    user_id: users[index]._id,
+                    user: users[index]._id,
                     update: `Group ${name} was created`,
                     timestamp: createdAt,
                 },
             ],
         };
 
-        users.forEach((obj, index) => {
-            let status: GroupStatus | null = null;
-            if (group.admins.includes(obj._id)) {
-                status = "Admin";
-            } else if (group.members.includes(obj._id)) {
-                status = "Member";
-            } else if (group.join_requests.includes(obj._id)) {
-                status = "Pending";
-            }
-
-            if (status) {
-                users[index].groups.push({
-                    group_id: group._id,
-                    join_timestamp: getRandomTimestamp(createdAt, dates.yesterday),
-                    status,
-                });
-            }
+        groupUsers.forEach((user, index) => {
+            const userIndex = users.findIndex((obj) => obj._id === user.user);
+            users[userIndex].groups.push(group._id);
         });
 
         interests.forEach((obj, index) => {
@@ -186,35 +181,50 @@ export const seedDatabase = async () => {
         const numOfEvents = Math.floor(Math.random() * 4);
 
         for (let j = 0; j < numOfEvents; j++) {
-            const allMembers = groups[i].admins.concat(groups[i].members);
+            const allMembers = groups[i].users.filter((obj) => {
+                if (obj.status === "Banned" || obj.status === "Pending") return false;
+                return true;
+            });
+            const groupAdmins = groups[i].users.filter((obj) => obj.status === "Admin" || obj.status === "Founder");
             const createdAt = getRandomTimestamp(groups[i].created_timestamp, dates.yesterday);
             const startsAt = getRandomTimestamp(dates.next_week, dates.future);
+            const eventComments = cutArray({ array: allMembers, range: [0] }).map((obj) => {
+                return {
+                    id: uuidv4(),
+                    author: obj.user,
+                    content: faker.random.words(5),
+                    likes: cutArray({ array: allMembers, range: [0, 10] }).map((obj) => obj.user),
+                    created_timestamp: getRandomTimestamp(createdAt, dates.now),
+                    is_edited: 0.1 > Math.random() ? true : false,
+                };
+            });
 
             const event: EventModel = {
                 _id: getId(),
-                event: faker.vehicle.vehicle(),
-                creator_id: groups[i].admins[Math.floor(Math.random() * groups[i].admins.length)],
-                group_id: groups[i]._id,
+                name: faker.vehicle.vehicle(),
+                creator: groupAdmins[Math.floor(Math.random() * groupAdmins.length)].user,
+                group: groups[i]._id,
                 description: faker.commerce.department(),
-                members: allMembers.map((id) => {
+                users: allMembers.map((obj) => {
                     return {
-                        user_id: id,
+                        user: obj.user,
                         status: selectRandomEventStatus(),
+                        join_timestamp: getRandomTimestamp(obj.join_timestamp, dates.now),
                     };
                 }),
-                reactions: cutArray({ array: allMembers, range: [0] }).map((id) => {
+                reactions: cutArray({ array: allMembers, range: [0] }).map((obj) => {
                     return {
-                        user_id: id,
+                        user: obj.user,
                         reaction: selectRandomReaction(),
                         reaction_timestamp: getRandomTimestamp(createdAt, dates.now),
                     };
                 }),
-                comments: cutArray({ array: allMembers, range: [0] }).map((id) => {
+                comments: cutArray({ array: allMembers, range: [0] }).map((obj) => {
                     return {
                         id: uuidv4(),
-                        author_id: id,
+                        author: obj.user,
                         content: faker.random.words(5),
-                        likes: cutArray({ array: allMembers, range: [0, 10] }),
+                        likes: cutArray({ array: allMembers, range: [0, 10] }).map((obj) => obj.user),
                         created_timestamp: getRandomTimestamp(createdAt, dates.now),
                         is_edited: 0.1 > Math.random() ? true : false,
                     };
@@ -224,15 +234,9 @@ export const seedDatabase = async () => {
                 created_timestamp: createdAt,
             };
 
-            users.forEach((user, index) => {
-                const status = event.members.find((obj) => obj.user_id === user._id)?.status;
-                if (status) {
-                    users[index].events.push({
-                        event_id: event._id,
-                        join_timestamp: getRandomTimestamp(createdAt, dates.now),
-                        status,
-                    });
-                }
+            event.users.forEach((user) => {
+                const index = users.findIndex((obj) => obj._id === user.user);
+                users[index].events.push(event._id);
             });
 
             groups[i].events.push(event._id);
@@ -248,7 +252,7 @@ export const seedDatabase = async () => {
             const post = createPost({
                 authorId: user._id,
                 postCreationDate: getRandomTimestamp(user.join_timestamp, dates.yesterday),
-                connectedUsers: user.friends.map((obj) => obj.user_id),
+                connectedUsers: user.friends.map((obj) => obj.user),
             });
 
             posts.push(post);
@@ -259,14 +263,16 @@ export const seedDatabase = async () => {
     // Create group posts
     groups.forEach((group, index) => {
         const postCount = Math.floor(Math.random() * 8);
-        const groupMembers = group.admins.concat(group.members);
+        const groupMembers = group.users.filter(
+            (obj) => obj.status === "Admin" || obj.status === "Founder" || obj.status === "Member"
+        );
         const authorIndex = Math.floor(Math.random() * groupMembers.length);
 
         for (let i = 0; i < postCount; i++) {
             const post = createPost({
-                authorId: groupMembers[authorIndex],
+                authorId: groupMembers[authorIndex].user,
                 postCreationDate: getRandomTimestamp(group.created_timestamp, dates.yesterday),
-                connectedUsers: groupMembers,
+                connectedUsers: groupMembers.map((obj) => obj.user),
             });
 
             posts.push(post);
@@ -290,7 +296,7 @@ export const seedDatabase = async () => {
         join_timestamp: dates.last_week,
         friends: [
             {
-                user_id: adminId,
+                user: adminId,
                 friendship_timestamp: dates.recently,
             },
         ],
@@ -321,7 +327,7 @@ export const seedDatabase = async () => {
         join_timestamp: dates.yesterday,
         friends: [
             {
-                user_id: hackerman._id,
+                user: hackerman._id,
                 friendship_timestamp: dates.recently,
             },
         ],
@@ -351,11 +357,11 @@ export const seedDatabase = async () => {
             const friendshipDate = getRandomTimestamp(earliestDate, dates.now);
 
             users[index].friends.push({
-                user_id: hackerman._id,
+                user: hackerman._id,
                 friendship_timestamp: friendshipDate,
             });
             hackerman.friends.push({
-                user_id: user._id,
+                user: user._id,
                 friendship_timestamp: friendshipDate,
             });
         }
@@ -364,10 +370,7 @@ export const seedDatabase = async () => {
     // Give hackerman interests
     interests.forEach((interest, index) => {
         if (index % 6 === 0) {
-            hackerman.interests.push({
-                interest_id: interest._id,
-                added_timestamp: getRandomTimestamp(hackerman.join_timestamp, dates.now),
-            });
+            hackerman.interests.push(interest._id);
         }
     });
 
@@ -375,30 +378,20 @@ export const seedDatabase = async () => {
     groups.forEach((group, gIndex) => {
         if (gIndex % 3 === 0) {
             const status = selectRandomGroupStatus();
-            hackerman.groups.push({
-                group_id: group._id,
-                join_timestamp: getRandomTimestamp(hackerman.join_timestamp, dates.yesterday),
+            hackerman.groups.push(group._id);
+            groups[gIndex].users.push({
+                user: hackerman._id,
                 status,
+                join_timestamp: getRandomTimestamp(hackerman.join_timestamp, dates.last_week),
             });
 
-            if (status === "Admin") {
-                groups[gIndex].admins.push(hackerman._id);
-            } else if (status === "Member") {
-                groups[gIndex].members.push(hackerman._id);
-            } else {
-                groups[gIndex].join_requests.push(hackerman._id);
-            }
-
             group.events.forEach((event, eIndex) => {
-                hackerman.events.push({
-                    event_id: event._id,
-                    join_timestamp: getRandomTimestamp(dates.last_week, dates.yesterday),
-                    status: "Maybe",
-                });
+                hackerman.events.push(event._id);
 
-                events[eIndex].members.push({
-                    user_id: hackerman._id,
+                events[eIndex].users.push({
+                    user: hackerman._id,
                     status: "Maybe",
+                    join_timestamp: getRandomTimestamp(dates.last_week, dates.yesterday),
                 });
             });
         }
@@ -409,7 +402,7 @@ export const seedDatabase = async () => {
         const post = createPost({
             authorId: hackerman._id,
             postCreationDate: getRandomTimestamp(hackerman.join_timestamp, dates.yesterday),
-            connectedUsers: hackerman.friends.map((obj) => obj.user_id),
+            connectedUsers: hackerman.friends.map((obj) => obj.user),
         });
 
         posts.push(post);
@@ -422,11 +415,11 @@ export const seedDatabase = async () => {
         title: "Conversation between hackerman123 and admin",
         members: [
             {
-                user_id: hackerman._id,
+                user: hackerman._id,
                 last_read_timestamp: dates.now,
             },
             {
-                user_id: admin._id,
+                user: admin._id,
                 last_read_timestamp: dates.now,
             },
         ],
@@ -435,21 +428,14 @@ export const seedDatabase = async () => {
 
     for (let i = 0; i < 30; i++) {
         convo.messages.push({
-            user_id: i % 2 === 0 ? hackerman._id : admin._id,
+            user: i % 2 === 0 ? hackerman._id : admin._id,
             content: faker.random.words(5),
             timestamp: getRandomTimestamp(dates.recently, dates.now),
         });
     }
 
-    hackerman.conversations.push({
-        conversation_id: convo._id,
-        is_read: false,
-    });
-
-    admin.conversations.push({
-        conversation_id: convo._id,
-        is_read: false,
-    });
+    hackerman.conversations.push(convo._id);
+    admin.conversations.push(convo._id);
 
     users.push(hackerman);
     users.push(admin);
@@ -468,6 +454,6 @@ export const seedDatabase = async () => {
         await Conversation.create(convo);
         console.log("Seeded Conversation");
     } catch (error) {
-        console.log("ERROR: Failed to seed database => ", error);
+        console.error("ERROR: Failed to seed database => ");
     }
 };

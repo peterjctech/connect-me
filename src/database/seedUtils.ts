@@ -1,12 +1,12 @@
 import { Types } from "mongoose";
-import { PostModel, Colors, Visibility, JoinRestriction, EventMemberStatus, Reaction, GroupStatus } from "../types";
+import { PostModel, Color, Visibility, JoinRestriction, EventMemberStatus, Reaction, GroupStatus } from "../types";
 import { faker } from "@faker-js/faker";
 import { v4 as uuidv4 } from "uuid";
 import dayjs from "dayjs";
 
 export const getId = () => new Types.ObjectId();
 
-export const selectRandomColor = (): Colors => {
+export const selectRandomColor = (): Color => {
     return faker.helpers.arrayElement([
         "red",
         "orange",
@@ -30,7 +30,7 @@ export const selectRandomJoinRestriction = (): JoinRestriction => {
 };
 
 export const selectRandomEventStatus = (): EventMemberStatus => {
-    return faker.helpers.arrayElement(["Yes", "No", "Maybe", "Unresponsive"]);
+    return faker.helpers.arrayElement(["Yes", "No", "Maybe"]);
 };
 
 export const selectRandomReaction = (): Reaction => {
@@ -53,8 +53,12 @@ export const cutArray = (props: CutArrayProps) => {
     const lowerLimit = props.range[0];
     const upperLimit = !props.range[1] || props.range[1] > props.array.length ? props.array.length : props.range[1];
     const count = Math.floor(Math.random() * (upperLimit - lowerLimit) + lowerLimit);
-    const arr = props.neglectedIndex ? props.array.slice(props.neglectedIndex, 1) : props.array;
-    return faker.helpers.uniqueArray(arr, count);
+    const arr = [];
+    for (let i = 0; i < props.array.length; i++) {
+        if (i !== props.neglectedIndex) arr.push(props.array[i]);
+    }
+    const newArr = faker.helpers.uniqueArray(arr, count);
+    return newArr;
 };
 
 interface CreatePostProps {
@@ -64,13 +68,14 @@ interface CreatePostProps {
 }
 
 export const createPost = (props: CreatePostProps) => {
+    // if (props.connectedUsers[0].join_timestamp) console.log(props, "aha");
     const post: PostModel = {
         _id: getId(),
-        author_id: props.authorId,
+        author: props.authorId,
         content: faker.random.words(15),
         reactions: cutArray({ array: props.connectedUsers, range: [0] }).map((id) => {
             return {
-                user_id: id,
+                user: id,
                 reaction: selectRandomReaction(),
                 reaction_timestamp: props.postCreationDate,
             };
@@ -78,7 +83,7 @@ export const createPost = (props: CreatePostProps) => {
         comments: cutArray({ array: props.connectedUsers, range: [0] }).map((id) => {
             return {
                 id: uuidv4(),
-                author_id: id,
+                author: id,
                 content: faker.random.words(5),
                 likes: cutArray({ array: props.connectedUsers, range: [0] }),
                 created_timestamp: getRandomTimestamp(props.postCreationDate, dayjs().unix()),

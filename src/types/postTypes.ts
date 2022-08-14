@@ -1,10 +1,26 @@
 import { Types } from "mongoose";
-import { CommentModel, Reaction, ReactionData, Comment } from "./miscTypes";
-import { UserSummary } from "./userTypes";
+import { CommentModel, ReactionData, Comment } from "./miscTypes";
+import { UserSummary, UserModel } from "./userTypes";
+import { Reaction } from "./enumTypes";
 
 export interface PostModel {
     _id: Types.ObjectId;
-    author_id: Types.ObjectId;
+    author: Types.ObjectId;
+    content?: string;
+    picture?: string;
+    reactions: {
+        user: Types.ObjectId;
+        reaction: Reaction;
+        reaction_timestamp: number;
+    }[];
+    comments: CommentModel[];
+    created_timestamp: number;
+    is_edited: boolean;
+}
+
+export interface PopulatedPostModel {
+    _id: Types.ObjectId;
+    author_id: UserModel;
     content?: string;
     picture?: string;
     reactions: {

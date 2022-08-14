@@ -1,5 +1,16 @@
 import { gql } from "@apollo/client";
 
+export const GET_ALL_INTERESTS = gql`
+    query {
+        interests {
+            id
+            interest
+            color
+            is_added
+        }
+    }
+`;
+
 export const GET_INTEREST_DATA = gql`
     query ($interestId: ID!) {
         getInterestData(interestId: $interestId) {

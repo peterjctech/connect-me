@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { JoinRestriction } from "./miscTypes";
+import { JoinRestriction, GroupStatus } from "./enumTypes";
 import { UserSummary } from "./userTypes";
 import { InterestSummary } from "./interestTypes";
 import { PostSummary } from "./postTypes";
@@ -7,21 +7,21 @@ import { EventSummary } from "./eventTypes";
 
 export interface GroupModel {
     _id: Types.ObjectId;
-    group: string;
-    founder: Types.ObjectId;
+    name: string;
     description: string;
     group_image: string;
     join_restriction: JoinRestriction;
-    admins: Types.ObjectId[];
-    members: Types.ObjectId[];
-    join_requests: Types.ObjectId[];
-    banned_users: Types.ObjectId[];
+    users: {
+        user: Types.ObjectId;
+        status: GroupStatus;
+        join_timestamp: number;
+    }[];
     interests: Types.ObjectId[];
     events: Types.ObjectId[];
     posts: Types.ObjectId[];
     created_timestamp: number;
     update_history: {
-        user_id: Types.ObjectId;
+        user: Types.ObjectId;
         update: string;
         timestamp: number;
     }[];

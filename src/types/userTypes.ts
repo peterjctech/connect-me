@@ -2,8 +2,17 @@ import { Types } from "mongoose";
 import { EventSummary } from "./eventTypes";
 import { GroupSummary } from "./groupTypes";
 import { InterestSummary } from "./interestTypes";
-import { ColorThemes, EventMemberStatus, GroupStatus, Notification, Visibility } from "./miscTypes";
+import { ColorThemes, Visibility } from "./enumTypes";
 import { PostSummary } from "./postTypes";
+import { Notification } from "./miscTypes";
+
+export interface VisibilityPreferences {
+    friends: Visibility;
+    groups: Visibility;
+    events: Visibility;
+    interests: Visibility;
+    posts: Visibility;
+}
 
 export interface UserModel {
     _id: Types.ObjectId;
@@ -14,39 +23,27 @@ export interface UserModel {
     profile_picture: string;
     join_timestamp: number;
     friends: {
-        user_id: Types.ObjectId;
+        user: Types.ObjectId;
         friendship_timestamp: number;
     }[];
-    groups: {
-        group_id: Types.ObjectId;
-        join_timestamp: number;
-        status: GroupStatus;
-    }[];
+    groups: Types.ObjectId[];
     posts: Types.ObjectId[];
-    interests: {
-        interest_id: Types.ObjectId;
-        added_timestamp: number;
-    }[];
-    events: {
-        event_id: Types.ObjectId;
-        join_timestamp: number;
-        status: EventMemberStatus;
-    }[];
-    conversations: {
-        conversation_id: Types.ObjectId;
-        is_read: boolean;
-    }[];
+    interests: Types.ObjectId[];
+    events: Types.ObjectId[];
+    conversations: Types.ObjectId[];
     notifications: Notification[];
     preferences: {
         theme: ColorThemes;
-        visibility: {
-            friends: Visibility;
-            groups: Visibility;
-            events: Visibility;
-            interests: Visibility;
-            posts: Visibility;
-        };
+        visibility: VisibilityPreferences;
     };
+}
+
+export interface FriendSummary {
+    id: Types.ObjectId;
+    full_name: string;
+    profile_picture: string;
+    mutual_friend_count: number;
+    friendship_date: string;
 }
 
 export interface UserSummary {
@@ -65,22 +62,14 @@ export interface UserData {
     is_friend: boolean;
     friends: UserSummary[];
     mutual_friend_count: number;
-    total_friend_count?: number;
+    friend_count?: number;
     groups: GroupSummary[];
     group_count?: number;
     mutual_group_count: number;
     posts?: PostSummary[];
     mutual_interest_count: number;
-    interests?: InterestSummary[];
-    events?: EventSummary[];
-}
-
-interface FriendSummary {
-    id: Types.ObjectId;
-    full_name: string;
-    profile_picture: string;
-    mutual_friend_count: number;
-    friendship_date: string;
+    interests: InterestSummary[];
+    events: EventSummary[];
 }
 
 export interface ProfileData {

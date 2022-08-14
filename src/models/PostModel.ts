@@ -1,14 +1,14 @@
 import dayjs from "dayjs";
 import { model, models, Schema, Types } from "mongoose";
-import { reactionEnum, CommentModelSlice } from "@utils";
+import { reactionEnum, CommentModelSlice } from "./modelUtils";
 
 const PostSchema = new Schema({
-    author_id: { type: Types.ObjectId, required: true, ref: "User" },
+    author: { type: Types.ObjectId, required: true, ref: "User" },
     content: String,
     picture: String,
     reactions: [
         {
-            user_id: { type: Types.ObjectId, required: true, ref: "User" },
+            user: { type: Types.ObjectId, required: true, ref: "User" },
             reaction: { type: String, required: true, enum: reactionEnum },
             reaction_timestamp: { type: Number, default: dayjs().unix() },
         },

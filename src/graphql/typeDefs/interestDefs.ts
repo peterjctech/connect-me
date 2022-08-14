@@ -37,6 +37,7 @@ export default gql`
     # Queries
     type Query {
         getInterestData(interestId: ID!): InterestData
+        getAllInterests: [InterestSummary]!
     }
 
     # Mutations

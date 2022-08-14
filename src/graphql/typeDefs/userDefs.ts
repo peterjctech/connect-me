@@ -39,7 +39,7 @@ export default gql`
         is_friend: Boolean!
         friends: [UserSummary]!
         mutual_friend_count: Int!
-        total_friend_count: Int
+        friend_count: Int
         groups: [GroupSummary]!
         group_count: Int
         posts: [PostSummary]
@@ -65,11 +65,16 @@ export default gql`
         event_count: Int!
     }
 
+    type AllUsers {
+        users: [UserSummary]!
+    }
+
     # Queries
     type Query {
         initializeStore: UserStoreData
         getProfileData: ProfileData
         getUserData(userId: ID!): UserData
+        getAllUsers: AllUsers!
     }
 
     # Mutations

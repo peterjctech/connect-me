@@ -11,6 +11,18 @@ export const INITIALIZE_STORE = gql`
     }
 `;
 
+export const GET_ALL_USERS = gql`
+    query {
+        users {
+            id
+            full_name
+            profile_picture
+            mutual_friend_count
+            is_friend
+        }
+    }
+`;
+
 export const GET_USER_DATA = gql`
     query ($userId: ID!) {
         getUserData(userId: $userId) {
@@ -27,7 +39,7 @@ export const GET_USER_DATA = gql`
                 is_friend
             }
             mutual_friend_count
-            total_friend_count
+            friend_count
             groups {
                 id
                 group

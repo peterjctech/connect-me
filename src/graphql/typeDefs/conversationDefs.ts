@@ -34,9 +34,11 @@ export default gql`
         is_read: Boolean!
         read_timestamp: Int!
     }
+
     # Queries
     type Query {
         getConversationData(convoId: ID!): ConversationData
+        getAllConversations: [ConversationSummary]
     }
 
     # Mutations

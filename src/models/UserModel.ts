@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { model, models, Schema, Types } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
-import { visibilityEnum } from "@utils";
+import { visibilityEnum } from "./modelUtils";
 
 const UserSchema = new Schema({
     username: { type: String, required: true, unique: true },
@@ -12,37 +12,15 @@ const UserSchema = new Schema({
     join_timestamp: { type: Number, default: dayjs().unix() },
     friends: [
         {
-            user_id: { type: Types.ObjectId, ref: "User", required: true },
+            user: { type: Types.ObjectId, ref: "User", required: true },
             friendship_timestamp: { type: Number, default: dayjs().unix() },
         },
     ],
-    groups: [
-        {
-            group_id: { type: Types.ObjectId, ref: "Group", required: true },
-            join_timestamp: { type: Number, default: dayjs().unix() },
-            status: { type: String, required: true, enum: ["Admin", "Member", "Pending"] },
-        },
-    ],
+    groups: [{ type: Types.ObjectId, ref: "Group" }],
     posts: [{ type: Types.ObjectId, ref: "Post" }],
-    interests: [
-        {
-            interest_id: { type: Types.ObjectId, required: true, ref: "Interest" },
-            added_timestamp: { type: Number, default: dayjs().unix() },
-        },
-    ],
-    events: [
-        {
-            event_id: { type: Types.ObjectId, required: true, ref: "Event" },
-            join_timestamp: { type: Number, default: dayjs().unix() },
-            status: { type: String, default: "Unresponsive", enum: ["Yes", "Maybe", "No", "Unresponsive"] },
-        },
-    ],
-    conversations: [
-        {
-            conversation_id: { type: Types.ObjectId, required: true, ref: "Conversation" },
-            is_read: { type: Boolean, default: false },
-        },
-    ],
+    interests: [{ type: Types.ObjectId, ref: "Interest" }],
+    events: [{ type: Types.ObjectId, ref: "Event" }],
+    conversations: [{ type: Types.ObjectId, ref: "Conversation" }],
     notifications: [
         {
             id: { type: String, default: uuidv4() },

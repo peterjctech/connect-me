@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { Reaction } from "./enumTypes";
 
 export interface Notification {
     id: string;
@@ -12,7 +13,7 @@ export interface Notification {
 
 export interface CommentModel {
     id: string;
-    author_id: Types.ObjectId;
+    author: Types.ObjectId;
     content: string;
     likes: Types.ObjectId[];
     created_timestamp: number;
@@ -38,17 +39,3 @@ export interface ReactionData {
     reaction: Reaction;
     is_friend: boolean;
 }
-
-export type Color = "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "purple" | "magenta" | "pink" | "white";
-
-export type GroupStatus = "Admin" | "Member" | "Pending";
-
-export type Reaction = "Like" | "Love" | "Sad" | "Wow" | "Angry";
-
-export type ColorThemes = "Light" | "Dark";
-
-export type EventMemberStatus = "Yes" | "Maybe" | "No" | "Unresponsive";
-
-export type Visibility = "Nobody" | "Friends Only" | "Everyone";
-
-export type JoinRestriction = "Private" | "Invite" | "Open" | "Friends";

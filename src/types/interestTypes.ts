@@ -1,11 +1,11 @@
 import { Types } from "mongoose";
 import { GroupSummary } from "./groupTypes";
-import { Color } from "./miscTypes";
+import { Color } from "./enumTypes";
 import { UserSummary } from "./userTypes";
 
 export interface InterestModel {
     _id: Types.ObjectId;
-    interest: string;
+    name: string;
     color: Color;
     user_list: Types.ObjectId[];
     group_list: Types.ObjectId[];

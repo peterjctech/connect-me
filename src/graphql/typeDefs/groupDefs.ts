@@ -77,6 +77,7 @@ export default gql`
     # Queries
     type Query {
         getGroupData(groupId: ID!): GroupData
+        getAllGroups: [GroupSummary]!
     }
 
     # Mutations

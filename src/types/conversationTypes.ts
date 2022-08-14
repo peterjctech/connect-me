@@ -5,11 +5,11 @@ export interface ConversationModel {
     _id: Types.ObjectId;
     title: string;
     members: {
-        user_id: Types.ObjectId;
+        user: Types.ObjectId;
         last_read_timestamp: number;
     }[];
     messages: {
-        user_id: Types.ObjectId;
+        user: Types.ObjectId;
         content: string;
         timestamp: number;
     }[];

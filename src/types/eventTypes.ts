@@ -1,19 +1,21 @@
 import { Types } from "mongoose";
 import { UserSummary } from "./userTypes";
-import { CommentModel, Reaction, EventMemberStatus, Comment, ReactionData } from "./miscTypes";
+import { CommentModel, Comment, ReactionData } from "./miscTypes";
+import { Reaction, EventMemberStatus } from "./enumTypes";
 
 export interface EventModel {
     _id: Types.ObjectId;
-    event: string;
-    creator_id: Types.ObjectId;
-    group_id: Types.ObjectId;
+    name: string;
+    creator: Types.ObjectId;
+    group: Types.ObjectId;
     description: string;
-    members: {
-        user_id: Types.ObjectId;
+    users: {
+        user: Types.ObjectId;
         status: EventMemberStatus;
+        join_timestamp: number;
     }[];
     reactions: {
-        user_id: Types.ObjectId;
+        user: Types.ObjectId;
         reaction: Reaction;
         reaction_timestamp: number;
     }[];
