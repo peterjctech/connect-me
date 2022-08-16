@@ -19,6 +19,7 @@
             "@utils": ["./utils"],
             "@components": ["./components"],
             "@domain": ["./domain"],
+            "@hooks": ["./hooks"],
             "@store": ["./store"],
             "@database": ["./database"],
             "@layout": ["./layout"],

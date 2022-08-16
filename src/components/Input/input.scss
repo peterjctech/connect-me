@@ -1,0 +1,19 @@
+.input {
+    label {
+        font-size: 1.5rem;
+        display: block;
+    }
+
+    input {
+        outline: none;
+        margin: 0.5rem auto 1.5rem auto;
+        padding: 0.5rem;
+        border: solid $c-neutral 2px;
+        border-radius: 0.5rem;
+        transition: border-color 0.3s ease-out;
+
+        &:focus {
+            border-color: $c-secondary;
+        }
+    }
+}
