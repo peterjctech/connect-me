@@ -1,7 +1,10 @@
+import { useState } from "react";
+import { LoginForm, RegisterForm } from "@domain";
+
 const AuthPage = () => {
     return (
         <main>
-            <h1>Auth Page</h1>
+            <LoginForm />
         </main>
     );
 };

@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { ColorThemes } from "./miscTypes";
+import { ColorThemes } from "./enumTypes";
 
 export interface UserStoreData {
     id: Types.ObjectId;

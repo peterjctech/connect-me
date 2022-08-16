@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-const Navbar = () => {
+const Sidebar = () => {
     return (
-        <nav className="navbar">
+        <nav className="sidebar">
             <Link href="/">Home</Link>
             <br />
             <Link href="/profile">Profile</Link>
@@ -12,4 +12,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Sidebar;

@@ -18,6 +18,7 @@
         "paths": {
             "@utils": ["./utils"],
             "@components": ["./components"],
+            "@domain": ["./domain"],
             "@store": ["./store"],
             "@database": ["./database"],
             "@layout": ["./layout"],

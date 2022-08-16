@@ -1,0 +1,12 @@
+@import "./colors.scss";
+@import "./typography.scss";
+@import "./variables.scss";
+
+@import "./globals.scss";
+@import "./helpers";
+
+@import "./layouts";
+
+@import "../layout/Navbar/navbar.scss";
+@import "../domain/home/Sidebar/sidebar.scss";
+@import "../domain/home/Chatbar/chatbar.scss";

@@ -1,11 +1,12 @@
-import { InterestModel, InterestSummary, UserModel } from "@types";
+import { InterestModel, InterestSummary } from "@types";
+import { Types } from "mongoose";
 
-export const getInterestSummary = (interest: InterestModel, me: UserModel | null) => {
+export const getInterestSummary = (interest: InterestModel, myId: Types.ObjectId | null) => {
     const response: InterestSummary = {
         id: interest._id,
-        interest: interest.interest,
+        name: interest.name,
         color: interest.color,
-        is_added: me && interest.user_list.includes(me._id) ? true : false,
+        is_added: myId && interest.user_list.includes(myId) ? true : false,
     };
     return response;
 };

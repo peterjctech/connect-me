@@ -3,24 +3,23 @@ import { getMutualCount } from "@utils";
 
 export const getGroupSummary = (group: GroupModel, me: UserModel | null) => {
     let myStatus: GroupStatus | "None" = "None";
-    const allMembers = [...group.admins, ...group.members];
-
-    if (me) {
-        const myGroupObj = me.groups.find((obj) => obj.group_id === group._id);
-        if (!myGroupObj) throw new Error("An unexpected error has occurred");
-        myStatus = myGroupObj.status;
-    }
+    const members = group.users.filter(
+        (obj) => obj.status === "Founder" || obj.status === "Admin" || obj.status === "Member"
+    );
 
     const response: GroupSummary = {
         id: group._id,
-        group: group.group,
+        name: group.name,
         description: group.description,
         group_image: group.group_image,
         my_status: myStatus,
-        is_joined: myStatus === "None" ? false : true,
+        is_joined: me && members.find((obj) => obj.user === me._id) ? true : false,
         join_restriction: group.join_restriction,
-        user_count: allMembers.length,
-        friends_in_group_count: getMutualCount(allMembers, me ? me.friends.map((obj) => obj.user_id) : null),
+        user_count: members.length,
+        friends_in_group_count: getMutualCount(
+            members.map((obj) => obj.user),
+            me ? me.friends.map((obj) => obj.user) : null
+        ),
     };
     return response;
 };

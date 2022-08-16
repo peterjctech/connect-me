@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { setUserStore } from "../store";
 import { useSelector, useDispatch } from "react-redux";
-import { Loading, Navbar } from "@layout";
+import { Navbar, Loading } from "@layout";
 import { client } from "@utils";
 import { INITIALIZE_STORE } from "@queries";
 import { StoreInterface } from "@types";
@@ -17,8 +17,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
     useEffect(() => {
         const initializeStore = async () => {
-            // const response = await client.query({ query: INITIALIZE_STORE });
-            // dispatch(setUserStore(response.data.initializeStore));
+            const response = await client.query({ query: INITIALIZE_STORE });
+            dispatch(setUserStore(response.data.initializeStore));
             setLoading(false);
         };
 
@@ -30,10 +30,10 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     }, []);
 
     return (
-        <>
+        <div className="main-layout">
             <Navbar />
             {loading ? <Loading /> : children}
-        </>
+        </div>
     );
 };
 
