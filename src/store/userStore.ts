@@ -22,9 +22,12 @@ const userSlice = createSlice({
 
             state.is_initialized = true;
         },
+        setTheme: (state) => {
+            state.theme === "Dark" ? (state.theme = "Light") : (state.theme = "Dark");
+        },
     },
 });
 
-const { setUserStore } = userSlice.actions;
-export { setUserStore };
+const { setUserStore, setTheme } = userSlice.actions;
+export { setUserStore, setTheme };
 export default userSlice.reducer;

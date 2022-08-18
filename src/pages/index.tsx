@@ -1,25 +1,19 @@
-import { useQuery } from "@apollo/client";
-import { Loading } from "@layout";
-import { Sidebar, Chatbar } from "@domain";
-import { useSelector } from "react-redux";
-// import { GET_USER_DATA } from "@queries";
+import Head from "next/head";
+import { Button } from "@components";
+import { useDispatch } from "react-redux";
+import { setTheme } from "@store";
 
 const HomePage = () => {
-    const userStore = useSelector((state: any) => state.user);
-    // const { data, loading } = useQuery(GET_USER_DATA);
+    const dispatch = useDispatch();
 
-    // if (loading) {
-    //     return <Loading />;
-    // }
+    const switchTheme = () => dispatch(setTheme());
 
-    console.log(userStore.id);
     return (
         <main className="home-page">
-            <Sidebar />
-            <section>
-                <h1>Home Page</h1>
-            </section>
-            <Chatbar />
+            <Head>
+                <title>Home | ConnectMe</title>
+            </Head>
+            <Button click={switchTheme}>Switch Theme</Button>
         </main>
     );
 };

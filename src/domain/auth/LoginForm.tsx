@@ -1,6 +1,8 @@
+interface LoginFormProps {}
+
 const LoginForm = () => {
     return (
-        <div>
+        <div className="form">
             <h1>LoginForm</h1>
         </div>
     );

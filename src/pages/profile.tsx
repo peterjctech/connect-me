@@ -1,14 +1,14 @@
-import { ProfileLayout, useProfileLayout } from "@layout";
+import Head from "next/head";
 
 const ProfilePage = () => {
-    const data = useProfileLayout();
-    console.log(data);
     return (
-        <main>
-            <h1>Profile Page</h1>
-        </main>
+        <div>
+            <Head>
+                <title>Profile | ConnectMe</title>
+            </Head>
+            <h1>ProfilePage</h1>
+        </div>
     );
 };
 
-ProfilePage.PageLayout = ProfileLayout;
 export default ProfilePage;

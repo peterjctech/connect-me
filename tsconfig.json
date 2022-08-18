@@ -22,7 +22,7 @@
             "@hooks": ["./hooks"],
             "@store": ["./store"],
             "@database": ["./database"],
-            "@layout": ["./layout"],
+            "@layouts": ["./layouts"],
             "@models": ["./models"],
             "@types": ["./types"],
             "@queries": ["./graphql/queries"],

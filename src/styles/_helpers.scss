@@ -1,0 +1,14 @@
+.container {
+    -webkit-box-shadow: 3px 3px 10px 2px $neutral-4;
+    box-shadow: 3px 3px 10px 2px $neutral-4;
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+
+.app--light .container {
+    background-color: $neutral-1;
+}
+
+.app--dark .container {
+    background-color: $neutral-5;
+}

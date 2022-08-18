@@ -1,11 +1,9 @@
-interface RegisterFormProps {
-    changeForm: () => void;
-}
+interface RegisterFormProps {}
 
-const RegisterForm = ({ changeForm }: RegisterFormProps) => {
+const RegisterForm = () => {
     return (
         <div>
-            <h1>Register Form</h1>
+            <h1>RegisterForm</h1>
         </div>
     );
 };

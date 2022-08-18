@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
-import { setUserStore } from "../store";
+import { useEffect, useState } from "react";
+import { setUserStore } from "@store";
 import { useSelector, useDispatch } from "react-redux";
-import { Navbar, Loading } from "@layout";
+import { StoreInterface } from "@types";
 import { client } from "@utils";
 import { INITIALIZE_STORE } from "@queries";
-import { StoreInterface } from "@types";
+import { Loading, Navbar } from "@components";
 
 interface MainLayoutProps {
     children: React.ReactNode;
 }
 
-const MainLayout = ({ children }: MainLayoutProps) => {
+const MainLayout = (props: MainLayoutProps) => {
     const userStore = useSelector((state: StoreInterface) => state.user);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
@@ -27,12 +27,16 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         } else {
             initializeStore();
         }
-    }, []);
+    });
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
-        <div className="main-layout">
+        <div className={`app--${userStore.theme === "Dark" ? "dark" : "light"}`}>
             <Navbar />
-            {loading ? <Loading /> : children}
+            {props.children}
         </div>
     );
 };

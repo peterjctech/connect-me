@@ -1,13 +1,13 @@
-@import "./colors.scss";
-@import "./typography.scss";
-@import "./variables.scss";
+@import "./colors";
+@import "./typography";
+@import "./variables";
 
-@import "./globals.scss";
+@import "./globals";
 @import "./helpers";
 
-@import "./layouts";
+@import "../components/Navbar/navbar";
+@import "../components/Input/input";
+@import "../components/Form/form";
+@import "../components/Button/button";
 
-@import "../layout/Navbar/navbar.scss";
-@import "../domain/home/Sidebar/sidebar.scss";
-@import "../domain/home/Chatbar/chatbar.scss";
-@import "../components/Input/input.scss";
+@import "./pages/auth";

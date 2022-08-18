@@ -1,0 +1,25 @@
+.auth-page {
+    background-color: black;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+
+    &__welcome {
+        position: relative;
+
+        h1 {
+            color: $neutral-1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    }
+
+    img {
+        position: absolute;
+        opacity: 0.5;
+        z-index: -1;
+    }
+}

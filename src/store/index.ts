@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer, { setUserStore } from "./userStore";
+import userReducer, { setUserStore, setTheme } from "./userStore";
 
-export { setUserStore };
+export { setUserStore, setTheme };
 
 const store = configureStore({
     reducer: {
