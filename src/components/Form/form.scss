@@ -1,31 +1,30 @@
 .form {
     position: relative;
-    height: 100%;
-    width: 100%;
+    min-width: 60rem;
+    display: grid;
+    grid-template-rows: 8rem 1fr 8rem;
 
     &__title {
         text-align: center;
         font-family: $ff-heading;
-        margin-bottom: 1.5rem;
-        margin-top: 1rem;
+        place-self: center;
         letter-spacing: 1px;
     }
 
     &__link {
-        color: $neutral-4;
         cursor: pointer;
         margin-top: 1.5rem;
+    }
 
-        &:hover {
-            color: $neutral-6;
-        }
+    section {
+        padding: 2rem;
     }
 
     footer {
-        position: absolute;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
+        place-self: center;
+        display: flex;
+        flex-direction: column;
+        place-items: center;
     }
 }
 
@@ -33,10 +32,26 @@
     &__title {
         color: $neutral-7;
     }
+
+    &__link {
+        color: $neutral-3;
+
+        &:hover {
+            color: $neutral-7;
+        }
+    }
 }
 
 .app--dark .form {
     &__title {
         color: $neutral-1;
+    }
+
+    &__link {
+        color: $neutral-1;
+
+        &:hover {
+            color: $primary-dark;
+        }
     }
 }

@@ -5,9 +5,11 @@ interface FormProps {
     children: React.ReactNode;
     submit: () => void;
     submitText?: string;
+    linkText?: string;
+    linkSubmit?: () => void;
 }
 
-const Form = ({ title, children, submit, submitText }: FormProps) => {
+const Form = ({ title, children, submit, submitText, linkText, linkSubmit }: FormProps) => {
     return (
         <div className="form">
             <h1 className="form__title">{title}</h1>
@@ -16,6 +18,11 @@ const Form = ({ title, children, submit, submitText }: FormProps) => {
                 <Button click={submit} variant="success">
                     {submitText || "submit"}
                 </Button>
+                {linkSubmit && (
+                    <p onClick={linkSubmit} className="form__link">
+                        {linkText}
+                    </p>
+                )}
             </footer>
         </div>
     );

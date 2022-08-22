@@ -1,4 +1,10 @@
 .input {
+    label {
+        display: block;
+        font-size: 1.5rem;
+        margin: 2rem auto 1rem 0.5rem;
+    }
+
     input {
         width: 100%;
         padding: 0.5rem;
@@ -8,6 +14,10 @@
 }
 
 .app--light .input {
+    label {
+        color: $neutral-5;
+    }
+
     input {
         border: solid $primary-light-accent 3px;
         background-color: $neutral-1;
@@ -19,6 +29,10 @@
 }
 
 .app--dark .input {
+    label {
+        color: $neutral-1;
+    }
+
     input {
         border: solid $primary-dark-accent 3px;
         background-color: $neutral-4;

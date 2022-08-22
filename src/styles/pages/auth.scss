@@ -1,7 +1,8 @@
 .auth-page {
+    padding: 10rem;
     background-color: black;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 60rem;
     gap: 2rem;
 
     &__welcome {
@@ -17,9 +18,21 @@
         }
     }
 
+    &__welcome,
+    > .container {
+        display: grid;
+        place-self: center;
+    }
+
     img {
         position: absolute;
         opacity: 0.5;
         z-index: -1;
+    }
+}
+
+.app--light .auth-page {
+    img {
+        opacity: 1;
     }
 }

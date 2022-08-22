@@ -38,6 +38,7 @@
 
 .app--light .navbar {
     background-color: $primary-light;
+    border-bottom: solid black 1px;
 
     svg {
         fill: $primary-light-accent;
