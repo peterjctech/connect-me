@@ -1,6 +1,6 @@
 import { Resolvers } from "@apollo/client";
-import { UserStoreData } from "@types";
-import { getFullName } from "@utils";
+import { BaseProfileData, UserStoreData } from "@types";
+import { formatTimestamp, getFullName } from "@utils";
 import { UserModel } from "@types";
 import { deleteCookie, setCookie } from "cookies-next";
 import { User } from "@models";
@@ -22,6 +22,30 @@ const userResolvers: Resolvers = {
                 full_name: getFullName(user),
                 profile_picture: user.profile_picture,
                 theme: user.preferences.theme,
+            };
+            return response;
+        },
+        getBaseProfileData: async (_, __, context) => {
+            const user = await User.findById(context.auth).populate({
+                path: "friends.user",
+                select: ["_id", "profile_picture", "first_name", "last_name"],
+            });
+            console.log(user.friends[0]);
+            const response: BaseProfileData = {
+                join_date: formatTimestamp(user.join_timestamp, "date"),
+                friend_count: user.friends.length,
+                friends_preview: user.friends
+                    .map((obj: any) => {
+                        return {
+                            user_id: obj.user._id,
+                            full_name: getFullName(obj.user),
+                            profile_picture: obj.user.profile_picture,
+                        };
+                    })
+                    .slice(-8),
+                group_count: user.groups.length,
+                event_count: user.events.length,
+                interest_count: user.interests.length,
             };
             return response;
         },

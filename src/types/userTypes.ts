@@ -33,3 +33,16 @@ export interface UserModel {
         visibility: VisibilityPreferences;
     };
 }
+
+export interface BaseProfileData {
+    join_date: string;
+    friend_count: number;
+    friends_preview: {
+        user_id: Types.ObjectId;
+        full_name: string;
+        profile_picture: string;
+    }[];
+    group_count: number;
+    event_count: number;
+    interest_count: number;
+}

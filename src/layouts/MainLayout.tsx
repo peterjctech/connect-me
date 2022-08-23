@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { StoreInterface } from "@types";
 import { client } from "@utils";
 import { INITIALIZE_STORE } from "@queries";
-import { Loading, Navbar } from "@components";
+import { Loading, Navbar, Chatbar } from "@components";
 
 interface MainLayoutProps {
     children: React.ReactNode;
@@ -36,6 +36,7 @@ const MainLayout = (props: MainLayoutProps) => {
     return (
         <div className={`app--${userStore.theme === "Dark" ? "dark" : "light"}`}>
             <Navbar />
+            <Chatbar />
             {props.children}
         </div>
     );

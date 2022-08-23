@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { ProfileLayout } from "@layouts";
 
 const ProfilePage = () => {
     return (
@@ -6,7 +7,9 @@ const ProfilePage = () => {
             <Head>
                 <title>Profile | ConnectMe</title>
             </Head>
-            <h1>ProfilePage</h1>
+            <ProfileLayout>
+                <h1>ProfilePage</h1>
+            </ProfileLayout>
         </div>
     );
 };

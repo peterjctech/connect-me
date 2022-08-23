@@ -4,7 +4,10 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(advancedFormat);
 dayjs.extend(relativeTime);
 
-export const formatTimestamp = (timestamp: number, format: "datetime" | "fulldate" | "dynamicdate" | "relative") => {
+export const formatTimestamp = (
+    timestamp: number,
+    format: "datetime" | "fulldate" | "dynamicdate" | "relative" | "date"
+) => {
     switch (format) {
         case "dynamicdate":
             const beginningOfTimestamp = dayjs.unix(timestamp).startOf("day").unix();
@@ -31,5 +34,7 @@ export const formatTimestamp = (timestamp: number, format: "datetime" | "fulldat
             return dayjs.unix(timestamp).format("dddd, Do MMMM, YYYY");
         case "datetime":
             return dayjs.unix(timestamp).format("hh:mm A on M/D/YY");
+        case "date":
+            return dayjs.unix(timestamp).format("Do MMMM, YYYY");
     }
 };
