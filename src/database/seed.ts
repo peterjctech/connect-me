@@ -13,6 +13,8 @@ import {
     selectRandomEventStatus,
     selectRandomReaction,
     selectRandomGroupStatus,
+    selectRandomColorTheme,
+    selectRandomMainTheme,
     createPost,
 } from "./seedUtils";
 import bcrypt from "bcrypt";
@@ -60,7 +62,8 @@ export const seedDatabase = async () => {
             conversations: [],
             notifications: [],
             preferences: {
-                theme: faker.helpers.arrayElement(["Light", "Dark"]),
+                theme: selectRandomMainTheme(),
+                color: selectRandomColorTheme(),
                 visibility: {
                     friends: selectRandomPreference(),
                     groups: selectRandomPreference(),
@@ -307,7 +310,8 @@ export const seedDatabase = async () => {
         conversations: [],
         notifications: [],
         preferences: {
-            theme: "Dark",
+            theme: "Amethyst",
+            color: "Blue",
             visibility: {
                 friends: "Everyone",
                 groups: "Everyone",
@@ -338,7 +342,8 @@ export const seedDatabase = async () => {
         conversations: [],
         notifications: [],
         preferences: {
-            theme: "Light",
+            theme: "Dark",
+            color: "Purple",
             visibility: {
                 friends: "Nobody",
                 groups: "Nobody",

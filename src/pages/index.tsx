@@ -1,12 +1,12 @@
-import Head from "next/head";
-
 const HomePage = () => {
+    const seed = () => {
+        fetch("/api/seed");
+    };
     return (
-        <main className="home-page">
-            <Head>
-                <title>Home | ConnectMe</title>
-            </Head>
-        </main>
+        <div>
+            <h1>Hello World</h1>
+            <button onClick={seed}>Seed</button>
+        </div>
     );
 };
 

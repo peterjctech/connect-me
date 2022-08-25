@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { model, models, Schema, Types } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
-import { visibilityEnum } from "./modelUtils";
+import { mainThemeEnum, visibilityEnum, colorThemeEnum } from "./modelUtils";
 
 const UserSchema = new Schema({
     username: { type: String, required: true, unique: true },
@@ -33,7 +33,8 @@ const UserSchema = new Schema({
         },
     ],
     preferences: {
-        theme: { type: String, default: "Light", enum: ["Light", "Dark"] },
+        theme: { type: String, default: "Light", enum: mainThemeEnum },
+        color: { type: String, default: "Blue", emum: colorThemeEnum },
         visibility: {
             friends: { type: String, default: "Friends Only", enum: visibilityEnum },
             groups: { type: String, default: "Friends Only", enum: visibilityEnum },

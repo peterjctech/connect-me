@@ -16,18 +16,9 @@
         "incremental": true,
         "baseUrl": "./src",
         "paths": {
-            "@utils": ["./utils"],
-            "@components": ["./components"],
-            "@domain": ["./domain"],
-            "@hooks": ["./hooks"],
-            "@store": ["./store"],
             "@database": ["./database"],
-            "@layouts": ["./layouts"],
             "@models": ["./models"],
-            "@types": ["./types"],
-            "@queries": ["./graphql/queries"],
-            "@mutations": ["./graphql/mutations"],
-            "@services": ["./services"]
+            "@types": ["./types"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

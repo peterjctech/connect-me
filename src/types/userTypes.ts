@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { ColorThemes, Visibility } from "./enumTypes";
+import { ColorThemes, Visibility, MainThemes } from "./enumTypes";
 import { Notification } from "./miscTypes";
 
 export interface VisibilityPreferences {
@@ -29,20 +29,8 @@ export interface UserModel {
     conversations: Types.ObjectId[];
     notifications: Notification[];
     preferences: {
-        theme: ColorThemes;
+        theme: MainThemes;
+        color: ColorThemes;
         visibility: VisibilityPreferences;
     };
-}
-
-export interface BaseProfileData {
-    join_date: string;
-    friend_count: number;
-    friends_preview: {
-        user_id: Types.ObjectId;
-        full_name: string;
-        profile_picture: string;
-    }[];
-    group_count: number;
-    event_count: number;
-    interest_count: number;
 }

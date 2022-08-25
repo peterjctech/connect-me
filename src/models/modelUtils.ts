@@ -18,3 +18,7 @@ export const reactionEnum = ["Like", "Love", "Sad", "Wow", "Angry"];
 export const visibilityEnum = ["Nobody", "Friends Only", "Everyone"];
 
 export const colorEnum = ["red", "orange", "yellow", "green", "cyan", "blue", "purple", "magenta", "pink", "white"];
+
+export const colorThemeEnum = ["Red", "Green", "Blue", "Purple"];
+
+export const mainThemeEnum = ["Light", "Dark", "Amethyst"];

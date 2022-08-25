@@ -4,7 +4,9 @@ export type GroupStatus = "Founder" | "Admin" | "Member" | "Pending" | "Banned";
 
 export type Reaction = "Like" | "Love" | "Sad" | "Wow" | "Angry";
 
-export type ColorThemes = "Light" | "Dark";
+export type ColorThemes = "Blue" | "Purple" | "Red" | "Green";
+
+export type MainThemes = "Light" | "Dark" | "Amethyst";
 
 export type EventMemberStatus = "Yes" | "Maybe" | "No";
 

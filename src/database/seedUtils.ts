@@ -1,5 +1,15 @@
 import { Types } from "mongoose";
-import { PostModel, Color, Visibility, JoinRestriction, EventMemberStatus, Reaction, GroupStatus } from "../types";
+import {
+    PostModel,
+    Color,
+    Visibility,
+    JoinRestriction,
+    EventMemberStatus,
+    Reaction,
+    GroupStatus,
+    MainThemes,
+    ColorThemes,
+} from "@types";
 import { faker } from "@faker-js/faker";
 import { v4 as uuidv4 } from "uuid";
 import dayjs from "dayjs";
@@ -39,6 +49,14 @@ export const selectRandomReaction = (): Reaction => {
 
 export const selectRandomGroupStatus = (): GroupStatus => {
     return faker.helpers.arrayElement(["Admin", "Member", "Pending"]);
+};
+
+export const selectRandomMainTheme = (): MainThemes => {
+    return faker.helpers.arrayElement(["Light", "Dark", "Amethyst"]);
+};
+
+export const selectRandomColorTheme = (): ColorThemes => {
+    return faker.helpers.arrayElement(["Blue", "Green", "Purple", "Red"]);
 };
 
 export const getRandomTimestamp = (ts1: number, ts2: number) => Math.floor(Math.random() * (ts2 - ts1) + ts1);
