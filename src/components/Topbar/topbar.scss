@@ -1,0 +1,12 @@
+.topbar {
+    display: flex;
+    place-items: center;
+    justify-content: center;
+    background-color: $primary;
+
+    svg {
+        width: 2rem;
+        height: 2rem;
+        fill: white;
+    }
+}

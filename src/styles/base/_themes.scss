@@ -1,0 +1,38 @@
+.app--light {
+    .navbar,
+    .rightbar,
+    .container {
+        background-color: $neutral-2;
+        color: $neutral-6;
+    }
+
+    main {
+        background-color: $neutral-1;
+    }
+}
+
+.app--void {
+    .navbar,
+    .rightbar,
+    .container {
+        background-color: $void;
+        color: $neutral-2;
+    }
+
+    main {
+        background-color: black;
+    }
+}
+
+.app--dark {
+    .navbar,
+    .rightbar,
+    .container {
+        background-color: $neutral-5;
+        color: $neutral-1;
+    }
+
+    main {
+        background-color: $neutral-6;
+    }
+}

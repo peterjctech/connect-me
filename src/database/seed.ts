@@ -310,7 +310,7 @@ export const seedDatabase = async () => {
         conversations: [],
         notifications: [],
         preferences: {
-            theme: "Amethyst",
+            theme: "Void",
             color: "Blue",
             visibility: {
                 friends: "Everyone",

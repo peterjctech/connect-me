@@ -21,4 +21,4 @@ export const colorEnum = ["red", "orange", "yellow", "green", "cyan", "blue", "p
 
 export const colorThemeEnum = ["Red", "Green", "Blue", "Purple"];
 
-export const mainThemeEnum = ["Light", "Dark", "Amethyst"];
+export const mainThemeEnum = ["Light", "Void", "Dark"];

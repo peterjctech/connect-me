@@ -6,3 +6,4 @@ export * from "./miscTypes";
 export * from "./enumTypes";
 export * from "./postTypes";
 export * from "./userTypes";
+export * from "./storeTypes";

@@ -1,0 +1,71 @@
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    z-index: 90;
+    height: 4rem;
+
+    @include breakpoint(tablet) {
+        top: 4rem;
+        width: 4rem;
+        height: calc(100vh - 4rem);
+    }
+
+    @include breakpoint(laptop) {
+        width: 10vw;
+    }
+
+    @include breakpoint(desktop) {
+        width: 16rem;
+    }
+}
+
+.topbar {
+    position: fixed;
+    top: 0;
+    height: 4rem;
+    width: 100vw;
+    z-index: 90;
+}
+
+.rightbar {
+    display: none;
+
+    @include breakpoint(laptop) {
+        display: block;
+        position: fixed;
+        top: 4rem;
+        right: 0;
+        width: 10vw;
+        height: calc(100vh - 4rem);
+        z-index: 90;
+    }
+
+    @include breakpoint(desktop) {
+        width: 16rem;
+    }
+}
+
+main {
+    position: relative;
+    top: 4rem;
+    padding-bottom: 4rem;
+    min-height: calc(100vh - 8rem);
+
+    @include breakpoint(tablet) {
+        padding-bottom: 0;
+        left: 4rem;
+        width: calc(100vw - 4rem);
+        min-height: calc(100vh - 4rem);
+    }
+
+    @include breakpoint(laptop) {
+        left: 10vw;
+        width: 80vw;
+    }
+
+    @include breakpoint(desktop) {
+        left: 16rem;
+        width: calc(100vw - 32rem);
+    }
+}

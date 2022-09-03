@@ -6,7 +6,7 @@ export type Reaction = "Like" | "Love" | "Sad" | "Wow" | "Angry";
 
 export type ColorThemes = "Blue" | "Purple" | "Red" | "Green";
 
-export type MainThemes = "Light" | "Dark" | "Amethyst";
+export type MainThemes = "Light" | "Void" | "Dark";
 
 export type EventMemberStatus = "Yes" | "Maybe" | "No";
 

@@ -18,7 +18,14 @@
         "paths": {
             "@database": ["./database"],
             "@models": ["./models"],
-            "@types": ["./types"]
+            "@layouts": ["./layouts"],
+            "@utils": ["./utils"],
+            "@queries": ["./graphql/queries"],
+            "@mutations": ["./graphql/mutations"],
+            "@types": ["./types"],
+            "@hooks": ["./hooks"],
+            "@components": ["./components"],
+            "@store": ["./store"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

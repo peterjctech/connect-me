@@ -52,7 +52,7 @@ export const selectRandomGroupStatus = (): GroupStatus => {
 };
 
 export const selectRandomMainTheme = (): MainThemes => {
-    return faker.helpers.arrayElement(["Light", "Dark", "Amethyst"]);
+    return faker.helpers.arrayElement(["Light", "Void", "Dark"]);
 };
 
 export const selectRandomColorTheme = (): ColorThemes => {
