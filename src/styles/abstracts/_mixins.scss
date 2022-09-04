@@ -1,7 +1,6 @@
 @use "sass:map";
 
 $breakpoints: (
-    mobile: 0px,
     tablet: 481px,
     laptop: 769px,
     desktop: 1200px,
@@ -11,6 +10,20 @@ $breakpoints: (
     $size: map.get($breakpoints, $key);
 
     @media (min-width: $size) {
+        @content;
+    }
+}
+
+$invBreakpoints: (
+    mobile: 480px,
+    tablet: 768px,
+    laptop: 1199px,
+);
+
+@mixin breakpointInv($key) {
+    $size: map.get($invBreakpoints, $key);
+
+    @media (max-width: $size) {
         @content;
     }
 }

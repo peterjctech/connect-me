@@ -1,8 +1,11 @@
 import { Resolvers } from "@apollo/client";
 import { User } from "@models";
-import { UserStoreData } from "@types";
+import { UserStoreData, UserModel } from "@types";
 import { getFullName } from "@utils";
-import { deleteCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
+import { createUserModel } from "@services";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userResolvers: Resolvers = {
     Query: {
@@ -23,6 +26,35 @@ const userResolvers: Resolvers = {
                 color: user.preferences.color,
             };
             return response;
+        },
+    },
+    Mutation: {
+        registerUser: async (_, args) => {
+            const model = await createUserModel(args);
+            try {
+                await User.create(model);
+                return { message: `Successfully created user ${model.username}` };
+            } catch (error) {
+                throw new Error("An unexpected error has occurred");
+            }
+        },
+        loginUser: async (_, args, { req, res }) => {
+            const user: UserModel | null = await User.findOne({ username: args.username });
+            if (!user) throw new Error("Invalid credentials");
+
+            const compareHash = bcrypt.compareSync(args.password, user.password);
+            if (!compareHash) throw new Error("Invalid credentials");
+
+            const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET!, {
+                expiresIn: 60 * 60 * 24,
+            });
+            setCookie("server-key", token, { req, res, maxAge: 60 * 60 * 24 });
+
+            return { message: `Logged in as ${user.username}` };
+        },
+        logoutUser: async (_, __, { req, res }) => {
+            deleteCookie("server-key", { req, res });
+            return { message: "Successfully logged out!" };
         },
     },
 };

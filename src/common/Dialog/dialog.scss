@@ -1,0 +1,70 @@
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+
+    &__content {
+        background-color: $neutral-1;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 0.5rem;
+        width: clamp(200px, 50%, 500px);
+    }
+
+    section {
+        padding: 0.9rem;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem 0.5rem 0 0;
+        height: 8rem;
+
+        &.success {
+            background-color: $success;
+        }
+        &.warning {
+            background-color: $warning;
+        }
+        &.info {
+            background-color: $info;
+        }
+        &.help {
+            background-color: $help;
+        }
+        &.error {
+            background-color: $error;
+        }
+    }
+
+    &__icon {
+        width: 80%;
+        height: 80%;
+        color: white;
+    }
+
+    p {
+        font-size: 1.6rem;
+        text-align: center;
+        margin: 2rem;
+        color: $neutral-6;
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button {
+        margin-bottom: 1rem;
+    }
+}

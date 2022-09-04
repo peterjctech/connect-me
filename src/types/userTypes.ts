@@ -2,6 +2,14 @@ import { Types } from "mongoose";
 import { ColorThemes, Visibility, MainThemes } from "./enumTypes";
 import { Notification } from "./miscTypes";
 
+export interface RegisterUserProps {
+    firstName: string;
+    lastName: string;
+    username: string;
+    password: string;
+    confirmPassword: string;
+}
+
 export interface VisibilityPreferences {
     friends: Visibility;
     groups: Visibility;

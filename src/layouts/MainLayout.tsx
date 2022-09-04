@@ -35,7 +35,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
     return (
         <div
-            className={`app--${userStore.theme ? userStore.theme.toLowerCase() : "light"} ${
+            className={`app app--${userStore.theme ? userStore.theme.toLowerCase() : "light"} ${
                 userStore.color ? userStore.color.toLowerCase() : "blue"
             }`}
         >

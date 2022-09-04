@@ -25,4 +25,16 @@ export default gql`
     type Query {
         initializeStore: UserStoreData
     }
+
+    type Mutation {
+        registerUser(
+            firstName: String
+            lastName: String
+            username: String
+            password: String
+            confirmPassword: String
+        ): Message
+        loginUser(username: String, password: String): Message
+        logoutUser: Message
+    }
 `;

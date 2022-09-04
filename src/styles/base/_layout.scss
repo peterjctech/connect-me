@@ -1,3 +1,7 @@
+.app {
+    // width: 100vw;
+}
+
 .navbar {
     position: fixed;
     bottom: 0;
@@ -21,8 +25,6 @@
 }
 
 .topbar {
-    position: fixed;
-    top: 0;
     height: 4rem;
     width: 100vw;
     z-index: 90;
@@ -48,18 +50,18 @@
 
 main {
     position: relative;
-    top: 4rem;
-    padding-bottom: 4rem;
+    padding: 1rem 1rem 4rem 1rem;
     min-height: calc(100vh - 8rem);
 
     @include breakpoint(tablet) {
-        padding-bottom: 0;
+        padding: 1.5rem 1.5rem 0 1.5rem;
         left: 4rem;
         width: calc(100vw - 4rem);
         min-height: calc(100vh - 4rem);
     }
 
     @include breakpoint(laptop) {
+        padding: 2rem;
         left: 10vw;
         width: 80vw;
     }

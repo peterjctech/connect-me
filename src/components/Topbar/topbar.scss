@@ -1,12 +1,38 @@
 .topbar {
     display: flex;
     place-items: center;
-    justify-content: center;
+    padding: 1rem;
+    justify-content: space-between;
     background-color: $primary;
+    position: relative;
 
-    svg {
+    section svg {
         width: 2rem;
         height: 2rem;
         fill: white;
+    }
+
+    section {
+        display: flex;
+        justify-content: right;
+
+        > * {
+            margin-left: 1rem;
+            // margin-inline-end: auto;
+        }
+    }
+
+    .input {
+        width: min(40%, 24rem);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @include breakpointInv(mobile) {
+        .input {
+            display: none;
+        }
     }
 }

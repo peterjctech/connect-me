@@ -1,0 +1,44 @@
+.form {
+    .input {
+        margin-bottom: 2rem;
+    }
+
+    label {
+        display: block;
+    }
+
+    &__title {
+        text-align: center;
+        font-family: $ff-heading;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+    }
+
+    &__link {
+        cursor: pointer;
+        margin-top: 1rem;
+        text-align: center;
+        width: fit-content;
+    }
+
+    &__content {
+        padding: 1rem;
+    }
+
+    @include breakpoint(laptop) {
+        section {
+            display: flex;
+            justify-content: space-between;
+
+            > * {
+                width: 45%;
+            }
+        }
+    }
+
+    .button {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

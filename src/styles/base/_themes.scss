@@ -6,6 +6,10 @@
         color: $neutral-6;
     }
 
+    .hover-change:hover {
+        background-color: darken($neutral-2, 10%);
+    }
+
     main {
         background-color: $neutral-1;
     }
@@ -19,6 +23,10 @@
         color: $neutral-2;
     }
 
+    .hover-change:hover {
+        background-color: lighten($void, 5%);
+    }
+
     main {
         background-color: black;
     }
@@ -30,6 +38,10 @@
     .container {
         background-color: $neutral-5;
         color: $neutral-1;
+    }
+
+    .hover-change:hover {
+        background-color: lighten($neutral-5, 5%);
     }
 
     main {

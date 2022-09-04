@@ -20,6 +20,8 @@
             "@models": ["./models"],
             "@layouts": ["./layouts"],
             "@utils": ["./utils"],
+            "@common": ["./common"],
+            "@services": ["./services"],
             "@queries": ["./graphql/queries"],
             "@mutations": ["./graphql/mutations"],
             "@types": ["./types"],

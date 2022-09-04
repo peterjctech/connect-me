@@ -1,0 +1,47 @@
+.button {
+    font: 1rem $ff-fancy;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 0.5rem;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    height: 2.4rem;
+    min-width: 6rem;
+    outline: none;
+    border: none;
+}
+
+.app.blue .button {
+    background-color: $theme-blue;
+
+    &:hover {
+        background-color: darken($theme-blue, 10%);
+    }
+}
+
+.app.purple .button {
+    background-color: $theme-purple;
+    color: $neutral-1;
+
+    &:hover {
+        background-color: darken($theme-purple, 10%);
+    }
+}
+
+.app.green .button {
+    background-color: $theme-green;
+    color: $neutral-6;
+
+    &:hover {
+        background-color: darken($theme-green, 10%);
+    }
+}
+
+.app.red .button {
+    background-color: $theme-red;
+    color: $neutral-1;
+
+    &:hover {
+        background-color: darken($theme-red, 10%);
+    }
+}
