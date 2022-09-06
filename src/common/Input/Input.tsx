@@ -2,7 +2,10 @@ interface InputProps {
     name: string;
     value: string;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    icon?: React.ReactElement;
+    icon?: {
+        SVG: React.ReactElement;
+        position: "left" | "right";
+    };
     placeholder: string;
     noLabel?: boolean;
     type?: string;
@@ -10,9 +13,9 @@ interface InputProps {
 
 const Input = ({ placeholder, name, type, value, handleChange, icon, noLabel }: InputProps) => {
     return (
-        <div className="input">
+        <div className={`input icon--${icon ? icon.position : "none"}`}>
             {!noLabel && <label htmlFor={name}>{placeholder}</label>}
-            {icon && icon}
+            {icon && icon.SVG}
             <input
                 value={value}
                 name={name}

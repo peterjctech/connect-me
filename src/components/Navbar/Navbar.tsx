@@ -1,7 +1,7 @@
-import { AiFillStar, AiFillCalendar, AiOutlineSearch, AiFillHome } from "react-icons/ai";
+import { useRouter } from "next/router";
+import { AiFillStar, AiFillCalendar, AiOutlineSearch, AiFillHome, AiFillSetting } from "react-icons/ai";
 import { BsFillPersonFill, BsFillPeopleFill } from "react-icons/bs";
 import { TiGroup } from "react-icons/ti";
-import { useRouter } from "next/router";
 
 const Navbar = () => {
     const router = useRouter();
@@ -18,6 +18,7 @@ const Navbar = () => {
         { route: null, text: "Search", component: AiOutlineSearch, class: "mobile" },
         { route: "/events", text: "Find Events", component: AiFillCalendar, class: null },
         { route: "/interests", text: "Add Interests", component: AiFillStar, class: null },
+        { route: "/settings", text: "Settings", component: AiFillSetting, class: "tablet" },
     ];
 
     return (

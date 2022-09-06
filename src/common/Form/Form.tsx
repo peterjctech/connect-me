@@ -2,24 +2,28 @@ import { Button } from "@common";
 
 interface FormProps {
     title: string;
-    submit: () => void;
-    submitText?: string;
-    linkText?: string;
-    linkSubmit?: () => void;
+    submit: {
+        func: () => void;
+        text?: string;
+    };
+    link?: {
+        text: string;
+        func: () => void;
+    };
     className?: string;
     children: React.ReactNode;
 }
 
-const Form = ({ title, submit, submitText, linkText, linkSubmit, className, children }: FormProps) => {
+const Form = ({ title, submit, link, className, children }: FormProps) => {
     return (
         <div className={`form ${className || ""}`}>
             <h1 className="form__title">{title}</h1>
             <div className="form__content">{children}</div>
             <footer>
-                <Button click={submit}>{submitText || "Submit"}</Button>
-                {linkSubmit && (
-                    <p onClick={linkSubmit} className="form__link">
-                        {linkText}
+                <Button click={submit.func}>{submit.text || "Submit"}</Button>
+                {link && (
+                    <p onClick={link.func} className="form__link">
+                        {link.text}
                     </p>
                 )}
             </footer>

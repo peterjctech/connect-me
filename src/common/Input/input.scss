@@ -20,7 +20,6 @@
     svg {
         width: $height - 1rem;
         height: $height - 1rem;
-        margin-left: 0.5rem;
         fill: $neutral-6;
     }
 
@@ -31,6 +30,27 @@
         height: $height - 1rem;
         margin-left: 0.5rem;
         width: calc(100% - $height - 1rem);
+    }
+
+    &.icon--left {
+        svg {
+            margin-left: 0.5rem;
+        }
+    }
+
+    &.icon--right {
+        svg {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    &.icon--none {
+        input {
+            width: calc(100% - 1rem);
+        }
     }
 }
 

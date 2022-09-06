@@ -12,9 +12,8 @@ const userSlice = createSlice({
     },
     reducers: {
         setUserStore: (state, action) => {
-            const res = action.payload;
-            if (res) {
-                const { user_id, full_name, profile_picture, theme } = res;
+            if (action.payload) {
+                const { user_id, full_name, profile_picture, theme } = action.payload;
                 state.user_id = user_id;
                 state.full_name = full_name;
                 state.profile_picture = profile_picture;
@@ -52,9 +51,18 @@ const userSlice = createSlice({
                     break;
             }
         },
+        updateUserStore: (state, action) => {
+            const args = action.payload;
+            console.log(args);
+            if (args.user_id || args.user_id === "") state.user_id = args.user_id;
+            if (args.full_name || args.full_name === "") state.full_name = args.full_name;
+            if (args.profile_picture || args.profile_picture === "") state.profile_picture = args.profile_picture;
+            if (args.theme || args.theme === "") state.theme = args.theme;
+            if (args.color || args.color === "") state.color = args.color;
+        },
     },
 });
 
-const { setUserStore, testTheme, testColor } = userSlice.actions;
-export { setUserStore, testColor, testTheme };
+const { setUserStore, testTheme, testColor, updateUserStore } = userSlice.actions;
+export { setUserStore, testColor, testTheme, updateUserStore };
 export default userSlice.reducer;
