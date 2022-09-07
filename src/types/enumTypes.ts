@@ -10,6 +10,6 @@ export type MainThemes = "Light" | "Void" | "Dark";
 
 export type EventMemberStatus = "Yes" | "Maybe" | "No";
 
-export type Visibility = "Nobody" | "Friends Only" | "Everyone";
+export type Visibility = "Nobody" | "Friends" | "Everyone";
 
 export type JoinRestriction = "Private" | "Invite" | "Open" | "Friends";

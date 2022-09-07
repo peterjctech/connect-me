@@ -13,11 +13,12 @@ const userSlice = createSlice({
     reducers: {
         setUserStore: (state, action) => {
             if (action.payload) {
-                const { user_id, full_name, profile_picture, theme } = action.payload;
+                const { user_id, full_name, profile_picture, theme, color } = action.payload;
                 state.user_id = user_id;
                 state.full_name = full_name;
                 state.profile_picture = profile_picture;
                 state.theme = theme;
+                state.color = color;
             }
 
             state.is_initialized = true;

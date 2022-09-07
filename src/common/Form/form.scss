@@ -28,6 +28,11 @@
         padding: 1rem;
     }
 
+    h6 {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
     @include breakpoint(laptop) {
         span {
             display: flex;

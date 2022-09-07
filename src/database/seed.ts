@@ -458,6 +458,7 @@ export const seedDatabase = async () => {
         console.log("Seeded Groups");
         await Conversation.create(convo);
         console.log("Seeded Conversation");
+        console.log("Successfully seeded database!");
     } catch (error) {
         console.error("ERROR: Failed to seed database => ");
     }

@@ -36,11 +36,11 @@ const UserSchema = new Schema({
         theme: { type: String, default: "Light", enum: mainThemeEnum },
         color: { type: String, default: "Blue", emum: colorThemeEnum },
         visibility: {
-            friends: { type: String, default: "Friends Only", enum: visibilityEnum },
-            groups: { type: String, default: "Friends Only", enum: visibilityEnum },
-            events: { type: String, default: "Friends Only", enum: visibilityEnum },
-            interests: { type: String, default: "Friends Only", enum: visibilityEnum },
-            posts: { type: String, default: "Friends Only", enum: visibilityEnum },
+            friends: { type: String, default: "Friends", enum: visibilityEnum },
+            groups: { type: String, default: "Friends", enum: visibilityEnum },
+            events: { type: String, default: "Friends", enum: visibilityEnum },
+            interests: { type: String, default: "Friends", enum: visibilityEnum },
+            posts: { type: String, default: "Friends", enum: visibilityEnum },
         },
     },
 });

@@ -1,3 +1,4 @@
+import { ColorThemes, MainThemes, Reaction, Visibility, Color } from "@types";
 import dayjs from "dayjs";
 import { Types } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
@@ -13,12 +14,23 @@ export const CommentModelSlice = [
     },
 ];
 
-export const reactionEnum = ["Like", "Love", "Sad", "Wow", "Angry"];
+export const reactionEnum: Reaction[] = ["Like", "Love", "Sad", "Wow", "Angry"];
 
-export const visibilityEnum = ["Nobody", "Friends Only", "Everyone"];
+export const visibilityEnum: Visibility[] = ["Nobody", "Friends", "Everyone"];
 
-export const colorEnum = ["red", "orange", "yellow", "green", "cyan", "blue", "purple", "magenta", "pink", "white"];
+export const colorEnum: Color[] = [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "cyan",
+    "blue",
+    "purple",
+    "magenta",
+    "pink",
+    "white",
+];
 
-export const colorThemeEnum = ["Red", "Green", "Blue", "Purple"];
+export const colorThemeEnum: ColorThemes[] = ["Red", "Green", "Blue", "Purple"];
 
-export const mainThemeEnum = ["Light", "Void", "Dark"];
+export const mainThemeEnum: MainThemes[] = ["Light", "Void", "Dark"];

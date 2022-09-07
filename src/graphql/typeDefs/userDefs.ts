@@ -14,6 +14,12 @@ export default gql`
         Red
     }
 
+    enum Visibility {
+        Everyone
+        Friends
+        Nobody
+    }
+
     type UserStoreData {
         user_id: ID!
         full_name: String!
@@ -22,8 +28,22 @@ export default gql`
         color: ColorThemes!
     }
 
+    type MySettings {
+        username: String!
+        first_name: String!
+        last_name: String!
+        theme: MainThemes!
+        color: ColorThemes!
+        friend_visibility: Visibility!
+        group_visibility: Visibility!
+        post_visibility: Visibility!
+        interest_visibility: Visibility!
+        event_visibility: Visibility!
+    }
+
     type Query {
         initializeStore: UserStoreData
+        getMySettings: MySettings
     }
 
     type Mutation {

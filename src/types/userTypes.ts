@@ -42,3 +42,16 @@ export interface UserModel {
         visibility: VisibilityPreferences;
     };
 }
+
+export interface MySettings {
+    username: string;
+    first_name: string;
+    last_name: string;
+    theme: MainThemes;
+    color: ColorThemes;
+    friend_visibility: Visibility;
+    group_visibility: Visibility;
+    post_visibility: Visibility;
+    interest_visibility: Visibility;
+    event_visibility: Visibility;
+}

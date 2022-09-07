@@ -6,13 +6,13 @@
 @import "./base/layout";
 @import "./base/themes";
 @import "./base/helpers";
-@import "./base/pages";
 
 @import "../common/Input/input.scss";
 @import "../common/Button/button.scss";
 @import "../common/Form/form.scss";
 @import "../common/Modal/modal.scss";
 @import "../common/Dialog/dialog.scss";
+@import "../common/Dropdown/dropdown.scss";
 
 @import "../components/Topbar/topbar.scss";
 @import "../components/Navbar/navbar.scss";

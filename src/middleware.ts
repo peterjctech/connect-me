@@ -5,10 +5,10 @@ export default function (req: NextRequest) {
     const PUBLIC_FILE = /\.(.*)$/;
     const isPublicFile = PUBLIC_FILE.test(req.nextUrl.pathname);
     const isHome = req.nextUrl.pathname === "/";
+
     if (isPublicFile || req.nextUrl.pathname === "/api/graphql") {
         return NextResponse.next();
-    }
-    if (!cookie && !isHome) {
+    } else if (!cookie && !isHome) {
         return NextResponse.redirect(new URL("/", req.url));
     } else if (cookie && isHome) {
         return NextResponse.redirect(new URL("/feed", req.url));

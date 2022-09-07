@@ -32,7 +32,7 @@ export const selectRandomColor = (): Color => {
 };
 
 export const selectRandomPreference = (): Visibility => {
-    return faker.helpers.arrayElement(["Nobody", "Friends Only", "Everyone"]);
+    return faker.helpers.arrayElement(["Nobody", "Friends", "Everyone"]);
 };
 
 export const selectRandomJoinRestriction = (): JoinRestriction => {
@@ -86,7 +86,6 @@ interface CreatePostProps {
 }
 
 export const createPost = (props: CreatePostProps) => {
-    // if (props.connectedUsers[0].join_timestamp) console.log(props, "aha");
     const post: PostModel = {
         _id: getId(),
         author: props.authorId,

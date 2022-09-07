@@ -1,3 +1,14 @@
 .rightbar {
     border-left: solid $neutral-4 1px;
+
+    aside {
+        display: flex;
+        justify-content: space-around;
+        padding: 2rem;
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
 }
