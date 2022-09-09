@@ -30,7 +30,6 @@ export default gql`
 
     type MySettings {
         username: String!
-        password: String!
         first_name: String!
         last_name: String!
         theme: MainThemes!
@@ -56,5 +55,19 @@ export default gql`
         ): Message
         loginUser(username: String, password: String): Message
         logoutUser: Message
+        updateUserSettings(
+            first_name: String
+            last_name: String
+            username: String
+            new_password: String
+            confirm_new_password: String
+            old_password: String
+            theme: String
+            color: String
+            friend_visibility: String
+            group_visibility: String
+            post_visibility: String
+            event_visibility: String
+        ): MySettings
     }
 `;

@@ -5,18 +5,21 @@ import { Form, Input } from "@common";
 import { useForm } from "@hooks";
 import { LOGIN_USER } from "@mutations";
 import { client } from "@utils";
+import { LoginUserProps } from "@types";
 
 interface LoginFormProps {
     toggleModal: () => void;
     openDialog: (message: string, variant?: "error") => void;
 }
 
+const initialFormState: LoginUserProps = {
+    username: "",
+    password: "",
+};
+
 const LoginForm = ({ toggleModal, openDialog }: LoginFormProps) => {
     const router = useRouter();
-    const { formData, handleChange } = useForm({
-        username: "",
-        password: "",
-    });
+    const { formData, handleChange } = useForm(initialFormState);
 
     const loginUser = async () => {
         try {

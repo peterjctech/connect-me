@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { BsFillPaletteFill } from "react-icons/bs";
-import { BiColorFill } from "react-icons/bi";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import { GET_MY_SETTINGS } from "@queries";
-import { Button, Dialog, Form, Dropdown, Input } from "@common";
+import { UPDATE_USER_SETTINGS } from "@mutations";
+import { Dialog, Form, Dropdown, Input } from "@common";
 import { Loading } from "@components";
 import { client } from "@utils";
-import { useDialog, useForm } from "@hooks";
-import { ColorThemes, MainThemes, StoreInterface, Visibility, MySettings } from "@types";
+import { useDialog, useForm, usePassword } from "@hooks";
+import { ColorThemes, MainThemes, StoreInterface, Visibility, UpdateUserSettingsProps } from "@types";
+import ConfirmIdentity from "components/settings/ConfirmIdentity";
+import { updateUserStore } from "@store";
 
-const initialState: MySettings = {
+const initialFormState: UpdateUserSettingsProps = {
     first_name: "",
     last_name: "",
     username: "",
-    password: "",
+    new_password: "",
+    confirm_new_password: "",
+    old_password: "",
     theme: "Light",
     color: "Blue",
     friend_visibility: "Everyone",
@@ -27,38 +28,32 @@ const initialState: MySettings = {
 
 const SettingsPage = () => {
     const [loading, setLoading] = useState(true);
-    const [showPassword, setShowPassword] = useState({
-        main: { icon: AiFillEye, show: false },
-        confirm: { icon: AiFillEye, show: false },
-    });
+    const [showModal, setShowModal] = useState(false);
+    const { showPassword, updateShowPassword } = usePassword();
     const { dialog, openDialog, dialogProps } = useDialog();
+    const { formData, handleChange, setFormData } = useForm(initialFormState);
     const userStore = useSelector((store: StoreInterface) => store.user);
-    const { formData, handleChange, setFormData } = useForm(initialState);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        getSettings();
+    }, [userStore.is_initialized]);
 
     const getSettings = async () => {
         setLoading(true);
-        const { data } = await client.query({ query: GET_MY_SETTINGS });
-        setFormData(data.getMySettings);
+        try {
+            const { data } = await client.query({ query: GET_MY_SETTINGS });
+            setFormData({ ...data.getMySettings, new_password: "", confirm_new_password: "", old_password: "" });
+        } catch (error) {
+            openDialog("Failed to get user settings");
+        }
         setLoading(false);
     };
-    const updateShowPassword = (type: "main" | "confirm") => {
-        setShowPassword({
-            ...showPassword,
-            [type]: {
-                icon: showPassword[type].show ? AiFillEye : AiFillEyeInvisible,
-                show: !showPassword[type].show,
-            },
-        });
-    };
+
     const formatOptions = (arr: string[]) => {
         return arr.map((item) => {
             return { label: item, value: item };
         });
     };
-
-    useEffect(() => {
-        getSettings();
-    }, [userStore.is_initialized]);
 
     const themes: MainThemes[] = ["Light", "Void", "Dark"];
     const colors: ColorThemes[] = ["Red", "Blue", "Green", "Purple"];
@@ -68,8 +63,25 @@ const SettingsPage = () => {
     const colorOptions = formatOptions(colors);
     const visibilityOptions = formatOptions(visibility);
 
-    const updateSettings = async () => {
-        console.log(formData);
+    const toggleModal = async () => {
+        setShowModal(!showModal);
+    };
+
+    const finishForm = async () => {
+        toggleModal();
+
+        try {
+            const { data } = await client.mutate({ mutation: UPDATE_USER_SETTINGS, variables: formData });
+            const { theme, color, first_name, last_name } = data.updateUserSettings;
+            setFormData({ ...data.updateUserSettings, new_password: "", confirm_new_password: "", old_password: "" });
+            dispatch(updateUserStore({ theme, color, full_name: `${first_name} ${last_name}` }));
+            console.log(userStore);
+        } catch (error: any) {
+            const handledErrors = error.graphQLErrors;
+            const errorMessage = handledErrors[0] ? handledErrors[0].message : "An unexpected error has occurred";
+            setFormData({ ...formData, new_password: "", confirm_new_password: "", old_password: "" });
+            openDialog(errorMessage, "error");
+        }
     };
 
     if (loading) {
@@ -79,8 +91,16 @@ const SettingsPage = () => {
     return (
         <main className="settings-page">
             {dialog && <Dialog {...dialogProps} />}
+            {showModal && (
+                <ConfirmIdentity
+                    closeModal={toggleModal}
+                    finishForm={finishForm}
+                    handleChange={handleChange}
+                    oldPassword={formData.old_password}
+                />
+            )}
             <div className="container">
-                <Form title="Settings" submit={{ func: updateSettings }}>
+                <Form title="Settings" submit={{ func: toggleModal }}>
                     <h6>General</h6>
                     <Input
                         name="username"
@@ -105,22 +125,22 @@ const SettingsPage = () => {
                     <h6>Update Password</h6>
                     <span>
                         <Input
-                            name="password"
+                            name="new_password"
                             type={showPassword.main.show ? "text" : "password"}
-                            value={formData.password}
+                            value={formData.new_password}
                             handleChange={handleChange}
-                            placeholder="Password"
+                            placeholder="New Password"
                             icon={{
                                 SVG: <showPassword.main.icon onClick={() => updateShowPassword("main")} />,
                                 position: "right",
                             }}
                         />
                         <Input
-                            name="confirmPassword"
+                            name="confirm_new_password"
                             type={showPassword.confirm.show ? "text" : "password"}
-                            value={formData.confirmPassword}
+                            value={formData.confirm_new_password}
                             handleChange={handleChange}
-                            placeholder="Confirm Password"
+                            placeholder="Confirm New Password"
                             icon={{
                                 SVG: <showPassword.confirm.icon onClick={() => updateShowPassword("confirm")} />,
                                 position: "right",

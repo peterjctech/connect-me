@@ -16,7 +16,6 @@ export const GET_MY_SETTINGS = gql`
     query {
         getMySettings {
             username
-            password
             first_name
             last_name
             theme

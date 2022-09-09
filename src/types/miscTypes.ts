@@ -39,3 +39,7 @@ export interface ReactionData {
     reaction: Reaction;
     is_friend: boolean;
 }
+
+export interface Message {
+    message: string;
+}

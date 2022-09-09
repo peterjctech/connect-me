@@ -1,28 +1,25 @@
-import { useState } from "react";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-
 import { Form, Modal, Input } from "@common";
-import { useForm } from "@hooks";
+import { useForm, usePassword } from "@hooks";
 import { REGISTER_USER } from "@mutations";
 import { client } from "@utils";
+import { RegisterUserProps } from "@types";
 
 interface RegisterFormProps {
     closeModal: () => void;
     openDialog: (message: string, variant?: "error") => void;
 }
 
+const initialFormState: RegisterUserProps = {
+    firstName: "",
+    lastName: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+};
+
 const RegisterForm = ({ closeModal, openDialog }: RegisterFormProps) => {
-    const [showPassword, setShowPassword] = useState({
-        main: { icon: AiFillEye, show: false },
-        confirm: { icon: AiFillEye, show: false },
-    });
-    const { formData, handleChange } = useForm({
-        firstName: "",
-        lastName: "",
-        username: "",
-        password: "",
-        confirmPassword: "",
-    });
+    const { showPassword, updateShowPassword } = usePassword();
+    const { formData, handleChange } = useForm(initialFormState);
 
     const registerUser = async () => {
         try {
@@ -33,16 +30,6 @@ const RegisterForm = ({ closeModal, openDialog }: RegisterFormProps) => {
             const errorMessage = handledErrors[0] ? handledErrors[0].message : "An unexpected error has occurred";
             openDialog(errorMessage, "error");
         }
-    };
-
-    const updateShowPassword = (type: "main" | "confirm") => {
-        setShowPassword({
-            ...showPassword,
-            [type]: {
-                icon: showPassword[type].show ? AiFillEye : AiFillEyeInvisible,
-                show: !showPassword[type].show,
-            },
-        });
     };
 
     return (

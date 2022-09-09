@@ -2,14 +2,6 @@ import { Types } from "mongoose";
 import { ColorThemes, Visibility, MainThemes } from "./enumTypes";
 import { Notification } from "./miscTypes";
 
-export interface RegisterUserProps {
-    firstName: string;
-    lastName: string;
-    username: string;
-    password: string;
-    confirmPassword: string;
-}
-
 export interface VisibilityPreferences {
     friends: Visibility;
     groups: Visibility;
@@ -42,15 +34,38 @@ export interface UserModel {
     };
 }
 
-export interface MySettings {
+export interface RegisterUserProps {
+    firstName: string;
+    lastName: string;
+    username: string;
+    password: string;
+    confirmPassword: string;
+}
+
+export interface LoginUserProps {
+    username: string;
+    password: string;
+}
+
+export interface UserSettingsBase {
     username: string;
     first_name: string;
     last_name: string;
-    password: string;
     theme: MainThemes;
     color: ColorThemes;
     friend_visibility: Visibility;
     group_visibility: Visibility;
     post_visibility: Visibility;
     event_visibility: Visibility;
+}
+
+export interface UserSettings extends UserSettingsBase {
+    password: string;
+    confirm_password: string;
+}
+
+export interface UpdateUserSettingsProps extends UserSettingsBase {
+    new_password: string;
+    confirm_new_password: string;
+    old_password: string;
 }
