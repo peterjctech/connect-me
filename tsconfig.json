@@ -16,6 +16,7 @@
         "incremental": true,
         "baseUrl": "./src",
         "paths": {
+            "@assets": ["./assets"],
             "@database": ["./database"],
             "@models": ["./models"],
             "@layouts": ["./layouts"],

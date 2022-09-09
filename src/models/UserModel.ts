@@ -39,7 +39,6 @@ const UserSchema = new Schema({
             friends: { type: String, default: "Friends", enum: visibilityEnum },
             groups: { type: String, default: "Friends", enum: visibilityEnum },
             events: { type: String, default: "Friends", enum: visibilityEnum },
-            interests: { type: String, default: "Friends", enum: visibilityEnum },
             posts: { type: String, default: "Friends", enum: visibilityEnum },
         },
     },

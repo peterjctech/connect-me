@@ -40,6 +40,7 @@ const userResolvers: Resolvers = {
 
             const response: MySettings = {
                 username: user.username,
+                password: "",
                 first_name: user.first_name,
                 last_name: user.last_name,
                 theme: user.preferences.theme,
@@ -47,7 +48,6 @@ const userResolvers: Resolvers = {
                 friend_visibility: privacy.friends,
                 group_visibility: privacy.groups,
                 event_visibility: privacy.events,
-                interest_visibility: privacy.interests,
                 post_visibility: privacy.posts,
             };
             return response;

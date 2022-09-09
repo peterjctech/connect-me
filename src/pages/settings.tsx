@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { BsFillPaletteFill } from "react-icons/bs";
 import { BiColorFill } from "react-icons/bi";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import { GET_MY_SETTINGS } from "@queries";
 import { Button, Dialog, Form, Dropdown, Input } from "@common";
@@ -15,17 +16,21 @@ const initialState: MySettings = {
     first_name: "",
     last_name: "",
     username: "",
+    password: "",
     theme: "Light",
     color: "Blue",
     friend_visibility: "Everyone",
     group_visibility: "Everyone",
     post_visibility: "Everyone",
-    interest_visibility: "Everyone",
     event_visibility: "Everyone",
 };
 
 const SettingsPage = () => {
     const [loading, setLoading] = useState(true);
+    const [showPassword, setShowPassword] = useState({
+        main: { icon: AiFillEye, show: false },
+        confirm: { icon: AiFillEye, show: false },
+    });
     const { dialog, openDialog, dialogProps } = useDialog();
     const userStore = useSelector((store: StoreInterface) => store.user);
     const { formData, handleChange, setFormData } = useForm(initialState);
@@ -36,15 +41,32 @@ const SettingsPage = () => {
         setFormData(data.getMySettings);
         setLoading(false);
     };
+    const updateShowPassword = (type: "main" | "confirm") => {
+        setShowPassword({
+            ...showPassword,
+            [type]: {
+                icon: showPassword[type].show ? AiFillEye : AiFillEyeInvisible,
+                show: !showPassword[type].show,
+            },
+        });
+    };
+    const formatOptions = (arr: string[]) => {
+        return arr.map((item) => {
+            return { label: item, value: item };
+        });
+    };
 
     useEffect(() => {
         getSettings();
-        console.log(userStore.profile_picture);
     }, [userStore.is_initialized]);
 
-    const themeOptions: MainThemes[] = ["Light", "Void", "Dark"];
-    const colorOptions: ColorThemes[] = ["Red", "Blue", "Green", "Purple"];
-    const visibilityOptions: Visibility[] = ["Everyone", "Friends", "Nobody"];
+    const themes: MainThemes[] = ["Light", "Void", "Dark"];
+    const colors: ColorThemes[] = ["Red", "Blue", "Green", "Purple"];
+    const visibility: Visibility[] = ["Everyone", "Friends", "Nobody"];
+
+    const themeOptions = formatOptions(themes);
+    const colorOptions = formatOptions(colors);
+    const visibilityOptions = formatOptions(visibility);
 
     const updateSettings = async () => {
         console.log(formData);
@@ -53,10 +75,6 @@ const SettingsPage = () => {
     if (loading) {
         return <Loading />;
     }
-
-    const handleDropdown = (props: { name: string; value: string }) => {
-        console.log(props);
-    };
 
     return (
         <main className="settings-page">
@@ -70,75 +88,95 @@ const SettingsPage = () => {
                         handleChange={handleChange}
                         placeholder="Username"
                     />
-                    <Input
-                        name="first_name"
-                        value={formData.first_name}
-                        handleChange={handleChange}
-                        placeholder="First Name"
-                    />
-                    <Input
-                        name="last_name"
-                        value={formData.last_name}
-                        handleChange={handleChange}
-                        placeholder="Last Name"
-                    />
+                    <span>
+                        <Input
+                            name="first_name"
+                            value={formData.first_name}
+                            handleChange={handleChange}
+                            placeholder="First Name"
+                        />
+                        <Input
+                            name="last_name"
+                            value={formData.last_name}
+                            handleChange={handleChange}
+                            placeholder="Last Name"
+                        />
+                    </span>
+                    <h6>Update Password</h6>
+                    <span>
+                        <Input
+                            name="password"
+                            type={showPassword.main.show ? "text" : "password"}
+                            value={formData.password}
+                            handleChange={handleChange}
+                            placeholder="Password"
+                            icon={{
+                                SVG: <showPassword.main.icon onClick={() => updateShowPassword("main")} />,
+                                position: "right",
+                            }}
+                        />
+                        <Input
+                            name="confirmPassword"
+                            type={showPassword.confirm.show ? "text" : "password"}
+                            value={formData.confirmPassword}
+                            handleChange={handleChange}
+                            placeholder="Confirm Password"
+                            icon={{
+                                SVG: <showPassword.confirm.icon onClick={() => updateShowPassword("confirm")} />,
+                                position: "right",
+                            }}
+                        />
+                    </span>
                     <h6>Themes</h6>
                     <span>
                         <Dropdown
                             name="theme"
                             value={formData.theme}
-                            handleChange={handleDropdown}
-                            options={themeOptions.map((obj) => {
-                                return { label: obj, value: obj };
-                            })}
+                            options={themeOptions}
+                            handleChange={handleChange}
                             placeholder="Theme"
-                            icon={<BsFillPaletteFill />}
                         />
-                        {/* <Dropdown
+                        <Dropdown
                             name="color"
                             value={formData.color}
-                            handleChange={handleDropdown}
                             options={colorOptions}
+                            handleChange={handleChange}
                             placeholder="Color"
-                            icon={<BiColorFill />}
-                        /> */}
+                        />
                     </span>
                     <h6>Privacy</h6>
-                    {/* <Dropdown
-                        name="friend_visibility"
-                        value={formData.friend_visibility}
-                        handleChange={handleChange}
-                        options={visibilityOptions}
-                        placeholder="Friend Visibility"
-                    />
-                    <Dropdown
-                        name="group_visibility"
-                        value={formData.group_visibility}
-                        handleChange={handleChange}
-                        options={visibilityOptions}
-                        placeholder="Group Visibility"
-                    />
-                    <Dropdown
-                        name="post_visibility"
-                        value={formData.post_visibility}
-                        handleChange={handleChange}
-                        options={visibilityOptions}
-                        placeholder="Post Visibility"
-                    />
-                    <Dropdown
-                        name="interest_visibility"
-                        value={formData.interest_visibility}
-                        handleChange={handleChange}
-                        options={visibilityOptions}
-                        placeholder="Interest Visibility"
-                    />
-                    <Dropdown
-                        name="event_visibility"
-                        value={formData.event_visibility}
-                        handleChange={handleChange}
-                        options={visibilityOptions}
-                        placeholder="Event Visibility"
-                    /> */}
+                    <span>
+                        <Dropdown
+                            name="friend_visibility"
+                            value={formData.friend_visibility}
+                            options={visibilityOptions}
+                            handleChange={handleChange}
+                            placeholder="Friends"
+                        />
+                        <Dropdown
+                            name="group_visibility"
+                            value={formData.group_visibility}
+                            options={visibilityOptions}
+                            handleChange={handleChange}
+                            placeholder="Groups"
+                        />
+                    </span>
+                    <span>
+                        <Dropdown
+                            name="post_visibility"
+                            value={formData.post_visibility}
+                            options={visibilityOptions}
+                            handleChange={handleChange}
+                            placeholder="Posts"
+                        />
+                        <Dropdown
+                            name="event_visibility"
+                            value={formData.event_visibility}
+                            options={visibilityOptions}
+                            handleChange={handleChange}
+                            placeholder="Events"
+                        />
+                    </span>
                 </Form>
             </div>
         </main>

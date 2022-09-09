@@ -16,6 +16,7 @@ export const GET_MY_SETTINGS = gql`
     query {
         getMySettings {
             username
+            password
             first_name
             last_name
             theme
@@ -23,7 +24,6 @@ export const GET_MY_SETTINGS = gql`
             friend_visibility
             group_visibility
             event_visibility
-            interest_visibility
             post_visibility
         }
     }

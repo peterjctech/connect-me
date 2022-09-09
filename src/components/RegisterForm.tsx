@@ -13,14 +13,8 @@ interface RegisterFormProps {
 
 const RegisterForm = ({ closeModal, openDialog }: RegisterFormProps) => {
     const [showPassword, setShowPassword] = useState({
-        main: {
-            icon: AiFillEye,
-            show: false,
-        },
-        confirm: {
-            icon: AiFillEye,
-            show: false,
-        },
+        main: { icon: AiFillEye, show: false },
+        confirm: { icon: AiFillEye, show: false },
     });
     const { formData, handleChange } = useForm({
         firstName: "",

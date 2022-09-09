@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { AiOutlineCaretDown } from "react-icons/ai";
 
 interface Option {
@@ -9,65 +8,26 @@ interface Option {
 interface DropdownProps {
     name: string;
     value: string;
-    // handleChange: (event: React.ChangeEvent<HTMLInputElement>, name: string) => void;
-    handleChange: (props: { name: string; value: string }) => void;
     options: Option[];
     placeholder: string;
-    icon?: React.ReactElement;
+    handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const Dropdown = ({ name, value, handleChange, options, placeholder, icon }: DropdownProps) => {
-    const [show, setShow] = useState(false);
-
-    const test = () => {
-        console.log("test");
-    };
-
+const Dropdown = ({ name, value, options, handleChange, placeholder }: DropdownProps) => {
     return (
-        <div className={`dropdown${show ? "" : " hidden"}`}>
-            {icon && icon}
-            <label>{placeholder}</label>
-            <input
-                defaultValue={value}
-                name={name}
-                type="text"
-                placeholder={placeholder}
-                autoComplete="off"
-                spellCheck="false"
-                onFocus={() => setShow(true)}
-                onBlur={() => setShow(false)}
-            />
+        <div className="dropdown">
+            <label htmlFor={name}>{placeholder}</label>
             <AiOutlineCaretDown />
-            <div className="dropdown__options">
-                {show &&
-                    options.map((obj) => {
-                        return (
-                            <h6
-                                onClick={() => handleChange({ name, value: obj.value })}
-                                className="dropdown__option"
-                                key={obj.value}
-                            >
-                                {obj.label}
-                            </h6>
-                        );
-                    })}
-            </div>
+            <select name={name} value={value} onChange={handleChange}>
+                {options.map((obj) => {
+                    return (
+                        <option value={obj.value} key={obj.value}>
+                            {obj.label}
+                        </option>
+                    );
+                })}
+            </select>
         </div>
-        // <div onFocus={test} onBlur={() => setShow(false)} className={`dropdown${show ? "" : " hidden"}`}>
-        //     <h6 className="dropdown__label">{placeholder}</h6>
-        //     <h6 className="dropdown__selection">{value}</h6>
-        //     <div className="dropdown__menu">
-        //         {options.map((obj) => {
-        //             const test = { name, value: obj.value };
-        //             return (
-        //                 <div onClick={() => handleChange(test)} key={obj.value}>
-        //                     <h6 className="dropdown__option">{obj.label}</h6>
-        //                 </div>
-        //             );
-        //         })}
-        //     </div>
-        //     <AiOutlineCaretDown />
-        // </div>
     );
 };
 

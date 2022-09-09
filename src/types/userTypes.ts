@@ -14,7 +14,6 @@ export interface VisibilityPreferences {
     friends: Visibility;
     groups: Visibility;
     events: Visibility;
-    interests: Visibility;
     posts: Visibility;
 }
 
@@ -47,11 +46,11 @@ export interface MySettings {
     username: string;
     first_name: string;
     last_name: string;
+    password: string;
     theme: MainThemes;
     color: ColorThemes;
     friend_visibility: Visibility;
     group_visibility: Visibility;
     post_visibility: Visibility;
-    interest_visibility: Visibility;
     event_visibility: Visibility;
 }

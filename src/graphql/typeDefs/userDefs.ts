@@ -30,6 +30,7 @@ export default gql`
 
     type MySettings {
         username: String!
+        password: String!
         first_name: String!
         last_name: String!
         theme: MainThemes!
@@ -37,7 +38,6 @@ export default gql`
         friend_visibility: Visibility!
         group_visibility: Visibility!
         post_visibility: Visibility!
-        interest_visibility: Visibility!
         event_visibility: Visibility!
     }
 
