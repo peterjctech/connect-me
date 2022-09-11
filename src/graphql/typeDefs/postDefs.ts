@@ -17,7 +17,9 @@ export default gql`
         content: String!
         picture: String
         reactions: [ReactionSummary]!
-        reaction_count: String!
+        reaction_display: String!
+        full_reaction_list: [String]!
+        reaction_count: Int!
         recent_comments: [CommentData]!
         created_at: CreatedAt!
     }

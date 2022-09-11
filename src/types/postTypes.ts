@@ -30,6 +30,8 @@ export interface PostSummary {
         type: Reaction;
         list: string[];
     }[];
+    reaction_display: string;
+    full_reaction_list: string[];
     reaction_count: number;
     recent_comments: CommentData[];
     created_at: {

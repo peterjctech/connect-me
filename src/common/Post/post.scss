@@ -1,3 +1,66 @@
 .post {
     margin: 1rem auto;
+
+    header {
+        position: relative;
+        height: 3rem;
+
+        h6,
+        p {
+            position: absolute;
+            left: 4rem;
+        }
+
+        h6 {
+            top: 0;
+        }
+
+        p {
+            bottom: 0;
+            font-size: 0.8rem;
+        }
+
+        svg {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+
+    section {
+        margin: 1rem;
+        margin-bottom: 0;
+        padding: 1rem 0;
+        border-top: solid $neutral-4 2px;
+        border-bottom: solid $neutral-4 2px;
+    }
+
+    &__reactions {
+        margin: 0 1rem;
+        display: flex;
+        padding: 0.5rem 0;
+        border-bottom: solid $neutral-4 2px;
+    }
+
+    &__reaction-display {
+        margin-left: 0.5rem;
+        display: none;
+
+        @include breakpoint(laptop) {
+            display: block;
+        }
+    }
+
+    &__reaction-count {
+        @include breakpoint(laptop) {
+            display: none;
+        }
+    }
+
+    footer {
+        margin: 0.5rem 1rem;
+        height: 4rem;
+    }
 }

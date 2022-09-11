@@ -5,7 +5,8 @@
 
 .pfp {
     &--sm,
-    &--md {
+    &--md,
+    &--lg {
         border-radius: 50%;
         object-fit: cover;
     }
@@ -17,6 +18,12 @@
     }
 
     &--md {
+        border: solid $neutral-6 2px;
+        width: 3rem;
+        height: 3rem;
+    }
+
+    &--lg {
         border: solid $neutral-6 2px;
         width: 5rem;
         height: 5rem;

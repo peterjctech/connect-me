@@ -45,6 +45,8 @@ export const GET_PROFILE_DATA = gql`
                     type
                     list
                 }
+                reaction_display
+                full_reaction_list
                 reaction_count
                 recent_comments {
                     user_id
