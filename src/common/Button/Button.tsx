@@ -1,11 +1,12 @@
 interface ButtonProps {
     click: () => void;
     children: React.ReactNode;
+    squared?: boolean;
 }
 
-const Button = ({ click, children }: ButtonProps) => {
+const Button = ({ click, children, squared }: ButtonProps) => {
     return (
-        <button onClick={click} className="button">
+        <button onClick={click} className={`button${squared ? " squared" : ""}`}>
             {children}
         </button>
     );

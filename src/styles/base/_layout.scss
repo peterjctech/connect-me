@@ -47,7 +47,7 @@
 main {
     position: relative;
     top: 4rem;
-    padding: 1rem 1rem 5rem 1rem;
+    padding-bottom: 4rem;
     min-height: calc(100vh - 8rem);
 
     @include breakpoint(tablet) {

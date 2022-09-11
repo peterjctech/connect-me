@@ -294,7 +294,7 @@ export const seedDatabase = async () => {
         password: hackermanPassword,
         first_name: "John",
         last_name: "Cena",
-        profile_picture: "/default-profile-picture.jpg",
+        profile_picture: "",
         join_timestamp: dates.last_week,
         friends: [
             {
@@ -325,7 +325,7 @@ export const seedDatabase = async () => {
         password: adminPassword,
         first_name: "smiley",
         last_name: "face",
-        profile_picture: "/default-profile-picture.jpg",
+        profile_picture: "",
         join_timestamp: dates.yesterday,
         friends: [
             {

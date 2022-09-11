@@ -4,7 +4,7 @@ import { reactionEnum, CommentModelSlice } from "./modelUtils";
 
 const PostSchema = new Schema({
     author: { type: Types.ObjectId, required: true, ref: "User" },
-    content: String,
+    content: { type: String, required: true },
     picture: String,
     reactions: [
         {

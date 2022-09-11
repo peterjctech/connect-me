@@ -18,6 +18,7 @@
         "paths": {
             "@assets": ["./assets"],
             "@database": ["./database"],
+            "@domain": ["./domain"],
             "@models": ["./models"],
             "@layouts": ["./layouts"],
             "@utils": ["./utils"],
@@ -28,6 +29,7 @@
             "@types": ["./types"],
             "@hooks": ["./hooks"],
             "@components": ["./components"],
+            "@validators": ["./validators"],
             "@store": ["./store"]
         }
     },

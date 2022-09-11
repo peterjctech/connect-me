@@ -6,7 +6,7 @@ export default function (req: NextRequest) {
     const isPublicFile = PUBLIC_FILE.test(req.nextUrl.pathname);
     const isHome = req.nextUrl.pathname === "/";
 
-    if (isPublicFile || req.nextUrl.pathname === "/api/graphql") {
+    if (isPublicFile || req.nextUrl.pathname.startsWith("/api")) {
         return NextResponse.next();
     } else if (!cookie && !isHome) {
         return NextResponse.redirect(new URL("/", req.url));

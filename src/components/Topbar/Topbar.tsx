@@ -32,11 +32,7 @@ const Topbar = () => {
                 <div>
                     <IoMailSharp />
                 </div>
-                <img
-                    src={userStore.profile_picture ? userStore.profile_picture : "/profile-picture.jpg"}
-                    onClick={() => router.push("/dashboard")}
-                    className="profile-picture-sm"
-                />
+                <img src={userStore.profile_picture} onClick={() => router.push("/dashboard")} className="pfp--sm" />
             </section>
         </div>
     );

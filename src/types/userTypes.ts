@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import { ColorThemes, Visibility, MainThemes } from "./enumTypes";
+import { PostSummary } from "./postTypes";
 import { Notification } from "./miscTypes";
 
 export interface VisibilityPreferences {
@@ -68,4 +69,15 @@ export interface UpdateUserSettingsProps extends UserSettingsBase {
     new_password: string;
     confirm_new_password: string;
     old_password: string;
+}
+
+export interface ProfileData {
+    join_date: string;
+    friend_count: string;
+    posts: PostSummary[];
+}
+
+export interface FriendBase {
+    friendship_timestamp: number;
+    user: UserModel;
 }

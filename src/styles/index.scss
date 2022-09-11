@@ -7,13 +7,16 @@
 @import "./base/themes";
 @import "./base/helpers";
 
-@import "../common/Input/input.scss";
-@import "../common/Button/button.scss";
-@import "../common/Form/form.scss";
-@import "../common/Modal/modal.scss";
-@import "../common/Dialog/dialog.scss";
-@import "../common/Dropdown/dropdown.scss";
+@import "../common/Input/input";
+@import "../common/Button/button";
+@import "../common/Form/form";
+@import "../common/Modal/modal";
+@import "../common/Dialog/dialog";
+@import "../common/Dropdown/dropdown";
+@import "../common/Header/header";
+@import "../common/Tabs/tabs";
+@import "../common/Post/post";
 
-@import "../components/Topbar/topbar.scss";
-@import "../components/Navbar/navbar.scss";
-@import "../components/Rightbar/rightbar.scss";
+@import "../components/Topbar/topbar";
+@import "../components/Navbar/navbar";
+@import "../components/Rightbar/rightbar";

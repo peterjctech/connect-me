@@ -1,6 +1,7 @@
 import { gql } from "apollo-server-micro";
 
 export default gql`
+    # Helpers
     enum MainThemes {
         Light
         Void
@@ -20,6 +21,7 @@ export default gql`
         Nobody
     }
 
+    # Responses
     type UserStoreData {
         user_id: ID!
         full_name: String!
@@ -40,9 +42,17 @@ export default gql`
         event_visibility: Visibility!
     }
 
+    type ProfileData {
+        join_date: String!
+        friend_count: String!
+        posts: [PostSummary]!
+    }
+
+    # Main
     type Query {
         initializeStore: UserStoreData
         getMySettings: MySettings
+        getProfileData(id: ID): ProfileData
     }
 
     type Mutation {
