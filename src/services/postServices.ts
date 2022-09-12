@@ -48,6 +48,7 @@ export const getPostSummary = (post: PostBase, myId: string) => {
         full_reaction_list: tooltip,
         reaction_count: count,
         recent_comments,
+        comment_count: post.comments.length,
         created_at: {
             absolute: formatTimestamp(post.created_timestamp, "absolute"),
             relative: formatTimestamp(post.created_timestamp, "relative"),

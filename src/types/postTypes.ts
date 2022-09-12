@@ -34,6 +34,7 @@ export interface PostSummary {
     full_reaction_list: string[];
     reaction_count: number;
     recent_comments: CommentData[];
+    comment_count: number;
     created_at: {
         relative: string;
         absolute: string;

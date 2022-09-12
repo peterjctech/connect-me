@@ -1,0 +1,32 @@
+.comment {
+    display: flex;
+
+    img {
+        border-radius: 50%;
+        border: solid $neutral-6 1px;
+        object-fit: cover;
+        margin: 0.5rem;
+        width: 4rem;
+        height: 4rem;
+    }
+
+    section {
+        > * {
+            margin: 0.2rem;
+        }
+    }
+
+    &__footer {
+        display: flex;
+
+        > * {
+            margin-right: 0.5rem;
+        }
+
+        svg {
+            position: relative;
+            top: 0.1rem;
+            margin-right: 0.2rem;
+        }
+    }
+}

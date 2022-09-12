@@ -8,6 +8,7 @@ import Header from "./Header/Header";
 import Tabs from "./Tabs/Tabs";
 import Post from "./Post/Post";
 import Outline from "./Outline/Outline";
+import Comment from "./Comment/Comment";
 
 import EventList from "./lists/EventList/EventList";
 import GroupList from "./lists/GroupList/GroupList";
@@ -29,4 +30,5 @@ export {
     UserList,
     Post,
     Outline,
+    Comment,
 };

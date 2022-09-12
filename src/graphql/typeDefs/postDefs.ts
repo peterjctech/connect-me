@@ -21,6 +21,7 @@ export default gql`
         full_reaction_list: [String]!
         reaction_count: Int!
         recent_comments: [CommentData]!
+        comment_count: Int!
         created_at: CreatedAt!
     }
 `;

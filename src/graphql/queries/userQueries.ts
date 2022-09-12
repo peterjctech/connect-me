@@ -60,6 +60,7 @@ export const GET_PROFILE_DATA = gql`
                         absolute
                     }
                 }
+                comment_count
                 created_at {
                     relative
                     absolute

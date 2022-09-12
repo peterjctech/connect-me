@@ -1,3 +1,113 @@
 .outline {
     margin-top: 1rem;
+
+    > header {
+        position: relative;
+        height: 3rem;
+
+        h6,
+        p {
+            position: absolute;
+            left: 4rem;
+        }
+
+        h6 {
+            top: 0;
+        }
+
+        p {
+            bottom: 0;
+            font-size: 0.8rem;
+        }
+
+        svg {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+
+    > section {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+
+        img {
+            width: 100%;
+            max-width: 30rem;
+            margin: 2rem auto 1rem auto;
+        }
+    }
+
+    &__r-display {
+        display: none;
+        margin-left: 0.5rem;
+
+        @include breakpoint(laptop) {
+            display: block;
+        }
+    }
+
+    &__r-count {
+        margin-left: 0.5rem;
+
+        @include breakpoint(laptop) {
+            display: none;
+        }
+    }
+
+    &__view-more {
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    &__expand {
+        text-align: center;
+        padding: 0.5rem;
+    }
+
+    hr {
+        border: solid $neutral-4 1px;
+        margin: 0.5rem 0;
+    }
+
+    > footer {
+        display: flex;
+
+        svg {
+            margin-left: 0.2rem;
+        }
+    }
+
+    &__like {
+        margin-inline-start: auto;
+    }
+
+    span {
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+}
+
+.app--void .outline .comment {
+    &:nth-child(even) {
+        background-color: lighten($color: $void, $amount: 5%);
+    }
+}
+.app--dark .outline .comment {
+    &:nth-child(even) {
+        background-color: $neutral-6;
+    }
+}
+.app--light .outline {
+    .comment {
+        &:nth-child(even) {
+            background-color: $neutral-1;
+        }
+    }
+
+    hr {
+        border-color: $neutral-3;
+    }
 }

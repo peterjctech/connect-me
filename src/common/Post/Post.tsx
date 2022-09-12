@@ -1,9 +1,4 @@
-import { PostSummary, Reaction, CommentData } from "@types";
-import { AiFillHeart, AiFillLike } from "react-icons/ai";
-import { BsEmojiAngry } from "react-icons/bs";
-import { ImShocked } from "react-icons/im";
-import { FaRegSadCry } from "react-icons/fa";
-import { HiPencil } from "react-icons/hi";
+import { PostSummary } from "@types";
 import { Outline } from "@common";
 
 interface PostProps {
@@ -14,9 +9,11 @@ const Post = ({ post }: PostProps) => {
     return (
         <Outline
             image={post.profile_picture}
-            text={post.content}
             heading={post.author}
             datetime={{ relative: post.created_at.relative, absolute: post.created_at.absolute }}
+            reactions={{ all: post.reactions, count: post.reaction_count, display: post.reaction_display }}
+            comments={{ all: post.recent_comments, count: post.comment_count }}
+            canEdit={post.is_mine}
         >
             <p>{post.content}</p>
             <img src="/profile-picture.jpg" />
