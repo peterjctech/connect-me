@@ -7,6 +7,7 @@ import Dropdown from "./Dropdown/Dropdown";
 import Header from "./Header/Header";
 import Tabs from "./Tabs/Tabs";
 import Post from "./Post/Post";
+import Outline from "./Outline/Outline";
 
 import EventList from "./lists/EventList/EventList";
 import GroupList from "./lists/GroupList/GroupList";
@@ -27,4 +28,5 @@ export {
     InterestList,
     UserList,
     Post,
+    Outline,
 };
