@@ -54,7 +54,6 @@ const userSlice = createSlice({
         },
         updateUserStore: (state, action) => {
             const args = action.payload;
-            console.log(args);
             if (args.user_id || args.user_id === "") state.user_id = args.user_id;
             if (args.full_name || args.full_name === "") state.full_name = args.full_name;
             if (args.profile_picture || args.profile_picture === "") state.profile_picture = args.profile_picture;

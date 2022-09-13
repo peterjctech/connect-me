@@ -1,9 +1,8 @@
-import { Types } from "mongoose";
 import { FaThumbsUp } from "react-icons/fa";
 
 interface CommentProps {
     author: {
-        id: Types.ObjectId;
+        id: string;
         name: string;
         picture: string;
     };

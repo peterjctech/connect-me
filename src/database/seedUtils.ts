@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 import {
     PostModel,
     Color,
-    Visibility,
+    VisibilityPreference,
     JoinRestriction,
     EventMemberStatus,
     Reaction,
@@ -31,7 +31,7 @@ export const selectRandomColor = (): Color => {
     ]);
 };
 
-export const selectRandomPreference = (): Visibility => {
+export const selectRandomPreference = (): VisibilityPreference => {
     return faker.helpers.arrayElement(["Nobody", "Friends", "Everyone"]);
 };
 
@@ -44,7 +44,7 @@ export const selectRandomEventStatus = (): EventMemberStatus => {
 };
 
 export const selectRandomReaction = (): Reaction => {
-    return faker.helpers.arrayElement(["Like", "Love", "Sad", "Wow", "Angry"]);
+    return faker.helpers.arrayElement(["Like", "Love", "Sad", "Wow", "Angry", "Haha"]);
 };
 
 export const selectRandomGroupStatus = (): GroupStatus => {
@@ -107,6 +107,7 @@ export const createPost = (props: CreatePostProps) => {
                 is_edited: 0.1 > Math.random() ? true : false,
             };
         }),
+        tags: [],
         created_timestamp: props.postCreationDate,
         is_edited: 0.1 > Math.random() ? true : false,
     };

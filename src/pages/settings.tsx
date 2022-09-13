@@ -60,7 +60,7 @@ const SettingsPage = () => {
             const { theme, color, first_name, last_name } = data.updateUserSettings;
             setFormData({ ...data.updateUserSettings, new_password: "", confirm_new_password: "", old_password: "" });
             dispatch(updateUserStore({ theme, color, full_name: `${first_name} ${last_name}` }));
-            console.log(userStore);
+            openDialog("Your settings have been updated!", "info");
         } catch (error: any) {
             const handledErrors = error.graphQLErrors;
             const errorMessage = handledErrors[0] ? handledErrors[0].message : "An unexpected error has occurred";

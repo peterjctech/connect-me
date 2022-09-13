@@ -28,44 +28,36 @@ export const GET_MY_SETTINGS = gql`
     }
 `;
 
-export const GET_PROFILE_DATA = gql`
+export const GET_USER_DATA = gql`
     query ($id: ID) {
-        getProfileData(id: $id) {
+        getUserData(id: $id) {
+            user_id
+            full_name
+            profile_picture
+            mutual_friend_count
+            friendship_date
             join_date
             friend_count
-            posts {
-                post_id
-                author_id
-                author
-                profile_picture
-                is_mine
-                content
-                picture
-                reactions {
-                    type
-                    list
-                }
-                reaction_display
-                full_reaction_list
-                reaction_count
-                recent_comments {
-                    user_id
-                    full_name
-                    profile_picture
-                    content
-                    like_count
-                    like_list
-                    created_at {
-                        relative
-                        absolute
-                    }
-                }
-                comment_count
-                created_at {
-                    relative
-                    absolute
-                }
-            }
+        }
+    }
+`;
+
+export const GET_USER_FRIENDS = gql`
+    query ($id: ID) {
+        getUserFriends(id: $id) {
+            user_id
+            full_name
+            profile_picture
+            mutual_friend_count
+            friendship_date
+        }
+    }
+`;
+
+export const TEST = gql`
+    query {
+        test {
+            message
         }
     }
 `;

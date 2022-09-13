@@ -13,3 +13,22 @@ export interface ConversationModel {
         timestamp: number;
     }[];
 }
+export interface ConversationSummary {
+    convo_id: string;
+    title: string;
+    is_read: boolean;
+    last_message?: {
+        name: string;
+        message: string;
+        time: string;
+        profile_picture: string;
+    };
+}
+export interface CreateConversationProps {
+    members: string[];
+}
+export interface UpdateConversationSettingsProps {
+    convoId: string;
+    title: string;
+    members: string[];
+}

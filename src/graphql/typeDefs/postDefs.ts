@@ -1,27 +1,23 @@
 import { gql } from "apollo-server-micro";
 
 export default gql`
-    # Helpers
-    type ReactionSummary {
-        type: Reaction!
-        list: [String]!
-    }
-
     # Responses
-    type PostSummary {
-        post_id: ID!
-        author_id: ID!
-        author: String!
+    type PostData {
+        post_id: String!
+        author_id: String!
+        group_id: String
         profile_picture: String!
         is_mine: Boolean!
+        author: String!
         content: String!
         picture: String
         reactions: [ReactionSummary]!
-        reaction_display: String!
+        reaction_display: ReactionDisplay!
         full_reaction_list: [String]!
-        reaction_count: Int!
         recent_comments: [CommentData]!
         comment_count: Int!
         created_at: CreatedAt!
+        is_edited: Boolean!
+        tags: [TagSummary]!
     }
 `;

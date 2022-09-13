@@ -1,12 +1,11 @@
-import { Types } from "mongoose";
 import { ColorThemes, MainThemes } from "./enumTypes";
 
 export interface UserStoreData {
-    user_id: string | Types.ObjectId;
+    user_id: string;
     full_name: string;
     profile_picture: string;
-    theme: MainThemes | "";
-    color: ColorThemes | "";
+    theme: MainThemes;
+    color: ColorThemes;
 }
 
 export interface UserStoreInterface extends UserStoreData {

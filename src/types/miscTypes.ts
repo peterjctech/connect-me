@@ -1,17 +1,17 @@
 import { Types } from "mongoose";
 import { Reaction } from "./enumTypes";
+import { ListAndCount, CreatedAt } from "./helperTypes";
 import { UserModel } from "./userTypes";
 
-export interface Notification {
-    id: string;
-    title: string;
-    message: string;
-    ref_id: Types.ObjectId;
-    ref_model: "User" | "Group" | "Post" | "Event" | "Comment";
-    timestamp: number;
-    is_read: boolean;
+export interface ReactionModel {
+    user: Types.ObjectId;
+    reaction: Reaction;
+    reaction_timestamp: number;
 }
-
+export interface ReactionDisplay {
+    standard: number;
+    extended: string;
+}
 export interface CommentModel {
     id: string;
     author: Types.ObjectId;
@@ -20,21 +20,21 @@ export interface CommentModel {
     created_timestamp: number;
     is_edited: boolean;
 }
-
-export interface Comment {
-    author: {
-        id: Types.ObjectId;
-        full_name: string;
-        profile_picture: string;
-    };
+export interface ReactionSummary {
+    type: Reaction;
+    list: string[];
+}
+export interface CommentData {
+    user_id: string;
+    full_name: string;
+    profile_picture: string;
     content: string;
-    like_count: number;
-    time_summary: string;
-    created_at: string;
-    is_edited: boolean;
+    likes: ListAndCount;
+    created_at: CreatedAt;
 }
 
-export interface CommentBase {
+// Populated
+export interface PopulatedCommentModel {
     id: string;
     author: UserModel;
     content: string;
@@ -42,27 +42,8 @@ export interface CommentBase {
     created_timestamp: number;
     is_edited: boolean;
 }
-
-export interface CommentData {
-    user_id: Types.ObjectId;
-    full_name: string;
-    profile_picture: string;
-    content: string;
-    like_count: number;
-    like_list: string[];
-    created_at: {
-        relative: string;
-        absolute: string;
-    };
-}
-
-export interface ReactionData {
-    user_id: Types.ObjectId;
-    full_name: string;
+export interface PopulatedReactionModel {
+    user: UserModel;
     reaction: Reaction;
-    is_friend: boolean;
-}
-
-export interface Message {
-    message: string;
+    reaction_timestamp: number;
 }

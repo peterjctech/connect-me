@@ -1,5 +1,5 @@
 import { Form, Input, Dropdown } from "@common";
-import { MainThemes, ColorThemes, Visibility } from "@types";
+import { MainThemes, ColorThemes, VisibilityPreference } from "@types";
 import { usePassword } from "@hooks";
 
 interface SettingsFormProps {
@@ -18,7 +18,7 @@ const SettingsForm = ({ toggleModal, formData, handleChange }: SettingsFormProps
 
     const themes: MainThemes[] = ["Light", "Void", "Dark"];
     const colors: ColorThemes[] = ["Red", "Blue", "Green", "Purple"];
-    const visibility: Visibility[] = ["Everyone", "Friends", "Nobody"];
+    const visibility: VisibilityPreference[] = ["Everyone", "Friends", "Nobody"];
 
     const themeOptions = formatOptions(themes);
     const colorOptions = formatOptions(colors);

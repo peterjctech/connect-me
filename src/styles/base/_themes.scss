@@ -1,6 +1,7 @@
 .app--light {
     .navbar,
-    .rightbar {
+    .rightbar,
+    .card {
         background-color: darken($neutral-2, 5%);
         color: $neutral-6;
     }
@@ -22,7 +23,8 @@
 
 .app--void {
     .navbar,
-    .rightbar {
+    .rightbar,
+    .card {
         background-color: darken($void, 5%);
         color: $neutral-2;
     }
@@ -48,7 +50,8 @@
 
 .app--dark {
     .navbar,
-    .rightbar {
+    .rightbar,
+    .card {
         background-color: $neutral-6;
         color: $neutral-1;
     }

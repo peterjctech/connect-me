@@ -7,18 +7,19 @@
 @import "./base/themes";
 @import "./base/helpers";
 
-@import "../common/Input/input";
 @import "../common/Button/button";
-@import "../common/Form/form";
-@import "../common/Modal/modal";
+@import "../common/Card/card";
 @import "../common/Dialog/dialog";
 @import "../common/Dropdown/dropdown";
+@import "../common/Form/form";
 @import "../common/Header/header";
-@import "../common/Tabs/tabs";
-@import "../common/Post/post";
+@import "../common/Input/input";
+@import "../common/Modal/modal";
 @import "../common/Outline/outline";
-@import "../common/Comment/comment";
+@import "../common/Tabs/tabs";
 
+@import "../components/Post/post";
+@import "../components/Comment/comment";
 @import "../components/Topbar/topbar";
 @import "../components/Navbar/navbar";
 @import "../components/Rightbar/rightbar";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { LoginForm, RegisterForm } from "@components";
+import { LoginForm, RegisterForm } from "@domain";
 import { useDialog } from "@hooks";
 import { Dialog } from "@common";
 

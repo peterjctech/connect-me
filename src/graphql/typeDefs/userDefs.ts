@@ -7,54 +7,62 @@ export default gql`
         Void
         Dark
     }
-
     enum ColorThemes {
         Blue
         Green
         Purple
         Red
     }
-
-    enum Visibility {
+    enum VisibilityPreference {
         Everyone
         Friends
         Nobody
     }
 
     # Responses
-    type UserStoreData {
-        user_id: ID!
-        full_name: String!
-        profile_picture: String!
-        theme: MainThemes!
-        color: ColorThemes!
-    }
-
     type MySettings {
         username: String!
         first_name: String!
         last_name: String!
         theme: MainThemes!
         color: ColorThemes!
-        friend_visibility: Visibility!
-        group_visibility: Visibility!
-        post_visibility: Visibility!
-        event_visibility: Visibility!
+        friend_visibility: VisibilityPreference!
+        group_visibility: VisibilityPreference!
+        post_visibility: VisibilityPreference!
+        event_visibility: VisibilityPreference!
     }
-
-    type ProfileData {
+    type UserStoreData {
+        user_id: String!
+        full_name: String!
+        profile_picture: String!
+        theme: MainThemes!
+        color: ColorThemes!
+    }
+    type UserSummary {
+        user_id: String!
+        full_name: String!
+        profile_picture: String!
+        mutual_friend_count: Int
+        friendship_date: String
+    }
+    type UserData {
+        user_id: String!
+        full_name: String!
+        profile_picture: String!
         join_date: String!
-        friend_count: String!
-        posts: [PostSummary]!
+        mutual_friend_count: Int
+        friendship_date: String
+        friend_count: Int
     }
 
     # Main
     type Query {
         initializeStore: UserStoreData
         getMySettings: MySettings
-        getProfileData(id: ID): ProfileData
+        getUserData(id: ID): UserData
+        getUserFriends(id: ID): [UserSummary]!
+        test: Message
     }
-
     type Mutation {
         registerUser(
             firstName: String

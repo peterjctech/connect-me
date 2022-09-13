@@ -1,20 +1,17 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
-import { PostSummary, ProfileData, StoreInterface } from "@types";
-import { client } from "@utils";
-import { useDialog } from "@hooks";
-import { Dialog } from "@common";
-import { Header, Tabs, InterestList, UserList, EventList, GroupList, Post } from "@common";
-import { GET_PROFILE_DATA } from "@queries";
+import { PostData, UserData, StoreInterface } from "@types";
+import { Header, Tabs } from "@common";
+import { InterestList, UserList, EventList, GroupList, Post } from "@components";
+import { GET_USER_DATA } from "@queries";
 import { useQuery } from "@apollo/client";
 import { Loading } from "@components";
-import { current } from "@reduxjs/toolkit";
 
 const DashboardPage = () => {
     const tabList = ["Posts", "Friends", "Groups", "Events", "Interests"];
     const userStore = useSelector((store: StoreInterface) => store.user);
-    const { loading, data } = useQuery(GET_PROFILE_DATA);
+    const { loading, data } = useQuery(GET_USER_DATA);
     const [currentTab, setCurrentTab] = useState(tabList[0]);
     const [showModal, setShowModal] = useState(false);
 
@@ -24,7 +21,7 @@ const DashboardPage = () => {
         return <Loading />;
     }
 
-    const res = data.getProfileData;
+    const res = data.getUserData;
     console.log(res);
 
     return (
@@ -39,15 +36,15 @@ const DashboardPage = () => {
                 subText={res.friend_count}
             />
             <Tabs tabs={tabList} changeTab={(tab: string) => setCurrentTab(tab)} currentTab={currentTab} />
-            {currentTab === "Posts" && <Post post={res.posts[0]} />}
-            {/* {currentTab === "Posts" &&
-                res.posts.map((post: PostSummary, index: number) => {
-                    return <Post post={post} key={index} />;
-                })} */}
-            {currentTab === "Interests" && <InterestList />}
-            {currentTab === "Groups" && <GroupList />}
-            {currentTab === "Friends" && <UserList />}
+            {currentTab === "Posts" && <Post />}
+            {currentTab === "Friends" && (
+                <UserList title={`${userStore.full_name}'s friends`} userId={userStore.user_id} />
+            )}
+            {currentTab === "Groups" && (
+                <GroupList userId={userStore.user_id} title={`${userStore.full_name}'s groups`} />
+            )}
             {currentTab === "Events" && <EventList />}
+            {currentTab === "Interests" && <InterestList />}
         </main>
     );
 };

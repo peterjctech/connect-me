@@ -1,15 +1,9 @@
 import { Types } from "mongoose";
-import { ColorThemes, Visibility, MainThemes } from "./enumTypes";
-import { PostSummary } from "./postTypes";
-import { Notification } from "./miscTypes";
+import { MainThemes, ColorThemes, VisibilityPreference } from "./enumTypes";
+import { ListAndCount } from "./helperTypes";
+import { PostData } from "./postTypes";
 
-export interface VisibilityPreferences {
-    friends: Visibility;
-    groups: Visibility;
-    events: Visibility;
-    posts: Visibility;
-}
-
+// Main
 export interface UserModel {
     _id: Types.ObjectId;
     username: string;
@@ -18,23 +12,40 @@ export interface UserModel {
     last_name: string;
     profile_picture: string;
     join_timestamp: number;
-    friends: {
-        user: Types.ObjectId;
-        friendship_timestamp: number;
-    }[];
+    friends: Friend[];
     groups: Types.ObjectId[];
     posts: Types.ObjectId[];
-    interests: Types.ObjectId[];
+    tags: Types.ObjectId[];
     events: Types.ObjectId[];
     conversations: Types.ObjectId[];
     notifications: Notification[];
     preferences: {
         theme: MainThemes;
         color: ColorThemes;
-        visibility: VisibilityPreferences;
+        visibility: UserVisibility;
     };
 }
-
+export interface UserModalList {
+    user_id: string;
+    full_name: string;
+    profile_picture: string;
+    mutual_friends?: ListAndCount;
+    is_friend: boolean;
+}
+export interface UserSummary {
+    user_id: string;
+    full_name: string;
+    profile_picture: string;
+    mutual_friends?: ListAndCount;
+}
+export interface UserData {
+    user_id: string;
+    full_name: string;
+    profile_picture: string;
+    join_date: string;
+    mutual_friends?: ListAndCount;
+    friendship_date?: string;
+}
 export interface RegisterUserProps {
     firstName: string;
     lastName: string;
@@ -42,42 +53,33 @@ export interface RegisterUserProps {
     password: string;
     confirmPassword: string;
 }
-
 export interface LoginUserProps {
     username: string;
     password: string;
 }
-
-export interface UserSettingsBase {
+export interface UpdateUserSettingsProps {
     username: string;
     first_name: string;
     last_name: string;
     theme: MainThemes;
     color: ColorThemes;
-    friend_visibility: Visibility;
-    group_visibility: Visibility;
-    post_visibility: Visibility;
-    event_visibility: Visibility;
-}
-
-export interface UserSettings extends UserSettingsBase {
-    password: string;
-    confirm_password: string;
-}
-
-export interface UpdateUserSettingsProps extends UserSettingsBase {
+    friend_visibility: VisibilityPreference;
+    group_visibility: VisibilityPreference;
+    post_visibility: VisibilityPreference;
+    event_visibility: VisibilityPreference;
     new_password: string;
     confirm_new_password: string;
     old_password: string;
 }
 
-export interface ProfileData {
-    join_date: string;
-    friend_count: string;
-    posts: PostSummary[];
+// Helpers
+export interface UserVisibility {
+    friends: VisibilityPreference;
+    groups: VisibilityPreference;
+    events: VisibilityPreference;
+    posts: VisibilityPreference;
 }
-
-export interface FriendBase {
+export interface Friend {
+    user: Types.ObjectId;
     friendship_timestamp: number;
-    user: UserModel;
 }

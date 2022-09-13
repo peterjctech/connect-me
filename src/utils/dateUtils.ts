@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 dayjs.extend(advancedFormat);
 
-export const formatTimestamp = (timestamp: number, format: "date" | "absolute" | "relative") => {
+export const formatTimestamp = (timestamp: number, format: "date" | "shortdate" | "absolute" | "relative") => {
     switch (format) {
         case "absolute":
             const dateObj = dayjs.unix(timestamp);
@@ -19,5 +19,7 @@ export const formatTimestamp = (timestamp: number, format: "date" | "absolute" |
             return `${dayjs().year() - dayjs.unix(timestamp).year()}y`;
         case "date":
             return dayjs.unix(timestamp).format("MMMM Do, YYYY");
+        case "shortdate":
+            return dayjs.unix(timestamp).format("MM/DD/YYYY");
     }
 };

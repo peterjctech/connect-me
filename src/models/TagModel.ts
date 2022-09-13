@@ -1,11 +1,13 @@
 import { model, models, Schema, Types } from "mongoose";
-import { colorEnum } from "./modelUtils";
+import { colorEnum } from "@utils";
 
-const InterestSchema = new Schema({
+const TagSchema = new Schema({
     name: { type: String, required: true },
     color: { type: String, required: true, enum: colorEnum },
     user_list: [{ type: Types.ObjectId, ref: "User" }],
+    post_list: [{ type: Types.ObjectId, ref: "Post" }],
+    event_list: [{ type: Types.ObjectId, ref: "Event" }],
     group_list: [{ type: Types.ObjectId, ref: "Group" }],
 });
 
-export const Interest = models.Interest || model("Interest", InterestSchema);
+export const Tag = models.Tag || model("Tag", TagSchema);

@@ -1,9 +1,8 @@
-import { Reaction, CommentData } from "@types";
-import { Comment } from "@common";
-import { FaThumbsUp, FaSurprise, FaSadCry } from "react-icons/fa";
+import { FaThumbsUp } from "react-icons/fa";
 import { HiPencil } from "react-icons/hi";
-import { BsFillHandThumbsUpFill, BsFillEmojiAngryFill } from "react-icons/bs";
-import { AiFillHeart } from "react-icons/ai";
+
+import { Comment } from "@components";
+import { Reaction, CommentData } from "@types";
 
 interface OutlineProps {
     image: string;
@@ -19,8 +18,10 @@ interface OutlineProps {
             type: Reaction;
             list: string[];
         }[];
-        count: number;
-        display: string;
+        display: {
+            standard: number;
+            extended: string;
+        };
     };
     comments?: {
         all: CommentData[];
@@ -32,9 +33,10 @@ const Outline = ({ image, heading, datetime, children, reactions, comments, canE
     const htmlEmojis = {
         Like: <span key="Like">&#128077;</span>,
         Love: <span key="Love">&#10084;&#65039;</span>,
-        Angry: <span key="Angry">&#x1F621;</span>,
+        Angry: <span key="Angry">&#128122;</span>,
         Wow: <span key="Wow">&#128562;</span>,
         Sad: <span key="Sad">&#128546;</span>,
+        Haha: <span key="Sad">&#128514;</span>,
     };
 
     return (
@@ -52,8 +54,8 @@ const Outline = ({ image, heading, datetime, children, reactions, comments, canE
                 <>
                     <footer>
                         {reactions.all.map((reaction) => htmlEmojis[reaction.type])}
-                        <span className="outline__r-display">{reactions.display}</span>
-                        <span className="outline__r-count">{reactions.count}</span>
+                        <span className="outline__r-display">{reactions.display.extended}</span>
+                        <span className="outline__r-count">{reactions.display.standard}</span>
                         <div className="outline__like">React {<FaThumbsUp />}</div>
                     </footer>
                     <hr />
@@ -70,7 +72,7 @@ const Outline = ({ image, heading, datetime, children, reactions, comments, canE
                                     name: obj.full_name,
                                     picture: obj.profile_picture,
                                 }}
-                                likes={{ count: obj.like_count, list: obj.like_list }}
+                                likes={obj.likes}
                                 createdAt={obj.created_at}
                                 key={index}
                             >

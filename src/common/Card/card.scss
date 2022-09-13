@@ -1,0 +1,21 @@
+.card {
+    width: 12rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    img {
+        width: 12rem;
+        height: 12rem;
+        object-fit: cover;
+    }
+
+    &__content {
+        min-height: 4rem;
+        padding: 0.5rem;
+    }
+
+    p {
+        font-size: 0.8rem;
+    }
+}

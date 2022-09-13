@@ -3,23 +3,6 @@ import dayjs from "dayjs";
 import { User } from "@models";
 import { RegisterUserProps, UpdateUserSettingsProps, UserModel } from "@types";
 
-interface NewSettings {
-    username: string;
-    password?: string;
-    first_name: string;
-    last_name: string;
-    preferences: {
-        theme: string;
-        color: string;
-        visibility: {
-            friends: string;
-            groups: string;
-            posts: string;
-            events: string;
-        };
-    };
-}
-
 export const validateUserRegistration = async (props: RegisterUserProps) => {
     const { firstName, lastName, username, password, confirmPassword } = props;
 
@@ -44,6 +27,23 @@ export const validateUserRegistration = async (props: RegisterUserProps) => {
 };
 
 export const validateUpdateSettings = async (props: UpdateUserSettingsProps, oldUser: UserModel) => {
+    interface NewSettings {
+        username: string;
+        password?: string;
+        first_name: string;
+        last_name: string;
+        preferences: {
+            theme: string;
+            color: string;
+            visibility: {
+                friends: string;
+                groups: string;
+                posts: string;
+                events: string;
+            };
+        };
+    }
+
     const { username, new_password, confirm_new_password, old_password, first_name, last_name } = props;
 
     if (!old_password) throw new Error("You must enter your old password to update your settings.");

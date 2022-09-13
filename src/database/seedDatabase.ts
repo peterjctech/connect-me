@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { faker } from "@faker-js/faker";
 import { v4 as uuidv4 } from "uuid";
-import { ConversationModel, EventModel, GroupModel, GroupStatus, InterestModel, PostModel, UserModel } from "@types";
+import { ConversationModel, EventModel, GroupModel, GroupStatus, TagModel, PostModel, UserModel } from "@types";
 import { Types } from "mongoose";
 import {
     getId,
@@ -18,7 +18,8 @@ import {
     createPost,
 } from "./seedUtils";
 import bcrypt from "bcrypt";
-import { User, Conversation, Event, Group, Interest, Post } from "@models";
+import { User, Conversation, Event, Group, Tag, Post } from "@models";
+import { variables } from "@utils";
 
 export const seedDatabase = async () => {
     const dates = {
@@ -33,14 +34,16 @@ export const seedDatabase = async () => {
 
     const posts: PostModel[] = [];
 
-    // Create 25 interests
-    let interests: InterestModel[] = faker.helpers.uniqueArray(faker.random.word, 25).map((word) => {
+    // Create 25 tags
+    let tags: TagModel[] = faker.helpers.uniqueArray(faker.random.word, 25).map((word) => {
         return {
             _id: getId(),
             name: word,
             color: selectRandomColor(),
             user_list: [],
             group_list: [],
+            event_list: [],
+            post_list: [],
         };
     });
 
@@ -57,7 +60,7 @@ export const seedDatabase = async () => {
             friends: [],
             groups: [],
             posts: [],
-            interests: [],
+            tags: [],
             events: [],
             conversations: [],
             notifications: [],
@@ -95,17 +98,17 @@ export const seedDatabase = async () => {
         });
     });
 
-    // Add interests to users, and users to interests
+    // Add tags to users, and users to tags
     users.forEach((user, index) => {
-        const userInterests = cutArray({ array: interests, range: [0, 4] }).map((obj) => obj._id);
+        const userInterests = cutArray({ array: tags, range: [0, 4] }).map((obj) => obj._id);
 
-        interests.forEach((obj, i) => {
+        tags.forEach((obj, i) => {
             if (userInterests.includes(obj._id)) {
-                interests[i].user_list.push(user._id);
+                tags[i].user_list.push(user._id);
             }
         });
 
-        users[index].interests = userInterests;
+        users[index].tags = userInterests;
     });
 
     // Add 10 groups, populate with members, and add groups to users
@@ -149,7 +152,7 @@ export const seedDatabase = async () => {
             group_image: "https://loremflickr.com/640/480/abstract",
             join_restriction: selectRandomJoinRestriction(),
             users: groupUsers,
-            interests: cutArray({ array: interests, range: [1, 3] }).map((obj) => obj._id),
+            tags: cutArray({ array: tags, range: [1, 3] }).map((obj) => obj._id),
             events: [],
             posts: [],
             created_timestamp: createdAt,
@@ -162,14 +165,14 @@ export const seedDatabase = async () => {
             ],
         };
 
-        groupUsers.forEach((user, index) => {
+        groupUsers.forEach((user) => {
             const userIndex = users.findIndex((obj) => obj._id === user.user);
             users[userIndex].groups.push(group._id);
         });
 
-        interests.forEach((obj, index) => {
-            if (group.interests.includes(obj._id)) {
-                interests[index].group_list.push(group._id);
+        tags.forEach((obj, index) => {
+            if (group.tags.includes(obj._id)) {
+                tags[index].group_list.push(group._id);
             }
         });
 
@@ -190,16 +193,6 @@ export const seedDatabase = async () => {
             const groupAdmins = groups[i].users.filter((obj) => obj.status === "Admin" || obj.status === "Founder");
             const createdAt = getRandomTimestamp(groups[i].created_timestamp, dates.yesterday);
             const startsAt = getRandomTimestamp(dates.next_week, dates.future);
-            const eventComments = cutArray({ array: allMembers, range: [0] }).map((obj) => {
-                return {
-                    id: uuidv4(),
-                    author: obj.user,
-                    content: faker.random.words(5),
-                    likes: cutArray({ array: allMembers, range: [0, 10] }).map((obj) => obj.user),
-                    created_timestamp: getRandomTimestamp(createdAt, dates.now),
-                    is_edited: 0.1 > Math.random() ? true : false,
-                };
-            });
 
             const event: EventModel = {
                 _id: getId(),
@@ -207,6 +200,7 @@ export const seedDatabase = async () => {
                 creator: groupAdmins[Math.floor(Math.random() * groupAdmins.length)].user,
                 group: groups[i]._id,
                 description: faker.commerce.department(),
+                join_restriction: selectRandomJoinRestriction(),
                 users: allMembers.map((obj) => {
                     return {
                         user: obj.user,
@@ -221,6 +215,7 @@ export const seedDatabase = async () => {
                         reaction_timestamp: getRandomTimestamp(createdAt, dates.now),
                     };
                 }),
+                tags: [],
                 comments: cutArray({ array: allMembers, range: [0] }).map((obj) => {
                     return {
                         id: uuidv4(),
@@ -231,9 +226,11 @@ export const seedDatabase = async () => {
                         is_edited: 0.1 > Math.random() ? true : false,
                     };
                 }),
-                start_timestamp: startsAt,
-                end_timestamp: 0.3 > Math.random() ? getRandomTimestamp(startsAt, startsAt + 30000) : undefined,
-                created_timestamp: createdAt,
+                timestamp: {
+                    created: createdAt,
+                    start: startsAt,
+                    end: 0.3 > Math.random() ? getRandomTimestamp(startsAt, startsAt + 30000) : undefined,
+                },
             };
 
             event.users.forEach((user) => {
@@ -294,7 +291,7 @@ export const seedDatabase = async () => {
         password: hackermanPassword,
         first_name: "John",
         last_name: "Cena",
-        profile_picture: "",
+        profile_picture: variables.default.profile,
         join_timestamp: dates.last_week,
         friends: [
             {
@@ -304,7 +301,7 @@ export const seedDatabase = async () => {
         ],
         groups: [],
         posts: [],
-        interests: [],
+        tags: [],
         events: [],
         conversations: [],
         notifications: [],
@@ -325,7 +322,7 @@ export const seedDatabase = async () => {
         password: adminPassword,
         first_name: "smiley",
         last_name: "face",
-        profile_picture: "",
+        profile_picture: variables.default.profile,
         join_timestamp: dates.yesterday,
         friends: [
             {
@@ -335,7 +332,7 @@ export const seedDatabase = async () => {
         ],
         groups: [],
         posts: [],
-        interests: [],
+        tags: [],
         events: [],
         conversations: [],
         notifications: [],
@@ -369,10 +366,10 @@ export const seedDatabase = async () => {
         }
     });
 
-    // Give hackerman interests
-    interests.forEach((interest, index) => {
+    // Give hackerman tags
+    tags.forEach((interest, index) => {
         if (index % 6 === 0) {
-            hackerman.interests.push(interest._id);
+            hackerman.tags.push(interest._id);
         }
     });
 
@@ -414,7 +411,7 @@ export const seedDatabase = async () => {
     // Create conversation between hackerman and admin
     const convo: ConversationModel = {
         _id: getId(),
-        title: "Conversation between hackerman123 and admin",
+        title: "The bois",
         members: [
             {
                 user: hackerman._id,
@@ -445,8 +442,8 @@ export const seedDatabase = async () => {
     try {
         await User.insertMany(users);
         console.log("Seeded Users");
-        await Interest.insertMany(interests);
-        console.log("Seeded Interests");
+        await Tag.insertMany(tags);
+        console.log("Seeded Tags");
         await Event.insertMany(events);
         console.log("Seeded Events");
         await Post.insertMany(posts);
