@@ -40,7 +40,22 @@ const getMutualFriends = (arr1: GetMutualFriendsProps[], arr2: string[]) => {
     return { list: getTooltipList(names), count: list.length };
 };
 
-const getUserSummary = (user: PopulatedUserModel, self: { id: string; friends: string[] }) => {
+interface GetUserSummary {
+    _id: Types.ObjectId;
+    first_name: string;
+    last_name: string;
+    profile_picture: string;
+    friends: {
+        user: {
+            _id: Types.ObjectId;
+            first_name: string;
+            last_name: string;
+        };
+        friendship_timestamp: number;
+    }[];
+}
+
+const getUserSummary = (user: GetUserSummary, self: { id: string; friends: string[] }) => {
     const friends = user.friends.map((obj) => {
         const { _id, first_name, last_name } = obj.user;
         return { id: _id.toString(), first_name, last_name, timestamp: obj.friendship_timestamp };
@@ -54,7 +69,24 @@ const getUserSummary = (user: PopulatedUserModel, self: { id: string; friends: s
     };
     return response;
 };
-const getUserData = (user: PopulatedUserModel, self: { id: string; friends: string[] }) => {
+
+interface GetUserData {
+    _id: Types.ObjectId;
+    first_name: string;
+    last_name: string;
+    profile_picture: string;
+    join_timestamp: number;
+    friends: {
+        user: {
+            _id: Types.ObjectId;
+            first_name: string;
+            last_name: string;
+        };
+        friendship_timestamp: number;
+    }[];
+}
+
+const getUserData = (user: GetUserData, self: { id: string; friends: string[] }) => {
     const friends = user.friends.map((obj) => {
         const { _id, first_name, last_name } = obj.user;
         return { id: _id.toString(), first_name, last_name, timestamp: obj.friendship_timestamp };
@@ -71,17 +103,14 @@ const getUserData = (user: PopulatedUserModel, self: { id: string; friends: stri
 };
 
 export const testFunction = async (id: string) => {
-    console.time("hi2");
-    const test2 = await User.findById(id);
-    console.timeEnd("hi2");
-    console.time("hi");
-    const test = await User.findById(id).lean();
-    console.timeEnd("hi");
-    const user = await User.findById("6320b95f5ae37d45689c1d7a")
+    const user = await User.findById("6320ed0a2b8ec4b46ff825bc")
         .populate({
             path: "friends.user",
+            select: ["first_name", "last_name"],
         })
-        .select(["friends", "username"]);
+        .select(["friends", "first_name", "last_name", "profile_picture", "join_timestamp"])
+        .lean();
+    console.log(user.friends[9]);
     // const me: UserModel | null = await User.findById(id);
     // if (!user || !me) return;
     // const myFriends = me.friends.map((obj) => obj.user.toString());

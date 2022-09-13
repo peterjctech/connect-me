@@ -16,7 +16,7 @@ import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
 import { testFunction } from "services/testService";
 
-import { getSettings } from "@services";
+import { getSettings, getUserData } from "@services";
 import { validateUpdateSettings, validateUserRegistration } from "@validators";
 
 const userResolvers: Resolvers = {
@@ -37,7 +37,7 @@ const userResolvers: Resolvers = {
             const response: UserStoreData = {
                 user_id: user._id.toString(),
                 full_name: getFullName(user),
-                profile_picture: user.profile_picture || "/profile-picture.jpg",
+                profile_picture: user.profile_picture,
                 theme: user.preferences.theme,
                 color: user.preferences.color,
             };
@@ -49,21 +49,20 @@ const userResolvers: Resolvers = {
             return response;
         },
         getUserData: async (_, args, context) => {
-            console.log("here");
-            const id = args.id || context.auth;
-            if (!id) throw new Error("Your session has expired!");
-            const user = await User.findById(id);
+            console.log(args.id, "args", context.auth, "auth");
+            const user = await User.findById(args.id)
+                .populate({
+                    path: "friends.user",
+                    select: ["first_name", "last_name"],
+                })
+                .select(["friends", "first_name", "last_name", "profile_picture", "join_timestamp"])
+                .lean();
             if (!user) throw new Error("User doesn't exist!");
+            const me = await User.findById(context.auth).select("friends.user");
+            if (!me) throw new Error("Your session has expired!");
 
-            const response: UserData = {
-                user_id: user._id,
-                full_name: getFullName(user),
-                profile_picture: user.profile_picture,
-                mutual_friend_count: 5,
-                friendship_date: "someday",
-                join_date: formatTimestamp(user.join_timestamp, "date"),
-                friend_count: user.friends.length,
-            };
+            const myFriends = me.friends.map((obj: { user: Types.ObjectId }) => obj.user.toString());
+            const response = getUserData(user, { id: context.auth, friends: myFriends });
             return response;
         },
         getUserFriends: async (_, args, context) => {
@@ -91,8 +90,8 @@ const userResolvers: Resolvers = {
                         user_id: friend.user._id.toString(),
                         full_name: getFullName(friend.user),
                         profile_picture: friend.user.profile_picture,
-                        mutual_friend_count: getMutualCount(userFriends, myFriends),
-                        friendship_date: date,
+                        // mutual_friend_count: getMutualCount(userFriends, myFriends),
+                        // friendship_date: date,
                     };
                     return res;
                 });

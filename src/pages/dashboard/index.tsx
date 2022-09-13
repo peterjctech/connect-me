@@ -11,7 +11,7 @@ import { Loading } from "@components";
 const DashboardPage = () => {
     const tabList = ["Posts", "Friends", "Groups", "Events", "Interests"];
     const userStore = useSelector((store: StoreInterface) => store.user);
-    const { loading, data } = useQuery(GET_USER_DATA);
+    const { loading, data } = useQuery(GET_USER_DATA, { variables: { id: userStore.user_id } });
     const [currentTab, setCurrentTab] = useState(tabList[0]);
     const [showModal, setShowModal] = useState(false);
 
@@ -22,14 +22,13 @@ const DashboardPage = () => {
     }
 
     const res = data.getUserData;
-    console.log(res);
 
     return (
         <main>
             <Header
-                cover={"/cover.jpg"}
-                image={userStore.profile_picture}
-                mainText={userStore.full_name}
+                cover={"/profile-cover.jpg"}
+                image={res.profile_picture}
+                mainText={res.full_name}
                 buttonText="Add Post"
                 buttonFunction={toggleModal}
                 dateText={res.join_date}

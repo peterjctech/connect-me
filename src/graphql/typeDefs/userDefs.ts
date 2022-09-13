@@ -50,16 +50,15 @@ export default gql`
         full_name: String!
         profile_picture: String!
         join_date: String!
-        mutual_friend_count: Int
+        mutual_friends: ListAndCount
         friendship_date: String
-        friend_count: Int
     }
 
     # Main
     type Query {
         initializeStore: UserStoreData
         getMySettings: MySettings
-        getUserData(id: ID): UserData
+        getUserData(id: ID!): UserData
         getUserFriends(id: ID): [UserSummary]!
         test: Message
     }

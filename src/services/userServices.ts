@@ -1,8 +1,10 @@
+import { Types } from "mongoose";
 import { deleteCookie } from "cookies-next";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { User } from "@models";
-import { UserModel, UpdateUserSettingsProps } from "@types";
+import { UserModel, UpdateUserSettingsProps, UserData } from "@types";
+import { getFullName, formatTimestamp, getMutualFriends } from "@utils";
 
 export const getSettings = async (id: string, req: NextApiRequest, res: NextApiResponse) => {
     const user: UserModel | null = await User.findById(id);
@@ -25,6 +27,39 @@ export const getSettings = async (id: string, req: NextApiRequest, res: NextApiR
         new_password: "",
         confirm_new_password: "",
         old_password: "",
+    };
+    return response;
+};
+
+interface GetUserData {
+    _id: Types.ObjectId;
+    first_name: string;
+    last_name: string;
+    profile_picture: string;
+    join_timestamp: number;
+    friends: {
+        user: {
+            _id: Types.ObjectId;
+            first_name: string;
+            last_name: string;
+        };
+        friendship_timestamp: number;
+    }[];
+}
+
+export const getUserData = (user: GetUserData, self: { id: string; friends: string[] }) => {
+    const friends = user.friends.map((obj) => {
+        const { _id, first_name, last_name } = obj.user;
+        return { id: _id.toString(), first_name, last_name, timestamp: obj.friendship_timestamp };
+    });
+    const friendStatus = friends.find((obj) => obj.id === self.id);
+    const response: UserData = {
+        user_id: user._id.toString(),
+        full_name: getFullName(user),
+        profile_picture: user.profile_picture,
+        join_date: formatTimestamp(user.join_timestamp, "date"),
+        friendship_date: friendStatus ? formatTimestamp(friendStatus.timestamp, "shortdate") : undefined,
+        mutual_friends: self.id !== user._id.toString() ? getMutualFriends(friends, self.friends) : undefined,
     };
     return response;
 };

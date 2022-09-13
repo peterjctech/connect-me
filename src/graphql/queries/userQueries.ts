@@ -29,15 +29,17 @@ export const GET_MY_SETTINGS = gql`
 `;
 
 export const GET_USER_DATA = gql`
-    query ($id: ID) {
+    query ($id: ID!) {
         getUserData(id: $id) {
             user_id
             full_name
             profile_picture
-            mutual_friend_count
-            friendship_date
             join_date
-            friend_count
+            mutual_friends {
+                list
+                count
+            }
+            friendship_date
         }
     }
 `;

@@ -1,3 +1,5 @@
+import { getTooltipList } from "@utils";
+
 type Any = any;
 
 interface GetFullNameProps extends Any {
@@ -15,4 +17,16 @@ export const getFullName = (user: GetFullNameProps) => {
 
 export const getMutualCount = (arr1: string[], arr2: string[]) => {
     return arr1.filter((id) => arr2.includes(id)).length;
+};
+
+interface GetMutualFriendsProps {
+    id: string;
+    first_name: string;
+    last_name: string;
+}
+
+export const getMutualFriends = (arr1: GetMutualFriendsProps[], arr2: string[]) => {
+    const list = arr1.filter((obj) => arr2.includes(obj.id));
+    const names = list.map((obj) => getFullName(obj));
+    return { list: getTooltipList(names), count: list.length };
 };
