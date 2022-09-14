@@ -83,3 +83,22 @@ export interface Friend {
     user: Types.ObjectId;
     friendship_timestamp: number;
 }
+
+// Queries
+export interface GetUserSummaryArgs {
+    _id: Types.ObjectId;
+    first_name: string;
+    last_name: string;
+    profile_picture: string;
+    friends: {
+        user: {
+            _id: Types.ObjectId;
+            first_name: string;
+            last_name: string;
+        };
+        friendship_timestamp: number;
+    }[];
+}
+export interface GetUserDataArgs extends GetUserSummaryArgs {
+    join_timestamp: number;
+}

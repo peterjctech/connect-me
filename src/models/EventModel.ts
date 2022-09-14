@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { model, models, Schema, Types } from "mongoose";
 import { joinRestrictionEnum, eventStatusEnum, reactionEnum } from "@utils";
 import { v4 as uuidv4 } from "uuid";
+import { EventModel } from "@types";
 
 const EventSchema = new Schema({
     name: { type: String, required: true },
@@ -41,4 +42,4 @@ const EventSchema = new Schema({
     },
 });
 
-export const Event = models.Event || model("Event", EventSchema);
+export const Event = models.Event || model<EventModel>("Event", EventSchema);

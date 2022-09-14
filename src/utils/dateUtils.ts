@@ -1,3 +1,4 @@
+import { CreatedAt } from "@types";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 dayjs.extend(advancedFormat);
@@ -22,4 +23,12 @@ export const formatTimestamp = (timestamp: number, format: "date" | "shortdate" 
         case "shortdate":
             return dayjs.unix(timestamp).format("MM/DD/YYYY");
     }
+};
+
+export const getCreatedAt = (timestamp: number) => {
+    const response: CreatedAt = {
+        absolute: formatTimestamp(timestamp, "absolute"),
+        relative: formatTimestamp(timestamp, "relative"),
+    };
+    return response;
 };

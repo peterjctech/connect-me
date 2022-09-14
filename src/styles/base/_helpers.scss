@@ -48,3 +48,20 @@
     text-align: center;
     margin: 1rem 0;
 }
+
+.tag {
+    margin-right: 0.5rem;
+    color: lighten($primary, 20%);
+    cursor: pointer;
+
+    &:hover {
+        color: $primary;
+    }
+}
+
+.app--light .tag {
+    color: $primary;
+    &:hover {
+        color: darken($primary, 20%);
+    }
+}

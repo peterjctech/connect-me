@@ -1,0 +1,45 @@
+.tooltip {
+    position: relative;
+
+    &__content {
+        position: absolute;
+        top: -130%;
+        width: max-content;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: black;
+        padding: 0.2rem;
+        border-radius: 0.2rem;
+    }
+
+    &__hover {
+        position: relative;
+        font-size: 0.8rem;
+        color: white;
+        z-index: 100;
+
+        &::before,
+        &::after {
+            position: absolute;
+            content: "";
+            width: 0.8rem;
+            height: 0.8rem;
+            background-color: black;
+            z-index: -1;
+            bottom: -0.3rem;
+        }
+
+        &::before {
+            right: 50%;
+            transform: skew(0, 30deg);
+        }
+        &::after {
+            left: 50%;
+            transform: skew(0, -30deg);
+        }
+    }
+
+    &__main {
+        cursor: default;
+    }
+}

@@ -4,6 +4,8 @@ export interface UserStoreData {
     user_id: string;
     full_name: string;
     profile_picture: string;
+    friend_count: number;
+    join_date: string;
     theme: MainThemes;
     color: ColorThemes;
 }

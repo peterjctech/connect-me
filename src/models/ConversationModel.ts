@@ -1,3 +1,4 @@
+import { ConversationModel } from "@types";
 import dayjs from "dayjs";
 import { model, models, Schema, Types } from "mongoose";
 
@@ -18,4 +19,4 @@ const ConversationSchema = new Schema({
     ],
 });
 
-export const Conversation = models.Conversation || model("Conversation", ConversationSchema);
+export const Conversation = models.Conversation || model<ConversationModel>("Conversation", ConversationSchema);

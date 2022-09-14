@@ -6,6 +6,8 @@ export const INITIALIZE_STORE = gql`
             user_id
             full_name
             profile_picture
+            join_date
+            friend_count
             theme
             color
         }
@@ -52,14 +54,6 @@ export const GET_USER_FRIENDS = gql`
             profile_picture
             mutual_friend_count
             friendship_date
-        }
-    }
-`;
-
-export const TEST = gql`
-    query {
-        test {
-            message
         }
     }
 `;

@@ -12,14 +12,14 @@ interface HeaderProps {
 
 const Header = ({ cover, image, mainText, buttonText, buttonFunction, dateText, subText }: HeaderProps) => {
     return (
-        <div className="header">
-            <img src={cover} className="header__cover" />
+        <div className="banner">
+            <img src={cover} className="banner__cover" />
             <section>
                 <div className="wrapper">
-                    <img src={image} className="header__image pfp--lg" />
-                    <h3 className="header__text">{mainText}</h3>
-                    <h6 className="header__subtext">{subText}</h6>
-                    <p className="header__date">{dateText}</p>
+                    <img src={image} className="banner__image pfp--lg" />
+                    <h3 className="banner__text">{mainText}</h3>
+                    <h6 className="banner__subtext">{subText}</h6>
+                    <p className="banner__date">{dateText}</p>
                     <Button click={buttonFunction} squared>
                         {buttonText}
                     </Button>

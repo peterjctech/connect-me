@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { model, models, Schema, Types } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 import { mainThemeEnum, visibilityEnum, colorThemeEnum, variables } from "@utils";
+import { UserModel } from "@types";
 
 const UserSchema = new Schema({
     username: { type: String, required: true, unique: true },
@@ -44,4 +45,4 @@ const UserSchema = new Schema({
     },
 });
 
-export const User = models.User || model("User", UserSchema);
+export const User = models.User || model<UserModel>("User", UserSchema);

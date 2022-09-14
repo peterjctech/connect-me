@@ -7,8 +7,9 @@ import tagDefs from "./typeDefs/tagDefs";
 import eventDefs from "./typeDefs/eventDefs";
 
 import userResolvers from "./resolvers/userResolvers";
+import postResolvers from "./resolvers/postResolvers";
 
 const typeDefs = [userDefs, miscDefs, postDefs, groupDefs, convoDefs, tagDefs, eventDefs];
-const resolvers = [userResolvers];
+const resolvers = [userResolvers, postResolvers];
 
 export { typeDefs, resolvers };

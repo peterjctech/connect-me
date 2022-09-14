@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { model, models, Schema, Types } from "mongoose";
 import { reactionEnum } from "@utils";
 import { v4 as uuidv4 } from "uuid";
+import { PostModel } from "@types";
 
 const PostSchema = new Schema({
     author: { type: Types.ObjectId, required: true, ref: "User" },
@@ -30,4 +31,4 @@ const PostSchema = new Schema({
     is_edited: { type: Boolean, default: false },
 });
 
-export const Post = models.Post || model("Post", PostSchema);
+export const Post = models.Post || model<PostModel>("Post", PostSchema);

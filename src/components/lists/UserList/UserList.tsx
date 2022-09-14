@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 
-import { GET_FRIENDS } from "@queries";
 import { Loading } from "@components";
 import { Card } from "@common";
 import { UserSummary } from "@types";
@@ -11,15 +10,15 @@ interface UserListProps {
 }
 
 const UserList = ({ title, userId }: UserListProps) => {
-    const { loading, data } = useQuery(GET_FRIENDS, { variables: { id: userId } });
+    // const { loading, data } = useQuery(GET_FRIENDS, { variables: { id: userId } });
 
-    if (loading) {
-        return <Loading />;
-    }
+    // if (loading) {
+    //     return <Loading />;
+    // }
 
     return (
         <div className="container list-container">
-            <h1>{title}</h1>
+            {/* <h1>{title}</h1>
             <div className="card-list">
                 {data.getFriends.map((obj: UserSummary) => {
                     const link = `/users/${obj.user_id}`;
@@ -30,7 +29,7 @@ const UserList = ({ title, userId }: UserListProps) => {
                         </Card>
                     );
                 })}
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -1,30 +1,17 @@
 import { Resolvers } from "@apollo/client";
 import { User } from "@models";
-import {
-    UserStoreData,
-    UserModel,
-    LoginUserProps,
-    RegisterUserProps,
-    UpdateUserSettingsProps,
-    UserData,
-    UserSummary,
-} from "@types";
-import { getFullName, formatTimestamp, getMutualCount } from "@utils";
+import { UserStoreData, UserModel, LoginUserProps, RegisterUserProps, UpdateUserSettingsProps } from "@types";
+import { getFullName, formatTimestamp } from "@utils";
 import { deleteCookie, setCookie } from "cookies-next";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
-import { testFunction } from "services/testService";
 
 import { getSettings, getUserData } from "@services";
 import { validateUpdateSettings, validateUserRegistration } from "@validators";
 
 const userResolvers: Resolvers = {
     Query: {
-        test: async (_, __, context) => {
-            await testFunction(context.auth);
-            return { message: "Hello" };
-        },
         initializeStore: async (_, __, context) => {
             if (!context.auth) return null;
 
@@ -37,6 +24,8 @@ const userResolvers: Resolvers = {
             const response: UserStoreData = {
                 user_id: user._id.toString(),
                 full_name: getFullName(user),
+                friend_count: user.friends.length,
+                join_date: formatTimestamp(user.join_timestamp, "date"),
                 profile_picture: user.profile_picture,
                 theme: user.preferences.theme,
                 color: user.preferences.color,
@@ -49,7 +38,6 @@ const userResolvers: Resolvers = {
             return response;
         },
         getUserData: async (_, args, context) => {
-            console.log(args.id, "args", context.auth, "auth");
             const user = await User.findById(args.id)
                 .populate({
                     path: "friends.user",
@@ -66,36 +54,8 @@ const userResolvers: Resolvers = {
             return response;
         },
         getUserFriends: async (_, args, context) => {
-            interface Friend {
-                user: Types.ObjectId;
-                friendship_timestamp: number;
-            }
-            interface PopulatedFriend {
-                user: UserModel;
-                friendship_timestamp: number;
-            }
-
             const me = await User.findById(context.auth).select(["friends"]);
             const user = await User.findById(args.id).populate("friends.user");
-
-            const myFriends = me.friends.map((obj: Friend) => obj.user.toString());
-
-            const response = user.friends
-                .sort((a: PopulatedFriend, b: PopulatedFriend) => b.friendship_timestamp - a.friendship_timestamp)
-                .map((friend: PopulatedFriend) => {
-                    const userFriends = friend.user.friends.map((obj: Friend) => obj.user.toString());
-                    const isMyFriend = me.friends.find((obj: Friend) => obj.user.equals(friend.user._id));
-                    const date = isMyFriend ? formatTimestamp(isMyFriend.friendship_timestamp, "shortdate") : undefined;
-                    const res: UserSummary = {
-                        user_id: friend.user._id.toString(),
-                        full_name: getFullName(friend.user),
-                        profile_picture: friend.user.profile_picture,
-                        // mutual_friend_count: getMutualCount(userFriends, myFriends),
-                        // friendship_date: date,
-                    };
-                    return res;
-                });
-            return response;
         },
     },
     Mutation: {

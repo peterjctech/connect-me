@@ -16,14 +16,21 @@ export default gql`
     type ReactionDisplay {
         standard: Int!
         extended: String!
+        tooltip: [String!]!
+    }
+    type IdAndName {
+        id: String!
+        name: String!
     }
     type CommentData {
+        comment_id: String!
         user_id: String!
         full_name: String!
         profile_picture: String!
         content: String!
         likes: ListAndCount!
         created_at: CreatedAt!
+        is_edited: Boolean!
     }
     type CreatedAt {
         relative: String!

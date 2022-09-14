@@ -11,6 +11,7 @@ export interface ReactionModel {
 export interface ReactionDisplay {
     standard: number;
     extended: string;
+    tooltip: string[];
 }
 export interface CommentModel {
     id: string;
@@ -25,20 +26,30 @@ export interface ReactionSummary {
     list: string[];
 }
 export interface CommentData {
+    comment_id: string;
     user_id: string;
     full_name: string;
     profile_picture: string;
     content: string;
     likes: ListAndCount;
     created_at: CreatedAt;
+    is_edited: boolean;
 }
 
 // Populated
 export interface PopulatedCommentModel {
     id: string;
-    author: UserModel;
+    author: {
+        _id: Types.ObjectId;
+        first_name: string;
+        last_name: string;
+        profile_picture: string;
+    };
     content: string;
-    likes: UserModel[];
+    likes: {
+        first_name: string;
+        last_name: string;
+    }[];
     created_timestamp: number;
     is_edited: boolean;
 }

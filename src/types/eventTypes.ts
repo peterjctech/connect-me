@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { EventMemberStatus, JoinRestriction } from "./enumTypes";
-import { CreatedAt, DateAndTimeProps, ListAndCount } from "./helperTypes";
+import { CreatedAt, DateAndTimeProps, ListAndCount, IdAndName } from "./helperTypes";
 import { CommentModel, ReactionModel, ReactionDisplay, ReactionSummary, CommentData } from "./miscTypes";
 import { TagSummary } from "./tagTypes";
 
@@ -21,10 +21,7 @@ export interface EventModel {
 export interface EventSummary {
     name: string;
     tags: TagSummary[];
-    group?: {
-        name: string;
-        id: string;
-    };
+    group?: IdAndName;
     join_restriction: JoinRestriction;
     description: string;
     picture: string;
@@ -34,19 +31,15 @@ export interface EventSummary {
 }
 export interface EventData {
     name: string;
-    creator: string;
+    creator: IdAndName;
     tags: TagSummary[];
-    group?: {
-        name: string;
-        id: string;
-    };
+    group?: IdAndName;
     join_restriction: JoinRestriction;
     description: string;
     picture: string;
     my_status?: EventMemberStatus;
     reactions: ReactionSummary[];
     reaction_display: ReactionDisplay;
-    full_reaction_list: string[];
     users: {
         yes: number;
         maybe: number;

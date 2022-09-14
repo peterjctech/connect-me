@@ -1,12 +1,13 @@
-import Input from "./Input/Input";
+import Banner from "./Banner/Banner";
 import Button from "./Button/Button";
-import Form from "./Form/Form";
-import Modal from "./Modal/Modal";
+import Card from "./Card/Card";
 import Dialog from "./Dialog/Dialog";
 import Dropdown from "./Dropdown/Dropdown";
-import Header from "./Header/Header";
-import Tabs from "./Tabs/Tabs";
+import Form from "./Form/Form";
+import Input from "./Input/Input";
+import Modal from "./Modal/Modal";
 import Outline from "./Outline/Outline";
-import Card from "./Card/Card";
+import Tabs from "./Tabs/Tabs";
+import Tooltip from "./Tooltip/Tooltip";
 
-export { Input, Button, Form, Modal, Dialog, Dropdown, Header, Tabs, Outline, Card };
+export { Input, Button, Form, Modal, Dialog, Dropdown, Banner, Tabs, Outline, Card, Tooltip };

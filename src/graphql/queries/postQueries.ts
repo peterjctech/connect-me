@@ -1,14 +1,19 @@
 import { gql } from "apollo-server-micro";
 
 export const GET_POSTS = gql`
-    query ($id: ID, $enum: String) {
-        getPosts(id: $id, enum: $enum) {
+    query ($id: String!, $type: PostType!) {
+        getPosts(id: $id, type: $type) {
             post_id
-            author_id
-            group_id
+            author {
+                id
+                name
+            }
+            group {
+                id
+                name
+            }
             profile_picture
             is_mine
-            author
             content
             picture
             reactions {
@@ -18,9 +23,10 @@ export const GET_POSTS = gql`
             reaction_display {
                 standard
                 extended
+                tooltip
             }
-            full_reaction_list
             recent_comments {
+                comment_id
                 user_id
                 full_name
                 profile_picture
@@ -33,6 +39,7 @@ export const GET_POSTS = gql`
                     relative
                     absolute
                 }
+                is_edited
             }
             comment_count
             created_at {
@@ -41,7 +48,7 @@ export const GET_POSTS = gql`
             }
             is_edited
             tags {
-                id
+                tag_id
                 name
             }
         }

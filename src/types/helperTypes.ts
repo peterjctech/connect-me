@@ -13,3 +13,7 @@ export interface DateAndTimeProps {
     hour: number;
     minute: number;
 }
+export interface IdAndName {
+    id: string;
+    name: string;
+}

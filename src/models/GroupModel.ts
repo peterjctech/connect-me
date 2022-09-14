@@ -2,6 +2,7 @@ import { variables } from "@utils";
 import dayjs from "dayjs";
 import { model, models, Schema, Types } from "mongoose";
 import { joinRestrictionEnum, groupStatusEnum } from "@utils";
+import { GroupModel } from "@types";
 
 const GroupSchema = new Schema({
     name: { type: String, required: true },
@@ -28,4 +29,4 @@ const GroupSchema = new Schema({
     ],
 });
 
-export const Group = models.Group || model("Group", GroupSchema);
+export const Group = models.Group || model<GroupModel>("Group", GroupSchema);

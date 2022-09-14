@@ -6,12 +6,10 @@ import {
     ReactionDisplay,
     CommentData,
     PopulatedCommentModel,
-    PopulatedReactionModel,
 } from "./miscTypes";
-import { CreatedAt } from "./helperTypes";
+import { CreatedAt, IdAndName } from "./helperTypes";
 import { Reaction } from "./enumTypes";
-import { TagModel, TagSummary } from "./tagTypes";
-import { UserModel } from "./userTypes";
+import { TagSummary } from "./tagTypes";
 
 // Main
 export interface PostModel {
@@ -28,16 +26,14 @@ export interface PostModel {
 }
 export interface PostData {
     post_id: string;
-    author_id: string;
-    author: string;
-    group_id?: string;
+    author: IdAndName;
+    group?: IdAndName;
     profile_picture: string;
     is_mine: boolean;
     content: string;
     picture?: string;
     reactions: ReactionSummary[];
     reaction_display: ReactionDisplay;
-    full_reaction_list: string[];
     recent_comments: CommentData[];
     comment_count: number;
     created_at: CreatedAt;
@@ -72,12 +68,30 @@ export interface LikeCommentProps {
 // Populated
 export interface PopulatedPostModel {
     _id: Types.ObjectId;
-    author: UserModel;
+    group?: {
+        _id: Types.ObjectId;
+        name: string;
+    };
+    author: {
+        _id: Types.ObjectId;
+        first_name: string;
+        last_name: string;
+        profile_picture: string;
+    };
+    reactions: {
+        user: {
+            first_name: string;
+            last_name: string;
+        };
+        reaction: Reaction;
+    }[];
     content: string;
     picture?: string;
-    tags: TagModel[];
-    reactions: PopulatedReactionModel[];
     comments: PopulatedCommentModel[];
     created_timestamp: number;
     is_edited: boolean;
+    tags: {
+        _id: Types.ObjectId;
+        name: string;
+    }[];
 }

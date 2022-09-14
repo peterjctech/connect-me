@@ -35,6 +35,8 @@ export default gql`
         user_id: String!
         full_name: String!
         profile_picture: String!
+        friend_count: Int!
+        join_date: String!
         theme: MainThemes!
         color: ColorThemes!
     }
@@ -60,7 +62,6 @@ export default gql`
         getMySettings: MySettings
         getUserData(id: ID!): UserData
         getUserFriends(id: ID): [UserSummary]!
-        test: Message
     }
     type Mutation {
         registerUser(
