@@ -1,3 +1,4 @@
+import { Tooltip } from "@common";
 import { FaThumbsUp } from "react-icons/fa";
 
 interface CommentProps {
@@ -25,12 +26,11 @@ const Comment = ({ author, likes, createdAt, children }: CommentProps) => {
                 <h6>{author.name}</h6>
                 <p>{children}</p>
                 <div className="comment__footer">
-                    <p>{createdAt.relative}</p>
+                    <Tooltip hover={createdAt.absolute}>{createdAt.relative}</Tooltip>
                     <p>&#x2022;</p>
-                    <p>
-                        {<FaThumbsUp />}
-                        {likes.count}
-                    </p>
+                    <Tooltip hover={likes.list}>
+                        {<FaThumbsUp />} {likes.count}
+                    </Tooltip>
                 </div>
             </section>
         </div>

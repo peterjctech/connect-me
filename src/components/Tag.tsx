@@ -9,7 +9,7 @@ const Tag = ({ tag }: TagProps) => {
     const router = useRouter();
 
     return (
-        <p onClick={() => router.push(`/tags/${tag.tag_id}`)} className="tag">
+        <p onClick={() => router.push(`/tags/${tag.tag_id}`)} className="mr link">
             #{tag.name}
         </p>
     );

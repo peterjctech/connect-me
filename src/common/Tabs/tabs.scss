@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-around;
     place-items: center;
+    border: solid black 1px;
 
     @include breakpoint(tablet) {
         justify-content: start;
@@ -17,6 +18,7 @@
     p {
         font-size: 1rem;
         position: relative;
+        cursor: pointer;
 
         &.active::after {
             content: "";

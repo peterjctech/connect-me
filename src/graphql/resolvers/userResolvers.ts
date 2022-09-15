@@ -38,7 +38,7 @@ const userResolvers: Resolvers = {
             return response;
         },
         getUserData: async (_, args, context) => {
-            const user = await User.findById(args.id)
+            const user = await User.findById(args.userId)
                 .populate({
                     path: "friends.user",
                     select: ["first_name", "last_name"],
@@ -53,7 +53,7 @@ const userResolvers: Resolvers = {
             const response = getUserData(user, { id: context.auth, friends: myFriends });
             return response;
         },
-        getUserFriends: async (_, args, context) => {
+        getFriends: async (_, args, context) => {
             const me = await User.findById(context.auth).select(["friends"]);
             const user = await User.findById(args.id).populate("friends.user");
         },

@@ -50,7 +50,6 @@ export const getReactionData = (reactions: ReactionDataProps[]) => {
     const display: ReactionDisplay = {
         standard: reactions.length,
         extended,
-        tooltip: getTooltipList(names),
     };
 
     const getData = (reaction: Reaction) => {
@@ -64,7 +63,7 @@ export const getReactionData = (reactions: ReactionDataProps[]) => {
         const data = getData(str);
         if (data.count) summaryBase.push(data);
     });
-    summaryBase.sort((a, b) => a.count - b.count);
+    summaryBase.sort((a, b) => b.count - a.count);
     const summaries = summaryBase.map((obj) => {
         const { list, type } = obj;
         return { list, type };

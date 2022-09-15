@@ -31,8 +31,8 @@ export const GET_MY_SETTINGS = gql`
 `;
 
 export const GET_USER_DATA = gql`
-    query ($id: ID!) {
-        getUserData(id: $id) {
+    query ($userId: ID!) {
+        getUserData(userId: $userId) {
             user_id
             full_name
             profile_picture
@@ -46,9 +46,9 @@ export const GET_USER_DATA = gql`
     }
 `;
 
-export const GET_USER_FRIENDS = gql`
-    query ($id: ID) {
-        getUserFriends(id: $id) {
+export const GET_FRIENDS = gql`
+    query ($userId: ID!) {
+        getFriends(userId: $userId) {
             user_id
             full_name
             profile_picture

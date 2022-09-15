@@ -25,6 +25,7 @@
             "@common": ["./common"],
             "@services": ["./services"],
             "@queries": ["./graphql/queries"],
+            "@helpers": ["./helpers"],
             "@mutations": ["./graphql/mutations"],
             "@types": ["./types"],
             "@hooks": ["./hooks"],

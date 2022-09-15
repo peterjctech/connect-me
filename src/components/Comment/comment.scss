@@ -30,3 +30,20 @@
         }
     }
 }
+
+.app--void .comment {
+    &:nth-child(even) {
+        background-color: lighten($color: $void, $amount: 5%);
+    }
+}
+.app--dark .comment {
+    &:nth-child(even) {
+        background-color: $neutral-6;
+    }
+}
+
+.app--light .comment {
+    &:nth-child(even) {
+        background-color: $neutral-1;
+    }
+}

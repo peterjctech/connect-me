@@ -60,8 +60,8 @@ export default gql`
     type Query {
         initializeStore: UserStoreData
         getMySettings: MySettings
-        getUserData(id: ID!): UserData
-        getUserFriends(id: ID): [UserSummary]!
+        getUserData(userId: ID!): UserData
+        getFriends(userId: ID): [UserSummary]!
     }
     type Mutation {
         registerUser(

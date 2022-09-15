@@ -3,38 +3,45 @@
 
     &__content {
         position: absolute;
-        top: -130%;
+        bottom: 130%;
         width: max-content;
         left: 50%;
         transform: translateX(-50%);
         background-color: black;
-        padding: 0.2rem;
+        padding: 0.4rem;
         border-radius: 0.2rem;
     }
 
     &__hover {
         position: relative;
         font-size: 0.8rem;
-        color: white;
         z-index: 100;
+        flex-direction: column;
+        color: white;
+
+        span {
+            display: flex;
+        }
 
         &::before,
         &::after {
             position: absolute;
             content: "";
+            background-color: black;
             width: 0.8rem;
             height: 0.8rem;
-            background-color: black;
             z-index: -1;
-            bottom: -0.3rem;
+            bottom: -0.5rem;
+            border: none;
+            outline: none;
         }
 
         &::before {
-            right: 50%;
+            right: calc(50% - 1px);
             transform: skew(0, 30deg);
         }
         &::after {
-            left: 50%;
+            left: calc(50% - 1px);
             transform: skew(0, -30deg);
         }
     }

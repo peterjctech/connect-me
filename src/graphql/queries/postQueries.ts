@@ -23,7 +23,6 @@ export const GET_POSTS = gql`
             reaction_display {
                 standard
                 extended
-                tooltip
             }
             recent_comments {
                 comment_id

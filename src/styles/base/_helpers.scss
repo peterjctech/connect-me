@@ -49,18 +49,27 @@
     margin: 1rem 0;
 }
 
-.tag {
+.mr {
     margin-right: 0.5rem;
+}
+
+.emoji {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.link {
     color: lighten($primary, 20%);
     cursor: pointer;
 
     &:hover {
         color: $primary;
+        text-decoration: underline;
     }
 }
 
-.app--light .tag {
+.app--light .link {
     color: $primary;
+
     &:hover {
         color: darken($primary, 20%);
     }

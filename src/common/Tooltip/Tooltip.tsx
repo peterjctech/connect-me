@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface TooltipProps {
-    hover: string;
+    hover: string | string[];
     children: React.ReactNode;
 }
 
@@ -12,7 +12,13 @@ const Tooltip = ({ hover, children }: TooltipProps) => {
             <p className="tooltip__main">{children}</p>
             {showTooltip && (
                 <div className="tooltip__content">
-                    <p className="tooltip__hover">{hover}</p>
+                    <p className="tooltip__hover">
+                        {typeof hover === "string"
+                            ? hover
+                            : hover.map((str) => {
+                                  return <span>{str}</span>;
+                              })}
+                    </p>
                 </div>
             )}
         </div>

@@ -27,7 +27,7 @@ const DashboardPage = () => {
             <Tabs tabs={tabList} changeTab={changeTab} currentTab={currentTab} />
             {currentTab === "Posts" && <PostList id={userStore.user_id} type="User" />}
             {currentTab === "Friends" && (
-                <UserList title={`${userStore.full_name}'s friends`} userId={userStore.user_id} />
+                <UserList title={`${userStore.full_name}'s friends`} id={userStore.user_id} type="Friends" />
             )}
             {currentTab === "Groups" && (
                 <GroupList userId={userStore.user_id} title={`${userStore.full_name}'s groups`} />

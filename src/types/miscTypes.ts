@@ -11,7 +11,6 @@ export interface ReactionModel {
 export interface ReactionDisplay {
     standard: number;
     extended: string;
-    tooltip: string[];
 }
 export interface CommentModel {
     id: string;

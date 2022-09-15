@@ -16,7 +16,6 @@ export default gql`
     type ReactionDisplay {
         standard: Int!
         extended: String!
-        tooltip: [String!]!
     }
     type IdAndName {
         id: String!

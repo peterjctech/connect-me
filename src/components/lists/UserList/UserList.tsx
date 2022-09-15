@@ -6,11 +6,12 @@ import { UserSummary } from "@types";
 
 interface UserListProps {
     title: string;
-    userId: string;
+    id: string;
+    type: "Friends";
 }
 
-const UserList = ({ title, userId }: UserListProps) => {
-    // const { loading, data } = useQuery(GET_FRIENDS, { variables: { id: userId } });
+const UserList = ({ title, id, type }: UserListProps) => {
+    const { loading, data } = useQuery(GET_FRIENDS, { variables: { id: userId } });
 
     // if (loading) {
     //     return <Loading />;
