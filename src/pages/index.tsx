@@ -12,8 +12,8 @@ const HomePage = () => {
 
     return (
         <main>
-            <div className="container">
-                {/* <button onClick={() => fetch("/api/seed")}>Seed</button> */}
+            <div className="box theme">
+                <button onClick={() => fetch("/api/seed")}>Seed</button>
                 {dialog && <Dialog {...dialogProps} />}
                 <LoginForm toggleModal={toggleModal} openDialog={openDialog} />
                 {showModal && <RegisterForm closeModal={toggleModal} openDialog={openDialog} />}

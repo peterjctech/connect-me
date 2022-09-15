@@ -7,7 +7,7 @@ import { ReactionSummary, TagSummary, ReactionDisplay, CommentData } from "@type
 import { Tag, Comment } from "@components";
 import { htmlEmojis } from "@helpers";
 
-interface OutlineProps {
+interface ContainerProps {
     image: string;
     heading: string;
     datetime: {
@@ -28,7 +28,7 @@ interface OutlineProps {
     };
 }
 
-const Outline = ({
+const Container = ({
     image,
     heading,
     datetime,
@@ -38,16 +38,16 @@ const Outline = ({
     tags,
     comments,
     children,
-}: OutlineProps) => {
+}: ContainerProps) => {
     return (
-        <div className="outline container">
+        <div className="container theme box">
             <header>
                 <img src={image} className="pfp--md" />
                 <h6>{heading}</h6>
                 <span>
                     <Tooltip hover={datetime.hover}>{datetime.main}</Tooltip>
                     {isEdited && (
-                        <p className="outline__edited">
+                        <p className="container__edited">
                             <BsDot />
                             edited
                         </p>
@@ -78,9 +78,9 @@ const Outline = ({
                                 </Tooltip>
                             );
                         })}
-                        <span className="outline__react--extended">{reactions.display.extended}</span>
-                        <span className="outline__react--standard">{reactions.display.standard}</span>
-                        <div className="outline__like">React {<FaThumbsUp />}</div>
+                        <span className="container__react--extended">{reactions.display.extended}</span>
+                        <span className="container__react--standard">{reactions.display.standard}</span>
+                        <div className="container__like">React {<FaThumbsUp />}</div>
                     </summary>
                     <hr />
                 </>
@@ -88,7 +88,7 @@ const Outline = ({
             {comments && comments.count > 0 && (
                 <footer>
                     {comments.count > 3 && (
-                        <div className="outline__expand link">See all {comments.count} comments</div>
+                        <div className="container__expand link">See all {comments.count} comments</div>
                     )}
                     {comments.list.map((obj) => {
                         return (
@@ -112,4 +112,4 @@ const Outline = ({
     );
 };
 
-export default Outline;
+export default Container;

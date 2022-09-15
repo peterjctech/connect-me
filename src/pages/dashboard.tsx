@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { StoreInterface } from "@types";
 import { Banner, Tabs } from "@common";
-import { InterestList, UserList, EventList, GroupList, PostList } from "@components";
+import { InterestList, FriendsList, EventList, GroupList, Posts } from "@components";
 import { useTabs } from "@hooks";
 
 const DashboardPage = () => {
@@ -25,10 +25,8 @@ const DashboardPage = () => {
                 subText={`${userStore.friend_count} friends`}
             />
             <Tabs tabs={tabList} changeTab={changeTab} currentTab={currentTab} />
-            {currentTab === "Posts" && <PostList id={userStore.user_id} type="User" />}
-            {currentTab === "Friends" && (
-                <UserList title={`${userStore.full_name}'s friends`} id={userStore.user_id} type="Friends" />
-            )}
+            {currentTab === "Posts" && <Posts id={userStore.user_id} type="User" />}
+            {currentTab === "Friends" && <FriendsList name={userStore.full_name} userId={userStore.user_id} />}
             {currentTab === "Groups" && (
                 <GroupList userId={userStore.user_id} title={`${userStore.full_name}'s groups`} />
             )}

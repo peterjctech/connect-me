@@ -64,7 +64,7 @@ export const seedDatabase = async () => {
             events: [],
             conversations: [],
             notifications: [],
-            preferences: {
+            settings: {
                 theme: selectRandomMainTheme(),
                 color: selectRandomColorTheme(),
                 visibility: {
@@ -305,7 +305,7 @@ export const seedDatabase = async () => {
         events: [],
         conversations: [],
         notifications: [],
-        preferences: {
+        settings: {
             theme: "Void",
             color: "Blue",
             visibility: {
@@ -336,7 +336,7 @@ export const seedDatabase = async () => {
         events: [],
         conversations: [],
         notifications: [],
-        preferences: {
+        settings: {
             theme: "Dark",
             color: "Purple",
             visibility: {

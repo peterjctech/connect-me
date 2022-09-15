@@ -1,6 +1,6 @@
 import { Resolvers } from "@apollo/client";
 import { Post, User } from "@models";
-import { UserModel, ReactionModel, CommentModel, PopulatedPostModel } from "@types";
+import { UserModel, ReactionModel, CommentModel, GetPostDataArgs } from "@types";
 import { Types } from "mongoose";
 import { getPostData } from "@services";
 
@@ -22,7 +22,7 @@ const postResolvers: Resolvers = {
         getPosts: async (_, args, context) => {
             const params = args.type === "User" ? { author: args.id } : { group: args.id };
             const me = await User.findById(context.auth);
-            const posts: PopulatedPostModel[] = await Post.find(params)
+            const posts: GetPostDataArgs[] = await Post.find(params)
                 .populate([
                     { path: "group", select: "name" },
                     { path: "author", select: ["first_name", "last_name", "profile_picture"] },
@@ -42,7 +42,7 @@ const postResolvers: Resolvers = {
             const response = posts
                 .sort((a, b) => b.created_timestamp - a.created_timestamp)
                 .map((post) => getPostData(post, me._id.toString()));
-            return response;
+            return [];
         },
     },
 };

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 import { GET_MY_SETTINGS } from "@queries";
 import { UPDATE_USER_SETTINGS } from "@mutations";
@@ -33,6 +34,7 @@ const SettingsPage = () => {
     const { formData, handleChange, setFormData } = useForm(initialFormState);
     const userStore = useSelector((store: StoreInterface) => store.user);
     const dispatch = useDispatch();
+    const router = useRouter();
     useEffect(() => {
         getSettings();
     }, [userStore.is_initialized]);
@@ -57,10 +59,11 @@ const SettingsPage = () => {
 
         try {
             const { data } = await client.mutate({ mutation: UPDATE_USER_SETTINGS, variables: formData });
-            const { theme, color, first_name, last_name } = data.updateUserSettings;
-            setFormData({ ...data.updateUserSettings, new_password: "", confirm_new_password: "", old_password: "" });
-            dispatch(updateUserStore({ theme, color, full_name: `${first_name} ${last_name}` }));
-            openDialog("Your settings have been updated!", "info");
+            openDialog(data.updateUserSettings.message, "info");
+
+            setTimeout(() => {
+                router.reload();
+            }, 750);
         } catch (error: any) {
             const handledErrors = error.graphQLErrors;
             const errorMessage = handledErrors[0] ? handledErrors[0].message : "An unexpected error has occurred";
@@ -84,7 +87,7 @@ const SettingsPage = () => {
                     oldPassword={formData.old_password}
                 />
             )}
-            <div className="container">
+            <div className="box theme">
                 <SettingsForm toggleModal={toggleModal} formData={formData} handleChange={handleChange} />
             </div>
         </main>

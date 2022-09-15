@@ -6,7 +6,7 @@ interface TabsProps {
 
 const Tabs = ({ tabs, changeTab, currentTab }: TabsProps) => {
     return (
-        <div className="tabs theme">
+        <div className="tabs theme bordered">
             {tabs.map((tab) => {
                 return (
                     <p onClick={() => changeTab(tab)} className={currentTab === tab ? "active" : ""} key={tab}>

@@ -1,8 +1,8 @@
-import { PopulatedPostModel, PostData } from "@types";
+import { GetPostDataArgs, PostData } from "@types";
 import { getCreatedAt, getFullName } from "@utils";
 import { getCommentData, getReactionData } from "@services";
 
-export const getPostData = (post: PopulatedPostModel, myId: string) => {
+export const getPostData = (post: GetPostDataArgs, myId: string) => {
     const allReactions = post.reactions.map((obj) => {
         return { name: getFullName(obj.user), reaction: obj.reaction };
     });

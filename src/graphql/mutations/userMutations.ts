@@ -59,15 +59,7 @@ export const UPDATE_USER_SETTINGS = gql`
             post_visibility: $post_visibility
             event_visibility: $event_visibility
         ) {
-            username
-            first_name
-            last_name
-            theme
-            color
-            friend_visibility
-            group_visibility
-            event_visibility
-            post_visibility
+            message
         }
     }
 `;

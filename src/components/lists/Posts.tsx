@@ -4,12 +4,12 @@ import { GET_POSTS } from "@queries";
 import { Loading, Post } from "@components";
 import { PostData } from "@types";
 
-interface PostListProps {
+interface PostsProps {
     id: string;
     type: "Group" | "User";
 }
 
-const PostList = (props: PostListProps) => {
+const Posts = (props: PostsProps) => {
     const { loading, data } = useQuery(GET_POSTS, { variables: props });
 
     if (loading) {
@@ -25,4 +25,4 @@ const PostList = (props: PostListProps) => {
     );
 };
 
-export default PostList;
+export default Posts;

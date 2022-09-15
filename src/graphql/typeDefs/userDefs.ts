@@ -86,6 +86,6 @@ export default gql`
             group_visibility: String
             post_visibility: String
             event_visibility: String
-        ): MySettings
+        ): Message
     }
 `;

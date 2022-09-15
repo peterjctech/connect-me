@@ -1,61 +1,93 @@
 import { Resolvers } from "@apollo/client";
-import { User } from "@models";
-import { UserStoreData, UserModel, LoginUserProps, RegisterUserProps, UpdateUserSettingsProps } from "@types";
-import { getFullName, formatTimestamp } from "@utils";
 import { deleteCookie, setCookie } from "cookies-next";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { Types } from "mongoose";
 
-import { getSettings, getUserData } from "@services";
 import { validateUpdateSettings, validateUserRegistration } from "@validators";
+import { User } from "@models";
+import { UserStoreData, UserModel, LoginUserProps, RegisterUserProps, UpdateUserSettingsProps } from "@types";
+import { Types } from "mongoose";
 
 const userResolvers: Resolvers = {
     Query: {
         initializeStore: async (_, __, context) => {
             if (!context.auth) return null;
 
-            const user: UserModel | null = await User.findById(context.auth);
+            const user = await User.findById(context.auth)
+                .select([
+                    "first_name",
+                    "last_name",
+                    "friends.user",
+                    "join_timestamp",
+                    "profile_picture",
+                    "settings.theme",
+                    "settings.color",
+                ])
+                .then((data) => {
+                    const { full_name, join_date, profile_picture } = data;
+                    const { theme, color } = data.settings;
+
+                    const response: UserStoreData = {
+                        user_id: data._id.toString(),
+                        full_name,
+                        profile_picture,
+                        join_date,
+                        theme,
+                        color,
+                        friend_count: data.friends.length,
+                    };
+                    return response;
+                });
+
             if (!user) {
                 deleteCookie("server-key", { req: context.req, res: context.res });
                 throw new Error("Logged in user does not exist!");
             }
-
-            const response: UserStoreData = {
-                user_id: user._id.toString(),
-                full_name: getFullName(user),
-                friend_count: user.friends.length,
-                join_date: formatTimestamp(user.join_timestamp, "date"),
-                profile_picture: user.profile_picture,
-                theme: user.preferences.theme,
-                color: user.preferences.color,
-            };
-            return response;
+            return user;
         },
         getMySettings: async (_, __, context) => {
             if (!context.auth) throw new Error("Your session has expired!");
-            const response = await getSettings(context.auth, context.req, context.res);
+            const user = await User.findById(context.auth).select(["username", "first_name", "last_name", "settings"]);
+            const { username, first_name, last_name, settings } = user;
+            const privacy = settings.visibility;
+            const response: UpdateUserSettingsProps = {
+                username,
+                first_name,
+                last_name,
+                theme: settings.theme,
+                color: settings.color,
+                friend_visibility: privacy.friends,
+                group_visibility: privacy.groups,
+                post_visibility: privacy.posts,
+                event_visibility: privacy.events,
+                new_password: "",
+                confirm_new_password: "",
+                old_password: "",
+            };
+
             return response;
         },
         getUserData: async (_, args, context) => {
-            const user = await User.findById(args.userId)
-                .populate({
-                    path: "friends.user",
-                    select: ["first_name", "last_name"],
-                })
-                .select(["friends", "first_name", "last_name", "profile_picture", "join_timestamp"])
-                .lean();
-            if (!user) throw new Error("User doesn't exist!");
-            const me = await User.findById(context.auth).select("friends.user");
-            if (!me) throw new Error("Your session has expired!");
+            // const me = await User.findById(context.auth).select("friends.user");
+            // const them = await User.findById("63236fcde8a02f47b7fb1146").select("friends.user");
+            // const myFriends = me.friends.map((obj: any) => obj.user);
+            // const theirFriends = them.friends.map((obj: any) => obj.user);
 
-            const myFriends = me.friends.map((obj: { user: Types.ObjectId }) => obj.user.toString());
-            const response = getUserData(user, { id: context.auth, friends: myFriends });
-            return response;
+            const test = await User.aggregate([
+                //
+                { $match: { _id: new Types.ObjectId("63236fcde8a02f47b7fb1146") } },
+                { $unwind: "$friends" },
+            ]);
+            console.log(test[0]);
+
+            return null;
         },
         getFriends: async (_, args, context) => {
-            const me = await User.findById(context.auth).select(["friends"]);
-            const user = await User.findById(args.id).populate("friends.user");
+            const user = await User.findById(args.userId);
+
+            console.log(user);
+
+            return [];
         },
     },
     Mutation: {
@@ -94,8 +126,7 @@ const userResolvers: Resolvers = {
 
             try {
                 await User.findByIdAndUpdate(context.auth, newSettings);
-                const response = await getSettings(context.auth, context.req, context.res);
-                return response;
+                return { message: "Settings have been updated" };
             } catch (error) {
                 throw new Error("Failed to update user settings");
             }

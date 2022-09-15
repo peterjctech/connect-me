@@ -18,7 +18,7 @@ const UserList = ({ title, userId }: GroupListProps) => {
     console.log(data);
 
     return (
-        <div className="container list-container">
+        <div className="list box">
             <h1>{title}</h1>
         </div>
     );

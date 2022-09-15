@@ -66,7 +66,7 @@ export interface LikeCommentProps {
 }
 
 // Populated
-export interface PopulatedPostModel {
+export interface GetPostDataArgs {
     _id: Types.ObjectId;
     group?: {
         _id: Types.ObjectId;

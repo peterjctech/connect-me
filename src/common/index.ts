@@ -6,8 +6,8 @@ import Dropdown from "./Dropdown/Dropdown";
 import Form from "./Form/Form";
 import Input from "./Input/Input";
 import Modal from "./Modal/Modal";
-import Outline from "./Outline/Outline";
+import Container from "./Container/Container";
 import Tabs from "./Tabs/Tabs";
 import Tooltip from "./Tooltip/Tooltip";
 
-export { Input, Button, Form, Modal, Dialog, Dropdown, Banner, Tabs, Outline, Card, Tooltip };
+export { Input, Button, Form, Modal, Dialog, Dropdown, Banner, Tabs, Container, Card, Tooltip };

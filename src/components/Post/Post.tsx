@@ -1,5 +1,5 @@
 import { PostData } from "@types";
-import { Outline } from "@common";
+import { Container } from "@common";
 
 interface PostProps {
     post: PostData;
@@ -7,7 +7,7 @@ interface PostProps {
 
 const Post = ({ post }: PostProps) => {
     return (
-        <Outline
+        <Container
             image={post.profile_picture}
             heading={post.author.name}
             datetime={{ main: post.created_at.relative, hover: post.created_at.absolute }}
@@ -19,7 +19,7 @@ const Post = ({ post }: PostProps) => {
         >
             {post.content}
             {post.picture && <img src={post.picture} />}
-        </Outline>
+        </Container>
     );
 };
 

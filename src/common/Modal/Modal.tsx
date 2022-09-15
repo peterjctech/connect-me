@@ -10,7 +10,7 @@ const Modal = ({ closeModal, children }: ModalProps) => {
 
     return (
         <div onClick={checkClick} className="modal">
-            <div className="modal__content container">{children}</div>
+            <div className="modal__content theme">{children}</div>
         </div>
     );
 };

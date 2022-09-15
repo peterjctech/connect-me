@@ -3,13 +3,13 @@ import Topbar from "./Topbar/Topbar";
 import Loading from "./Loading/Loading";
 import Rightbar from "./Rightbar/Rightbar";
 import Comment from "./Comment/Comment";
+import Post from "./Post/Post";
+import Tag from "./Tag";
 import EventList from "./lists/EventList/EventList";
 import GroupList from "./lists/GroupList/GroupList";
 import InterestList from "./lists/InterestList/InterestList";
-import Post from "./Post/Post";
-import Tag from "./Tag";
-import UserList from "./lists/UserList/UserList";
-import PostList from "./lists/PostList/PostList";
+import FriendsList from "./lists/FriendsList";
+import Posts from "./lists/Posts";
 
 export {
     Loading,
@@ -17,11 +17,11 @@ export {
     Topbar,
     Rightbar,
     Comment,
-    UserList,
+    FriendsList,
     Post,
     InterestList,
     GroupList,
     EventList,
-    PostList,
+    Posts,
     Tag,
 };

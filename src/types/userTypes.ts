@@ -19,7 +19,7 @@ export interface UserModel {
     events: Types.ObjectId[];
     conversations: Types.ObjectId[];
     notifications: Notification[];
-    preferences: {
+    settings: {
         theme: MainThemes;
         color: ColorThemes;
         visibility: UserVisibility;
@@ -96,7 +96,18 @@ export interface GetUserSummaryArgs {
             first_name: string;
             last_name: string;
         };
-        friendship_timestamp: number;
+    }[];
+    preferences: {
+        visibility: {
+            friends: VisibilityPreference;
+        };
+    };
+}
+
+export interface GetUserSummaryArgs2 {
+    _id: Types.ObjectId;
+    friends: {
+        user: Types.ObjectId;
     }[];
 }
 export interface GetUserDataArgs extends GetUserSummaryArgs {
