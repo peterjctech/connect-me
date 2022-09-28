@@ -1,34 +1,24 @@
-import dayjs from "dayjs";
-import { model, models, Schema, Types } from "mongoose";
-import { reactionEnum } from "@utils";
-import { v4 as uuidv4 } from "uuid";
-import { PostModel } from "@types";
+import { model, models, Schema } from "mongoose";
 
-const PostSchema = new Schema({
-    author: { type: Types.ObjectId, required: true, ref: "User" },
+import { IPost } from "@types";
+import { privacyOptionEnum } from "@utils";
+
+import ReactionSchema from "./subModels/ReactionModel";
+import CommentSchema from "./subModels/CommentModel";
+
+const ObjectID = Schema.Types.ObjectId;
+
+const PostSchema = new Schema<IPost>({
+    author: { type: ObjectID, required: true, ref: "User" },
+    group: { type: ObjectID, ref: "Group" },
     content: { type: String, required: true },
     picture: String,
-    group: { type: Types.ObjectId, ref: "Group" },
-    tags: [{ type: Types.ObjectId, ref: "Tag" }],
-    reactions: [
-        {
-            user: { type: Types.ObjectId, required: true, ref: "User" },
-            reaction: { type: String, required: true, enum: reactionEnum },
-            reaction_timestamp: { type: Number, default: dayjs().unix() },
-        },
-    ],
-    comments: [
-        {
-            id: { type: String, default: uuidv4() },
-            author: { type: Types.ObjectId, required: true, ref: "User" },
-            content: { type: String, required: true },
-            likes: [{ type: Types.ObjectId, ref: "User" }],
-            created_timestamp: { type: Number, default: dayjs().unix() },
-            is_edited: { type: Boolean, default: false },
-        },
-    ],
-    created_timestamp: { type: Number, default: dayjs().unix() },
+    tags: [{ type: ObjectID, ref: "Tag" }],
+    reactions: [ReactionSchema],
+    comments: [CommentSchema],
+    created_at: { type: Date, default: new Date() },
     is_edited: { type: Boolean, default: false },
+    privacy: { type: String, required: true, enum: privacyOptionEnum },
 });
 
-export const Post = models.Post || model<PostModel>("Post", PostSchema);
+export default models.Post || model<IPost>("Post", PostSchema);

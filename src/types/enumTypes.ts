@@ -1,8 +1,8 @@
-export type ColorThemes = "Blue" | "Purple" | "Red" | "Green";
-export type MainThemes = "Light" | "Void" | "Dark";
-export type VisibilityPreference = "Nobody" | "Friends" | "Everyone";
-export type Reaction = "Like" | "Love" | "Sad" | "Wow" | "Angry" | "Haha";
-export type JoinRestriction = "Private" | "Invite" | "Open" | "Friends";
-export type GroupStatus = "Founder" | "Admin" | "Member" | "Pending" | "Banned";
-export type EventMemberStatus = "Yes" | "Maybe" | "No";
+export type MainTheme = "Light" | "Void" | "Dark";
+export type ColorTheme = "Blue" | "Purple" | "Red" | "Green";
+export type PrivacyOption = "Everyone" | "Associates" | "Nobody";
 export type Color = "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "purple" | "magenta" | "pink" | "white";
+export type JoinRestriction = "Open" | "Associates" | "Invite" | "Private";
+export type GroupUserStatus = "Admin" | "Member" | "Pending" | "Invited" | "Denied" | "Banned";
+export type EventUserStatus = "Yes" | "Maybe" | "No" | "Pending" | "Invited" | "Denied";
+export type Reaction = "Like" | "Love" | "Sad" | "Wow" | "Angry" | "Haha";

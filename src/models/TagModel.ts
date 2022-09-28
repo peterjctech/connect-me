@@ -1,15 +1,17 @@
-import { model, models, Schema, Types } from "mongoose";
+import { model, models, Schema } from "mongoose";
 
+import { ITag } from "@types";
 import { colorEnum } from "@utils";
-import { TagModel } from "@types";
 
-const TagSchema = new Schema({
-    name: { type: String, required: true },
+const ObjectID = Schema.Types.ObjectId;
+
+const TagSchema = new Schema<ITag>({
+    name: { type: String, required: true, unique: true },
     color: { type: String, required: true, enum: colorEnum },
-    user_list: [{ type: Types.ObjectId, ref: "User" }],
-    post_list: [{ type: Types.ObjectId, ref: "Post" }],
-    event_list: [{ type: Types.ObjectId, ref: "Event" }],
-    group_list: [{ type: Types.ObjectId, ref: "Group" }],
+    users: [{ type: ObjectID, ref: "User" }],
+    posts: [{ type: ObjectID, ref: "Post" }],
+    groups: [{ type: ObjectID, ref: "Group" }],
+    events: [{ type: ObjectID, ref: "Event" }],
 });
 
-export const Tag = models.Tag || model<TagModel>("Tag", TagSchema);
+export default models.Tag || model<ITag>("Tag", TagSchema);

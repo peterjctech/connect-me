@@ -16,22 +16,10 @@
         "incremental": true,
         "baseUrl": "./src",
         "paths": {
-            "@assets": ["./assets"],
             "@database": ["./database"],
-            "@domain": ["./domain"],
             "@models": ["./models"],
-            "@layouts": ["./layouts"],
-            "@utils": ["./utils"],
-            "@common": ["./common"],
-            "@services": ["./services"],
-            "@queries": ["./graphql/queries"],
-            "@helpers": ["./helpers"],
-            "@mutations": ["./graphql/mutations"],
             "@types": ["./types"],
-            "@hooks": ["./hooks"],
-            "@components": ["./components"],
-            "@validators": ["./validators"],
-            "@store": ["./store"]
+            "@utils": ["./utils"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

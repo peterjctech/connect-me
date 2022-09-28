@@ -1,115 +1,45 @@
 import { Types } from "mongoose";
-import { MainThemes, ColorThemes, VisibilityPreference } from "./enumTypes";
-import { ListAndCount } from "./helperTypes";
-import { PostData } from "./postTypes";
+import { MainTheme, ColorTheme, PrivacyOption, GroupUserStatus, EventUserStatus } from "./enumTypes";
+import { INotification } from "./notifTypes";
 
-// Main
-export interface UserModel {
-    _id: Types.ObjectId;
+type ID = Types.ObjectId;
+
+export interface IUser {
+    _id: ID;
     username: string;
     password: string;
     first_name: string;
     last_name: string;
     profile_picture: string;
-    join_timestamp: number;
-    friends: Friend[];
-    groups: Types.ObjectId[];
-    posts: Types.ObjectId[];
-    tags: Types.ObjectId[];
-    events: Types.ObjectId[];
-    conversations: Types.ObjectId[];
-    notifications: Notification[];
+    joined_at: Date;
+    friends: {
+        user: ID;
+        friended_at: Date;
+    }[];
+    posts: ID[];
+    groups: {
+        group: ID;
+        status: GroupUserStatus;
+    }[];
+    events: {
+        event: ID;
+        status: EventUserStatus;
+    }[];
+    tags: ID[];
+    chats: ID[];
+    notifications: INotification[];
+    activity: {
+        ref_id: ID;
+        ref_model: "User" | "Post" | "Group" | "Event" | "Tag";
+        message: string;
+        date: Date;
+    }[];
     settings: {
-        theme: MainThemes;
-        color: ColorThemes;
-        visibility: UserVisibility;
+        theme: MainTheme;
+        color: ColorTheme;
+        hide_friends: PrivacyOption;
+        hide_posts: PrivacyOption;
+        hide_groups: PrivacyOption;
+        hide_events: PrivacyOption;
     };
-}
-export interface UserModalList {
-    user_id: string;
-    full_name: string;
-    profile_picture: string;
-    mutual_friends?: ListAndCount;
-    is_friend: boolean;
-}
-export interface UserSummary {
-    user_id: string;
-    full_name: string;
-    profile_picture: string;
-    mutual_friends?: ListAndCount;
-}
-export interface UserData {
-    user_id: string;
-    full_name: string;
-    profile_picture: string;
-    join_date: string;
-    mutual_friends?: ListAndCount;
-    friendship_date?: string;
-}
-export interface RegisterUserProps {
-    firstName: string;
-    lastName: string;
-    username: string;
-    password: string;
-    confirmPassword: string;
-}
-export interface LoginUserProps {
-    username: string;
-    password: string;
-}
-export interface UpdateUserSettingsProps {
-    username: string;
-    first_name: string;
-    last_name: string;
-    theme: MainThemes;
-    color: ColorThemes;
-    friend_visibility: VisibilityPreference;
-    group_visibility: VisibilityPreference;
-    post_visibility: VisibilityPreference;
-    event_visibility: VisibilityPreference;
-    new_password: string;
-    confirm_new_password: string;
-    old_password: string;
-}
-
-// Helpers
-export interface UserVisibility {
-    friends: VisibilityPreference;
-    groups: VisibilityPreference;
-    events: VisibilityPreference;
-    posts: VisibilityPreference;
-}
-export interface Friend {
-    user: Types.ObjectId;
-    friendship_timestamp: number;
-}
-
-// Queries
-export interface GetUserSummaryArgs {
-    _id: Types.ObjectId;
-    first_name: string;
-    last_name: string;
-    profile_picture: string;
-    friends: {
-        user: {
-            _id: Types.ObjectId;
-            first_name: string;
-            last_name: string;
-        };
-    }[];
-    preferences: {
-        visibility: {
-            friends: VisibilityPreference;
-        };
-    };
-}
-
-export interface GetUserSummaryArgs2 {
-    _id: Types.ObjectId;
-    friends: {
-        user: Types.ObjectId;
-    }[];
-}
-export interface GetUserDataArgs extends GetUserSummaryArgs {
-    join_timestamp: number;
 }

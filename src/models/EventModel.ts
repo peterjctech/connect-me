@@ -1,45 +1,33 @@
-import dayjs from "dayjs";
-import { model, models, Schema, Types } from "mongoose";
-import { joinRestrictionEnum, eventStatusEnum, reactionEnum } from "@utils";
-import { v4 as uuidv4 } from "uuid";
-import { EventModel } from "@types";
+import { model, models, Schema } from "mongoose";
 
-const EventSchema = new Schema({
+import { IEvent } from "@types";
+import { eventUserStatusEnum, joinRestrictionEnum, privacyOptionEnum } from "@utils";
+
+import ReactionSchema from "./subModels/ReactionModel";
+import CommentSchema from "./subModels/CommentModel";
+
+const ObjectID = Schema.Types.ObjectId;
+
+const EventSchema = new Schema<IEvent>({
+    creator: { type: ObjectID, required: true, ref: "User" },
+    group: { type: ObjectID, ref: "Group" },
     name: { type: String, required: true },
-    creator: { type: Types.ObjectId, required: true, ref: "User" },
-    group: { type: Types.ObjectId, ref: "Group" },
-    join_restriction: { type: String, required: true, enum: joinRestrictionEnum },
     description: { type: String, required: true },
+    join_restriction: { type: String, required: true, enum: joinRestrictionEnum },
     users: [
         {
-            user: { type: Types.ObjectId, ref: "User", required: true },
-            status: { type: String, enum: eventStatusEnum, required: true },
-            join_timestamp: { type: Number, default: dayjs().unix() },
+            _id: false,
+            user: { type: ObjectID, required: true, ref: "User" },
+            status: { type: String, required: true, enum: eventUserStatusEnum },
         },
     ],
-    tags: [{ type: Types.ObjectId, ref: "Tag" }],
-    reactions: [
-        {
-            user: { type: Types.ObjectId, required: true, ref: "User" },
-            reaction: { type: String, required: true, enum: reactionEnum },
-            reaction_timestamp: { type: Number, default: dayjs().unix() },
-        },
-    ],
-    comments: [
-        {
-            id: { type: String, default: uuidv4() },
-            author: { type: Types.ObjectId, required: true, ref: "User" },
-            content: { type: String, required: true },
-            likes: [{ type: Types.ObjectId, ref: "User" }],
-            created_timestamp: { type: Number, default: dayjs().unix() },
-            is_edited: { type: Boolean, default: false },
-        },
-    ],
-    timestamp: {
-        start: { type: Number, required: true },
-        end: Number,
-        created: { type: Number, default: dayjs().unix() },
-    },
+    reactions: [ReactionSchema],
+    comments: [CommentSchema],
+    tags: [{ type: ObjectID, ref: "Tag" }],
+    created_at: { type: Date, default: new Date() },
+    starts_at: { type: Date, required: true },
+    ends_at: Date,
+    privacy: { type: String, required: true, enum: privacyOptionEnum },
 });
 
-export const Event = models.Event || model<EventModel>("Event", EventSchema);
+export default models.Event || model<IEvent>("Event", EventSchema);

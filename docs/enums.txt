@@ -1,0 +1,25 @@
+PrivacyOption
+    What determines whether or not the authenticated user can view the content.
+    Associates are group members if it's for a group, otherwise they are friends.
+    This cannot be Everyone if it has a private join restriction
+
+Join Restriction
+    Open
+        Anyone can join
+    Associates
+        For group, only friends of an Admin or Founder can join.
+        For user event, only friends of creator.
+        For group event, only group members
+    Invite
+        Can only join if you send an invite request and they accept
+    Private
+        Can only join if you accept an invitation given to you by an admin/founder (for group event) or creator (for user event). Private events and groups are locked to be hidden from anyone not participating
+
+GroupJoinOptions
+    If a member, it will be Leave Group
+    If Banned, then that will show
+    Otherwise, it depends on the Join Restriction:
+        Open: Join
+        Associates: Join/Closed
+        Invite: Request Invite / Pending / Denied
+        Private: Invited

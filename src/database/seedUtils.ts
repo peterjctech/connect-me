@@ -1,116 +1,38 @@
-import { Types } from "mongoose";
-import {
-    PostModel,
-    Color,
-    VisibilityPreference,
-    JoinRestriction,
-    EventMemberStatus,
-    Reaction,
-    GroupStatus,
-    MainThemes,
-    ColorThemes,
-} from "@types";
-import { faker } from "@faker-js/faker";
-import { v4 as uuidv4 } from "uuid";
 import dayjs from "dayjs";
 
-export const getId = () => new Types.ObjectId();
-
-export const selectRandomColor = (): Color => {
-    return faker.helpers.arrayElement([
-        "red",
-        "orange",
-        "yellow",
-        "green",
-        "cyan",
-        "blue",
-        "purple",
-        "magenta",
-        "pink",
-        "white",
-    ]);
+export const dates = {
+    creation: dayjs().year(2016).month(3).date(1).toDate(),
+    last_month: dayjs().subtract(1, "month").toDate(),
+    last_week: dayjs().subtract(1, "week").toDate(),
+    yesterday: dayjs().subtract(1, "day").toDate(),
+    now: dayjs().toDate(),
+    next_week: dayjs().add(1, "week").toDate(),
+    future: dayjs().add(3, "month").toDate(),
 };
 
-export const selectRandomPreference = (): VisibilityPreference => {
-    return faker.helpers.arrayElement(["Nobody", "Friends", "Everyone"]);
+export const randomDate = (d1: Date, d2: Date) => {
+    if (d1 > d2) throw new Error("randomDate dates must be ordered from earliest to latest");
+    const timestamp = randomNumber(dayjs(d1).unix(), dayjs(d2).unix());
+    return dayjs.unix(timestamp).toDate();
 };
 
-export const selectRandomJoinRestriction = (): JoinRestriction => {
-    return faker.helpers.arrayElement(["Private", "Invite", "Open", "Friends"]);
+export const randomNumber = (num1: number, num2: number) => Math.floor(Math.random() * (num2 - num1 + 1) + num1);
+
+export const probability = (num: number) => (Math.random() < num ? true : false);
+
+export const getLastDate = (dates: Date[]) => {
+    dates.sort((a: Date, b: Date) => dayjs(b).unix() - dayjs(a).unix());
+    return dates[0];
 };
 
-export const selectRandomEventStatus = (): EventMemberStatus => {
-    return faker.helpers.arrayElement(["Yes", "No", "Maybe"]);
-};
+export const randomIndices = ({ range, length }: { range: [number, number]; length: number }) => {
+    const num = randomNumber(range[0], range[1]);
+    const arr: number[] = [];
 
-export const selectRandomReaction = (): Reaction => {
-    return faker.helpers.arrayElement(["Like", "Love", "Sad", "Wow", "Angry", "Haha"]);
-};
-
-export const selectRandomGroupStatus = (): GroupStatus => {
-    return faker.helpers.arrayElement(["Admin", "Member", "Pending"]);
-};
-
-export const selectRandomMainTheme = (): MainThemes => {
-    return faker.helpers.arrayElement(["Light", "Void", "Dark"]);
-};
-
-export const selectRandomColorTheme = (): ColorThemes => {
-    return faker.helpers.arrayElement(["Blue", "Green", "Purple", "Red"]);
-};
-
-export const getRandomTimestamp = (ts1: number, ts2: number) => Math.floor(Math.random() * (ts2 - ts1) + ts1);
-
-interface CutArrayProps {
-    range: [number, number] | [number];
-    array: any[];
-    neglectedIndex?: number;
-}
-
-export const cutArray = (props: CutArrayProps) => {
-    const lowerLimit = props.range[0];
-    const upperLimit = !props.range[1] || props.range[1] > props.array.length ? props.array.length : props.range[1];
-    const count = Math.floor(Math.random() * (upperLimit - lowerLimit) + lowerLimit);
-    const arr = [];
-    for (let i = 0; i < props.array.length; i++) {
-        if (i !== props.neglectedIndex) arr.push(props.array[i]);
+    while (arr.length < num) {
+        const random = randomNumber(0, length - 1);
+        if (arr.indexOf(random) === -1) arr.push(random);
     }
-    const newArr = faker.helpers.uniqueArray(arr, count);
-    return newArr;
-};
 
-interface CreatePostProps {
-    connectedUsers: Types.ObjectId[];
-    authorId: Types.ObjectId;
-    postCreationDate: number;
-}
-
-export const createPost = (props: CreatePostProps) => {
-    const post: PostModel = {
-        _id: getId(),
-        author: props.authorId,
-        content: faker.random.words(15),
-        reactions: cutArray({ array: props.connectedUsers, range: [0] }).map((id) => {
-            return {
-                user: id,
-                reaction: selectRandomReaction(),
-                reaction_timestamp: props.postCreationDate,
-            };
-        }),
-        comments: cutArray({ array: props.connectedUsers, range: [0] }).map((id) => {
-            return {
-                id: uuidv4(),
-                author: id,
-                content: faker.random.words(5),
-                likes: cutArray({ array: props.connectedUsers, range: [0] }),
-                created_timestamp: getRandomTimestamp(props.postCreationDate, dayjs().unix()),
-                is_edited: 0.1 > Math.random() ? true : false,
-            };
-        }),
-        tags: [],
-        created_timestamp: props.postCreationDate,
-        is_edited: 0.1 > Math.random() ? true : false,
-    };
-
-    return post;
+    return arr;
 };

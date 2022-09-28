@@ -1,32 +1,45 @@
-import { variables } from "@utils";
-import dayjs from "dayjs";
-import { model, models, Schema, Types } from "mongoose";
-import { joinRestrictionEnum, groupStatusEnum } from "@utils";
-import { GroupModel } from "@types";
+import { model, models, Schema } from "mongoose";
 
-const GroupSchema = new Schema({
-    name: { type: String, required: true },
+import { IGroup } from "@types";
+import { groupUserStatusEnum, joinRestrictionEnum } from "@utils";
+
+import ReactionSchema from "./subModels/ReactionModel";
+
+const ObjectID = Schema.Types.ObjectId;
+
+const GroupSchema = new Schema<IGroup>({
+    founder: { type: ObjectID, required: true, ref: "User" },
+    name: { type: String, required: true, unique: true },
     description: { type: String, required: true },
-    group_image: { type: String, default: variables.default.group },
-    join_restriction: { type: String, required: true, enum: joinRestrictionEnum },
+    group_image: { type: String, default: "/default-group-picture.jpg" },
     users: [
         {
-            user: { type: Types.ObjectId, ref: "User", required: true },
-            status: { type: String, enum: groupStatusEnum, required: true },
-            join_timestamp: { type: Number, default: dayjs().unix() },
+            _id: false,
+            user: { type: ObjectID, required: true, ref: "User" },
+            status: { type: String, required: true, enum: groupUserStatusEnum },
+            is_member: { type: Boolean, required: true },
+            joined_at: Date,
         },
     ],
-    tags: [{ type: Types.ObjectId, ref: "Tag" }],
-    events: [{ type: Types.ObjectId, ref: "Event" }],
-    posts: [{ type: Types.ObjectId, ref: "Post" }],
-    created_timestamp: { type: Number, default: dayjs().unix() },
+    tags: [{ type: ObjectID, ref: "Tag" }],
+    events: [{ type: ObjectID, ref: "Event" }],
+    posts: [{ type: ObjectID, ref: "Post" }],
+    created_at: { type: Date, default: new Date() },
     update_history: [
         {
-            user: { type: Types.ObjectId, ref: "User", required: true },
-            update: { type: String, required: true },
-            timestamp: { type: Number, default: dayjs().unix() },
+            _id: false,
+            user: { type: ObjectID, required: true, ref: "User" },
+            update_message: { type: String, required: true },
+            update_image: String,
+            updated_at: { type: Date, default: new Date() },
+            reactions: [ReactionSchema],
         },
     ],
+    settings: {
+        join_restriction: { type: String, required: true, enum: joinRestrictionEnum },
+        hide_events: { type: Boolean, required: true },
+        hide_posts: { type: Boolean, required: true },
+    },
 });
 
-export const Group = models.Group || model<GroupModel>("Group", GroupSchema);
+export default models.Group || model<IGroup>("Group", GroupSchema);

@@ -1,6 +1,8 @@
-import { seedDatabase, connectDB } from "@database";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { connectDB, seedDatabase } from "@database";
 
-export default async function () {
+export default async function (req: NextApiRequest, res: NextApiResponse) {
     await connectDB();
-    seedDatabase();
+    const response = await seedDatabase();
+    res.json(response);
 }
