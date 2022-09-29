@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
-
-// TODO: Uncomment strict mode after seeding database
 const nextConfig = {
-    // reactStrictMode: true,
+    reactStrictMode: true,
     swcMinify: true,
 };
 
