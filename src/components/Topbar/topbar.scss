@@ -1,0 +1,37 @@
+.topbar {
+    background-color: $primary;
+    display: flex;
+    place-items: center;
+    padding: 1rem;
+    justify-content: space-between;
+
+    section {
+        display: flex;
+        justify-content: right;
+
+        > * {
+            margin-left: 1rem;
+        }
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+            fill: white;
+        }
+    }
+
+    .input {
+        // display: none;
+        width: min(40%, 24rem);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @include breakpoint(tablet) {
+        .input {
+            // display: block;
+        }
+    }
+}

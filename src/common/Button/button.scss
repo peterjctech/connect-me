@@ -1,0 +1,20 @@
+.button {
+    font: 1rem $ff-fancy;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 0.5rem;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    height: 2.4rem;
+    min-width: 6rem;
+    outline: none;
+    border: solid black 1px;
+
+    &:focus-within {
+        box-shadow: 0px 0px 5px 3px $primary;
+    }
+
+    &.squared {
+        border-radius: 0.5rem;
+    }
+}

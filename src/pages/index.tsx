@@ -1,11 +1,25 @@
+import { useState } from "react";
 import type { NextPage } from "next";
 
-const Home: NextPage = () => {
+import { Dialog } from "common";
+import { LoginForm, RegisterForm } from "components";
+import { useDialog } from "hooks";
+
+const HomePage: NextPage = () => {
+    const [showModal, setShowModal] = useState(false);
+    const { dialog, openDialog, dialogProps } = useDialog();
+
+    const toggleModal = () => setShowModal(!showModal);
+
     return (
         <main>
-            <h1>Hello World</h1>
+            <div className="box theme">
+                {dialog && <Dialog {...dialogProps} />}
+                <LoginForm toggleModal={toggleModal} openDialog={openDialog} />
+                {showModal && <RegisterForm closeModal={toggleModal} openDialog={openDialog} />}
+            </div>
         </main>
     );
 };
 
-export default Home;
+export default HomePage;

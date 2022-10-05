@@ -1,0 +1,154 @@
+.app--light {
+    .theme {
+        background-color: $neutral-2;
+        color: $neutral-6;
+    }
+
+    .navbar,
+    .rightbar,
+    .card {
+        background-color: darken($neutral-2, 5%);
+        color: $neutral-6;
+    }
+
+    .bordered {
+        border: solid black 1px;
+    }
+
+    .input {
+        background-color: $neutral-1;
+    }
+
+    .dropdown select {
+        background-color: $neutral-1;
+    }
+
+    .hover-change:hover {
+        background-color: darken($neutral-2, 15%);
+    }
+
+    main {
+        background-color: $neutral-1;
+    }
+}
+
+.app--void {
+    .theme {
+        background-color: $void;
+        color: $neutral-2;
+    }
+
+    .navbar,
+    .rightbar,
+    .card {
+        background-color: darken($void, 5%);
+        color: $neutral-2;
+    }
+
+    .bordered {
+        border: solid $neutral-4 1px;
+    }
+
+    .input {
+        background-color: $neutral-6;
+
+        input {
+            color: $neutral-2;
+        }
+
+        svg {
+            fill: $neutral-2;
+        }
+    }
+
+    .dropdown select {
+        background-color: $neutral-6;
+        color: $neutral-2;
+    }
+
+    .hover-change:hover {
+        background-color: $void;
+    }
+
+    main {
+        background-color: black;
+    }
+}
+
+.app--dark {
+    .theme {
+        background-color: black;
+        color: $neutral-1;
+    }
+
+    .navbar,
+    .rightbar,
+    .card {
+        background-color: $neutral-5;
+        color: $neutral-1;
+    }
+
+    .bordered {
+        border: solid $neutral-4 1px;
+    }
+
+    .input {
+        background-color: $neutral-4;
+
+        input {
+            color: $neutral-1;
+        }
+
+        svg {
+            fill: $neutral-1;
+        }
+    }
+
+    .dropdown select {
+        background-color: $neutral-4;
+        color: $neutral-1;
+    }
+
+    .hover-change:hover {
+        background-color: lighten($neutral-5, 5%);
+    }
+
+    main {
+        background-color: $neutral-6;
+    }
+}
+
+.app.blue .button {
+    background-color: $theme-blue;
+
+    &:hover {
+        background-color: darken($theme-blue, 10%);
+    }
+}
+
+.app.purple .button {
+    background-color: $theme-purple;
+    color: $neutral-1;
+
+    &:hover {
+        background-color: darken($theme-purple, 10%);
+    }
+}
+
+.app.green .button {
+    background-color: $theme-green;
+    color: $neutral-6;
+
+    &:hover {
+        background-color: darken($theme-green, 10%);
+    }
+}
+
+.app.red .button {
+    background-color: $theme-red;
+    color: $neutral-1;
+
+    &:hover {
+        background-color: darken($theme-red, 10%);
+    }
+}
