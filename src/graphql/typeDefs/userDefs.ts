@@ -13,11 +13,40 @@ export default gql`
         Green
         Red
     }
-    type Message {
-        message: String!
+    enum PrivacyOption {
+        Everyone
+        FriendsOnly
+        ShowMutual
+        Private
+    }
+    enum FriendStatus {
+        Sent
+        Recieved
+        Accepted
     }
 
     # Responses
+    type UserSummary {
+        user_id: String!
+        full_name: String!
+        profile_picture: String!
+        mutual_friend_count: Int
+        friendship_status: FriendStatus
+    }
+    type UserLayoutData {
+        user_id: String!
+        full_name: String!
+        profile_picture: String!
+        friend_count: TotalAndMutualCount!
+        friendship_status: FriendStatus
+        joined_at: String!
+        intro: String!
+        birthday: String!
+        age: Int!
+        friend_privacy: PrivacyOption!
+        group_privacy: PrivacyOption!
+        event_privacy: PrivacyOption!
+    }
     type UserStoreData {
         user_id: String!
         full_name: String!
@@ -25,9 +54,9 @@ export default gql`
         friend_count: Int!
         joined_at: String!
         intro: String!
-        theme: MainTheme!
         birthday: String!
         age: Int!
+        theme: MainTheme!
         color: ColorTheme!
     }
     type UserSettings {
@@ -38,15 +67,21 @@ export default gql`
         theme: MainTheme!
         color: ColorTheme!
         default_post_is_public: Boolean!
-        friend_privacy: String!
-        group_privacy: String!
-        event_privacy: String!
+        friend_privacy: PrivacyOption!
+        group_privacy: PrivacyOption!
+        event_privacy: PrivacyOption!
     }
 
     # Main
     type Query {
         initializeStore: UserStoreData
         getUserSettings: UserSettings
+        getUserLayoutData(userId: String!): UserLayoutData
+        getUserPosts(userId: String!, isFriend: Boolean!, skipTimestamp: Int!): GetPostsResponse
+        getUserFriends(userId: String!, isFriend: Boolean!, privacy: PrivacyOption!): [UserSummary]
+        getUserGroups(userId: String!, isFriend: Boolean!, privacy: PrivacyOption!): [GroupSummary]
+        getUserTags(userId: String!): [TagSummary]
+        getUserEvents(userId: String!, isFriend: Boolean!, privacy: PrivacyOption!): [EventSummary]
     }
     type Mutation {
         updateUserSettings(

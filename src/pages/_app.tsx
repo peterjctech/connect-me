@@ -6,12 +6,24 @@ import store from "store";
 import { Provider } from "react-redux";
 import "../styles/index.scss";
 
+const NestedLayout = ({ Component, pageProps }: any) => {
+    if (Component.PageLayout) {
+        return (
+            <Component.PageLayout>
+                <Component {...pageProps} />
+            </Component.PageLayout>
+        );
+    } else {
+        return <Component pageProps={pageProps} />;
+    }
+};
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
     return (
         <ApolloProvider client={client}>
             <Provider store={store}>
                 <MainLayout>
-                    <Component {...pageProps} />;
+                    <NestedLayout Component={Component} pageProps={pageProps} />
                 </MainLayout>
             </Provider>
         </ApolloProvider>

@@ -2,7 +2,8 @@ import { ID } from "./modelTypeHelpers";
 
 export type MainTheme = "Light" | "Dark" | "Void";
 export type ColorTheme = "Blue" | "Purple" | "Red" | "Green";
-export type PrivacyOption = "Everyone" | "Friends Only" | "Show Mutual" | "Private";
+export type PrivacyOption = "Everyone" | "FriendsOnly" | "ShowMutual" | "Private";
+export type FriendStatus = "Sent" | "Recieved" | "Accepted";
 
 export interface UserModel {
     _id: ID;
@@ -14,6 +15,10 @@ export interface UserModel {
     birthday: Date;
     intro?: string;
     joined_at: Date;
+    friends: {
+        user_id: ID;
+        status: FriendStatus;
+    }[];
     tags: ID[];
     groups: ID[];
     events: ID[];
@@ -27,13 +32,6 @@ export interface UserModel {
         event_privacy: PrivacyOption;
         friend_privacy: PrivacyOption;
     };
-}
-
-export interface FriendshipModel {
-    _id: ID;
-    sender: ID;
-    reciever: ID;
-    is_accepted: boolean;
 }
 
 export interface ChatModel {

@@ -6,6 +6,11 @@ const userSlice = createSlice({
         user_id: "",
         full_name: "",
         profile_picture: "",
+        friend_count: 0,
+        joined_at: "",
+        intro: "",
+        birthday: "",
+        age: 0,
         theme: "Light",
         color: "Blue",
         is_initialized: false,
@@ -13,12 +18,17 @@ const userSlice = createSlice({
     reducers: {
         setUserStore: (state, action) => {
             if (action.payload) {
-                const { theme, color, user_id, profile_picture, full_name } = action.payload;
-                state.theme = theme;
-                state.color = color;
-                state.user_id = user_id;
-                state.profile_picture = profile_picture;
-                state.full_name = full_name;
+                const p = action.payload;
+                state.theme = p.theme;
+                state.color = p.color;
+                state.user_id = p.user_id;
+                state.profile_picture = p.profile_picture;
+                state.full_name = p.full_name;
+                state.intro = p.intro;
+                state.age = p.age;
+                state.birthday = p.birthday;
+                state.friend_count = p.friend_count;
+                state.joined_at = p.joined_at;
             }
 
             state.is_initialized = true;

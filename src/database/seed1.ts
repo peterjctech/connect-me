@@ -1,14 +1,13 @@
 import dayjs from "dayjs";
-import { Chat, User, Event, Friendship, Group, Post, Tag } from "models";
+import { Chat, User, Event, Group, Post, Tag } from "models";
 import { faker } from "@faker-js/faker";
-import { dates, probability, randomDate, randomSettings } from "./seedHelpers";
-import { UserModel } from "types";
+import { dates, probability, randomDate, randomSettings, randomStringArr } from "./seedHelpers";
+import { FriendStatus, UserModel } from "types";
 
 export const clearDatabase = async () => {
     console.time("clearDatabase");
     await User.deleteMany();
     await Event.deleteMany();
-    await Friendship.deleteMany();
     await Post.deleteMany();
     await Tag.deleteMany();
     await Group.deleteMany();
@@ -19,7 +18,7 @@ export const clearDatabase = async () => {
 export const seedUsers = async () => {
     console.time("seedUsers");
 
-    const props = faker.helpers.uniqueArray(faker.internet.userName, 700).map((username) => {
+    const props = faker.helpers.uniqueArray(faker.internet.userName, 1000).map((username) => {
         return {
             username,
             password: faker.internet.password(),
@@ -63,34 +62,56 @@ export const seedHackerman = async () => {
     return hackerman;
 };
 
-type SeedFriendsProps = { users: UserModel[]; hackerman: UserModel };
-export const seedFriends = async ({ users, hackerman }: SeedFriendsProps) => {
-    console.time("seedFriends");
-    let props: any[] = [];
-
+type AddFriendsProps = { users: UserModel[]; hackerman: UserModel };
+export const addFriends = ({ users, hackerman }: AddFriendsProps) => {
     for (let i = 0; i < users.length; i++) {
-        const odds = Math.random() * 0.8;
+        const odds = Math.random() * 0.4;
         for (let j = 0; j < i; j++) {
             if (probability(odds)) {
-                props.push({
-                    sender: users[i]._id,
-                    reciever: users[j]._id,
-                    is_accepted: probability(0.8),
+                let iStatus: FriendStatus = "Accepted";
+                let jStatus: FriendStatus = "Accepted";
+                if (probability(0.2)) {
+                    if (probability(0.5)) {
+                        iStatus = "Sent";
+                        jStatus = "Recieved";
+                    } else {
+                        jStatus = "Sent";
+                        iStatus = "Recieved";
+                    }
+                }
+                users[i].friends.push({
+                    user_id: users[j]._id,
+                    status: iStatus,
+                });
+                users[j].friends.push({
+                    user_id: users[i]._id,
+                    status: jStatus,
                 });
             }
         }
 
         if (probability(0.8)) {
-            if (probability(0.7)) {
-                props.push({ sender: users[i]._id, reciever: hackerman._id, is_accepted: probability(0.8) });
-            } else {
-                props.push({ sender: hackerman._id, reciever: users[i]._id, is_accepted: true });
+            let iStatus: FriendStatus = "Accepted";
+            let hStatus: FriendStatus = "Accepted";
+
+            if (probability(0.2)) {
+                if (probability(0.7)) {
+                    iStatus = "Sent";
+                    hStatus = "Recieved";
+                } else {
+                    hStatus = "Sent";
+                    iStatus = "Recieved";
+                }
             }
+
+            users[i].friends.push({
+                user_id: hackerman._id,
+                status: iStatus,
+            });
+            hackerman.friends.push({
+                user_id: users[i]._id,
+                status: hStatus,
+            });
         }
     }
-
-    const friendships = await Friendship.insertMany(props).then((data) => JSON.parse(JSON.stringify(data)));
-
-    console.timeEnd("seedFriends");
-    return friendships;
 };

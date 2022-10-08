@@ -1,6 +1,6 @@
-import { getFriends, randomDate, dates, randomNumber, getPostSeedData } from "./seedHelpers";
+import { randomDate, dates, randomNumber, getPostSeedData } from "./seedHelpers";
 import { Post } from "models";
-import { GroupModel, UserModel, FriendshipModel } from "types";
+import { GroupModel, UserModel } from "types";
 
 type AddGroupsToUsersProps = { users: UserModel[]; hackerman: UserModel; groups: GroupModel[] };
 export const addGroupsToUsers = ({ users, hackerman, groups }: AddGroupsToUsersProps) => {
@@ -18,15 +18,14 @@ export const addGroupsToUsers = ({ users, hackerman, groups }: AddGroupsToUsersP
 
 type SeedPostsProps = {
     users: UserModel[];
-    friendships: FriendshipModel[];
     groups: GroupModel[];
 };
-export const seedPosts = async ({ users, friendships, groups }: SeedPostsProps) => {
+export const seedPosts = async ({ users, groups }: SeedPostsProps) => {
     console.time("seedPosts");
 
     const props: any[] = [];
     users.forEach((user) => {
-        const friends = getFriends({ userId: user._id, friendships });
+        const friends = user.friends.filter((obj) => obj.status === "Accepted").map((obj) => obj.user_id);
 
         for (let i = 0; i < randomNumber(2, 4); i++) {
             const createdAt = randomDate(user.joined_at, dates.ten_days_ago);

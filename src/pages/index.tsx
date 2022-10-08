@@ -11,9 +11,13 @@ const HomePage: NextPage = () => {
 
     const toggleModal = () => setShowModal(!showModal);
 
+    const seed = () => {
+        fetch("/api/seed");
+    };
     return (
         <main>
             <div className="box theme">
+                <button onClick={seed}>Seed</button>
                 {dialog && <Dialog {...dialogProps} />}
                 <LoginForm toggleModal={toggleModal} openDialog={openDialog} />
                 {showModal && <RegisterForm closeModal={toggleModal} openDialog={openDialog} />}

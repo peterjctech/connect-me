@@ -4,8 +4,7 @@ import { probability, randomDate, randomNumber, dates, getLastDate } from "./see
 import { Chat } from "models";
 import { ChatModel, UserModel } from "types";
 
-type SeedChatsProps = { users: UserModel[]; hackerman: UserModel };
-export const seedChats = async ({ users, hackerman }: SeedChatsProps) => {
+export const seedChats = async ({ users, hackerman }: { users: UserModel[]; hackerman: UserModel }) => {
     console.time("seedChats");
 
     const seedData = [
@@ -73,7 +72,12 @@ export const seedChats = async ({ users, hackerman }: SeedChatsProps) => {
     return chats;
 };
 
-type AddChatsToUsersProps = { chats: ChatModel[]; users: UserModel[]; hackerman: UserModel };
+interface AddChatsToUsersProps {
+    chats: ChatModel[];
+    users: UserModel[];
+    hackerman: UserModel;
+}
+
 export const addChatsToUsers = ({ chats, users, hackerman }: AddChatsToUsersProps) => {
     chats.forEach((chat) => {
         for (let i = 0; i < chat.members.length; i++) {

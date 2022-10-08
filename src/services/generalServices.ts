@@ -1,25 +1,22 @@
-export const friendCount = [
+export const concatNames = { $concat: ["$first_name", " ", "$last_name"] };
+
+export const getAcceptedFriends = {
+    $map: {
+        input: { $filter: { input: "$friends", as: "af", cond: { $eq: ["$$af.status", "Accepted"] } } },
+        as: "ff",
+        in: "$$ff.user_id",
+    },
+};
+
+export const getSelfFriends = [
     {
         $lookup: {
-            from: "friendships",
-            localField: "_id",
-            foreignField: "sender",
-            pipeline: [{ $count: "count" }],
-            as: "sender_count",
+            from: "users",
+            localField: "self_id",
+            foreignField: "_id",
+            pipeline: [{ $project: { _id: 0, friends: getAcceptedFriends } }],
+            as: "self_friends",
         },
     },
-    {
-        $lookup: {
-            from: "friendships",
-            localField: "_id",
-            foreignField: "reciever",
-            pipeline: [{ $count: "count" }],
-            as: "reciever_count",
-        },
-    },
-    {
-        $addFields: {
-            friend_count: { $sum: [{ $first: "$reciever_count.count" }, { $first: "$sender_count.count" }] },
-        },
-    },
+    { $addFields: { self_friends: { $first: "$self_friends.friends" } } },
 ];

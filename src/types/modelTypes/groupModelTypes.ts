@@ -2,7 +2,7 @@ import { ReactionSubmodel } from "./generalSubmodelTypes";
 import { ID } from "./modelTypeHelpers";
 
 export type GroupMemberStatus = "Admin" | "Member";
-export type GroupUserStatus = "Requested Invite" | "Invited" | "Banned";
+export type GroupUserStatus = "RequestedInvite" | "Invited" | "Banned";
 export type GroupRestriction = "Open" | "Friends" | "Invite" | "Private";
 
 export interface GroupModel {

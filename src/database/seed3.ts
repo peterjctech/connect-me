@@ -22,7 +22,7 @@ export const seedGroups = async ({ users, hackerman }: { users: UserModel[]; hac
         const allUsers = indices.map((num) => users[num]);
         if (probability(0.1)) {
             allUsers.unshift(hackerman);
-        } else if (probability(0.2)) {
+        } else if (probability(0.4)) {
             allUsers.push(hackerman);
         }
 

@@ -1,5 +1,5 @@
 import { Group, User, Event, Post, Tag, Chat } from "models";
-import { clearDatabase, seedFriends, seedHackerman, seedUsers } from "./seed1";
+import { clearDatabase, addFriends, seedHackerman, seedUsers } from "./seed1";
 import { addChatsToUsers, seedChats } from "./seed2";
 import { seedGroups } from "./seed3";
 import { addGroupsToUsers, seedPosts } from "./seed4";
@@ -10,14 +10,14 @@ export const seedDatabase = async () => {
     await clearDatabase();
     const users = await seedUsers();
     const hackerman = await seedHackerman();
-    const friendships = await seedFriends({ users, hackerman });
+    addFriends({ users, hackerman });
     const chats = await seedChats({ users, hackerman });
     addChatsToUsers({ users, hackerman, chats });
     const groups = await seedGroups({ users, hackerman });
     addGroupsToUsers({ users, hackerman, groups });
     users.push(hackerman);
-    const posts = await seedPosts({ users, groups, friendships });
-    const events = await seedEvents({ users, groups, friendships });
+    const posts = await seedPosts({ users, groups });
+    const events = await seedEvents({ users, groups });
     addEventsToUsers({ events, users });
     const tags = await seedTags();
     populateTags({ users, groups, posts, events, tags });

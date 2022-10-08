@@ -7,3 +7,6 @@ export * from "./modelTypes/generalSubmodelTypes";
 export * from "./modelTypes/modelTypeHelpers";
 
 export * from "./userTypes";
+export * from "./groupTypes";
+export * from "./tagTypes";
+export * from "./postTypes";
