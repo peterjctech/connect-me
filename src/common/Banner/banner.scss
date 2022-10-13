@@ -1,0 +1,76 @@
+.banner {
+    border: solid $neutral-3 1px;
+    height: 30rem;
+    position: relative;
+
+    &__cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    section {
+        position: absolute;
+        background-color: rgba($color: $neutral-1, $alpha: 0.7);
+        bottom: 0;
+        left: 0;
+        width: 100%;
+
+        @include breakpoint(laptop) {
+            height: 16rem;
+        }
+    }
+
+    .wrapper {
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__image {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        @include breakpoint(laptop) {
+            width: 7rem;
+            height: 7rem;
+        }
+    }
+
+    h3 {
+        margin-top: 5rem;
+        text-align: center;
+    }
+
+    p {
+        margin: 0.5rem;
+        margin-top: 1rem;
+        margin-bottom: 8rem;
+        text-align: center;
+    }
+
+    &__info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    span {
+        margin: 0.2rem;
+    }
+
+    .button {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    @include breakpoint(tablet) {
+        border-radius: 1rem 1rem 0 0;
+        overflow: hidden;
+    }
+}

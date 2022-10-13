@@ -1,0 +1,24 @@
+.card {
+    width: 20rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+
+    &__heading {
+        display: flex;
+    }
+
+    img {
+        margin-right: 0.5rem;
+    }
+
+    &__title {
+        position: relative;
+        top: 0.2rem;
+    }
+
+    &__content {
+        margin-top: 0.5rem;
+        text-align: left;
+    }
+}

@@ -1,6 +1,6 @@
 import { randomDate, dates, randomNumber, getEventSeedData } from "./seedHelpers";
 import { Event } from "models";
-import { EventModel, GroupModel, UserModel } from "types";
+import { GroupModel, UserModel } from "types";
 
 type SeedEventsProps = {
     users: UserModel[];

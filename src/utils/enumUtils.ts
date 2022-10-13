@@ -15,10 +15,10 @@ import {
 
 export const friendStatusEnum: FriendStatus[] = ["Accepted", "Recieved", "Sent"];
 export const groupMemberStatusEnum: GroupMemberStatus[] = ["Admin", "Member"];
-export const groupRestrictionEnum: GroupRestriction[] = ["Friends", "Invite", "Open", "Private"];
+export const groupRestrictionEnum: GroupRestriction[] = ["Invite", "Open", "Private"];
 export const groupUserStatusEnum: GroupUserStatus[] = ["Banned", "Invited", "RequestedInvite"];
 export const eventMemberStatusEnum: EventMemberStatus[] = ["Invited", "Maybe", "No", "Yes"];
-export const eventRestrictionEnum: EventRestriction[] = ["Friends", "Members", "Open", "Private"];
+export const eventRestrictionEnum: EventRestriction[] = ["Restricted", "Open", "Private"];
 export const reactionEnum: Reaction[] = ["Angry", "Haha", "Like", "Love", "Sad", "Wow"];
 export const changeEnum: Change[] = ["Commented", "Created", "Reacted"];
 export const mainThemeEnum: MainTheme[] = ["Dark", "Void", "Light"];

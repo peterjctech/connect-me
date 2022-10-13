@@ -14,8 +14,6 @@ const DashboardTags = () => {
         return <Loading />;
     }
 
-    console.log(data.getUserTags);
-
     return (
         <div className="list-container theme box">
             <h1>{userStore.full_name}'s Tags</h1>

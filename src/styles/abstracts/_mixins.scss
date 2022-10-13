@@ -13,3 +13,16 @@ $breakpoints: (
         @content;
     }
 }
+
+@mixin lightTheme {
+    background-color: darken($neutral-2, 5%);
+    color: $neutral-6;
+}
+@mixin voidTheme {
+    background-color: darken($void, 5%);
+    color: $neutral-2;
+}
+@mixin darkTheme {
+    background-color: $neutral-5;
+    color: $neutral-1;
+}

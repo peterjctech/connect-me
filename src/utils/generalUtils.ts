@@ -1,12 +1,3 @@
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat";
-dayjs.extend(advancedFormat);
-
-export const formatDate = (date: Date) => {
-    if (!date) return undefined;
-    return dayjs(date).format("MMMM Do, YYYY");
-};
-
 export const getTooltipList = (list: string[]) => {
     const count = list.length;
     if (count === 0) return undefined;
@@ -22,24 +13,12 @@ export const getListAndCount = (list: string[]) => {
     return { list: getTooltipList(list), count };
 };
 
-const calculateRelative = (ts: number) => {
-    const sec = dayjs().unix() - ts;
-    const floor = (num: number, suffix: string) => `${Math.floor(sec / num)}${suffix}`;
-
-    if (sec < 60) return "Just now";
-    if (sec < 3600) return floor(60, "m");
-    if (sec < 86400) return floor(3600, "h");
-    if (sec < 86400 * 7) return floor(86400, "d");
-    if (ts > dayjs().subtract(1, "year").unix()) return floor(86400 * 7, "w");
-    return `${dayjs().year() - dayjs.unix(ts).year()}y`;
-};
-
-export const getCreatedAt = (date: Date) => {
-    const obj = dayjs(date);
-    const absolute = `${obj.format("dddd, MMMM Do, YYYY")} at ${obj.format("h:mm A")}`;
-    const relative = calculateRelative(obj.unix());
-
-    return { absolute, relative };
+export const getList = (list: string[]) => {
+    if (!list || list.length === 0) return null;
+    if (list.length > 3) return `${list[0]}, ${list[1]}, and ${list.length - 2} others`;
+    if (list.length === 3) return `${list[0]}, ${list[1]}, and ${list[2]}`;
+    if (list.length === 2) return `${list[0]} and ${list[1]}`;
+    if (list.length === 1) return `${list[0]}`;
 };
 
 export const getReactionDisplay = (list: string[]) => {
@@ -62,14 +41,4 @@ export const getReactionDisplay = (list: string[]) => {
     }
 
     return { standard: list.length, extended };
-};
-
-export const formatEventDatetime = (dates: [Date] | [Date, Date]) => {
-    if (!dates[1]) {
-        return dayjs(dates[0]).format("h:mm A on dddd, MMMM Do, YYYY");
-    } else {
-        const start = dayjs(dates[0]).format("h:mm A");
-        const end = dayjs(dates[1]).format("h:mm A");
-        return `${start} - ${end} on ${dayjs(dates[0]).format("dddd, MMMM Do, YYYY")}`;
-    }
 };

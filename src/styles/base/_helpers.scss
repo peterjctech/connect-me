@@ -26,7 +26,13 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, 12rem);
         justify-content: space-around;
-        gap: 1rem;
+        gap: 0.7rem;
+    }
+
+    &.lg {
+        & > section {
+            grid-template-columns: repeat(auto-fill, 16rem);
+        }
     }
 }
 
@@ -107,4 +113,8 @@ input[type="file"] {
     &.has-file {
         background-color: $success;
     }
+}
+
+.emoji {
+    cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 interface Tab {
@@ -8,9 +8,12 @@ interface Tab {
 
 export default function (tabList: Tab[]) {
     const router = useRouter();
-    const index = tabList.findIndex((tab) => tab.link === router.asPath);
+    const [currentTab, setCurrentTab] = useState<null | Tab>(null);
 
-    const [currentTab, setCurrentTab] = useState(tabList[index]);
+    useEffect(() => {
+        const index = tabList.findIndex((tab) => tab.link === router.asPath);
+        setCurrentTab(tabList[index]);
+    }, [router.query]);
 
     const changeTab = (tab: Tab) => {
         router.push(tab.link);

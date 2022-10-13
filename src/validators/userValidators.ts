@@ -75,8 +75,6 @@ export const validateUserRegistration = async (props: RegisterUserProps) => {
     const user = await User.findOne({ username: username });
     if (user) throw new Error("Username already exists");
 
-    console.log(user);
-
     const birthday = dayjs().year(parseInt(birthYear)).month(parseInt(birthMonth)).date(parseInt(birthDate));
 
     if (birthday.unix() > dayjs().subtract(14, "year").unix()) {

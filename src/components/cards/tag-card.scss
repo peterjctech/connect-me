@@ -1,0 +1,59 @@
+.tag-card {
+    width: 12rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+
+    &__image {
+        width: 12rem;
+        height: 12rem;
+        object-fit: cover;
+    }
+
+    &__color {
+        width: 12rem;
+        height: 12rem;
+
+        &.red {
+            background-color: red;
+        }
+        &.orange {
+            background-color: orange;
+        }
+        &.yellow {
+            background-color: yellow;
+        }
+        &.green {
+            background-color: green;
+        }
+        &.cyan {
+            background-color: cyan;
+        }
+        &.blue {
+            background-color: blue;
+        }
+        &.purple {
+            background-color: purple;
+        }
+        &.magenta {
+            background-color: magenta;
+        }
+        &.pink {
+            background-color: pink;
+        }
+        &.white {
+            background-color: white;
+        }
+    }
+}
+
+.app--light .tag-card {
+    @include lightTheme;
+}
+.app--void .tag-card {
+    @include voidTheme;
+}
+.app--dark .tag-card {
+    @include darkTheme;
+}

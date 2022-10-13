@@ -1,12 +1,23 @@
+import { Loading } from "components";
+
 type Tab = { title: string; link: string };
 
 interface TabsProps {
     tabs: Tab[];
     changeTab: (tab: Tab) => void;
-    currentTab: Tab;
+    currentTab: Tab | null;
 }
 
 const Tabs = ({ tabs, changeTab, currentTab }: TabsProps) => {
+    if (!currentTab)
+        return (
+            <div>
+                <button onClick={() => console.log(currentTab, tabs)}>Tab</button>
+
+                <Loading />
+            </div>
+        );
+
     return (
         <div className="tabs theme bordered">
             {tabs.map((tab) => {

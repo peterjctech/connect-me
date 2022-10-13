@@ -8,14 +8,16 @@ import { Loading, GroupCard } from "components";
 
 const DashboardGroups = () => {
     const userStore = useSelector((store: StoreInterface) => store.user);
-    const { loading, data } = useQuery(GET_USER_GROUPS, { variables: { userId: userStore.user_id } });
+    const { loading, data } = useQuery(GET_USER_GROUPS, {
+        variables: { userId: userStore.user_id, isFriend: false, privacy: "Everyone" },
+    });
 
     if (loading) {
         return <Loading />;
     }
 
     return (
-        <div className="list-container theme box">
+        <div className="list-container lg theme box">
             <h1>{userStore.full_name}'s Groups</h1>
             <section>
                 {data.getUserGroups.map((group: GroupSummary) => {

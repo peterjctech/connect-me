@@ -1,0 +1,49 @@
+.comment {
+    display: flex;
+
+    img {
+        border-radius: 50%;
+        border: solid $neutral-6 1px;
+        object-fit: cover;
+        margin: 0.5rem;
+        width: 4rem;
+        height: 4rem;
+    }
+
+    &__footer {
+        display: flex;
+
+        > * {
+            margin-right: 0.5rem;
+        }
+
+        svg {
+            position: relative;
+            top: 0.1rem;
+            margin-right: 0.2rem;
+        }
+    }
+
+    &.liked {
+        svg {
+            fill: $primary;
+        }
+    }
+}
+
+.app--void .comment {
+    &:nth-child(even) {
+        background-color: lighten($color: $void, $amount: 5%);
+    }
+}
+.app--dark .comment {
+    &:nth-child(even) {
+        background-color: $neutral-6;
+    }
+}
+
+.app--light .comment {
+    &:nth-child(even) {
+        background-color: $neutral-1;
+    }
+}

@@ -31,3 +31,15 @@
         transform: translateY(-50%);
     }
 }
+
+.app--light .dropdown select {
+    background-color: $neutral-1;
+}
+.app--void .dropdown select {
+    background-color: $neutral-6;
+    color: $neutral-2;
+}
+.app--dark .dropdown select {
+    background-color: $neutral-4;
+    color: $neutral-1;
+}

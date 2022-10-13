@@ -12,3 +12,13 @@
         }
     }
 }
+
+.app--light .rightbar {
+    @include lightTheme;
+}
+.app--void .rightbar {
+    @include voidTheme;
+}
+.app--dark .rightbar {
+    @include darkTheme;
+}

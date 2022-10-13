@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { AiFillCalendar } from "react-icons/ai";
+import { FaBirthdayCake, FaUserFriends } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 import { StoreInterface } from "types";
 import { useTabs } from "hooks";
-import { PageHeader, Tabs } from "common";
+import { Banner, Tabs } from "common";
 
 interface DashboardLayoutProps {
     children: React.ReactNode;
@@ -11,21 +12,29 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     const { currentTab, tabList, changeTab } = useTabs([
-        { title: "Post", link: "/dashboard" },
+        { title: "Posts", link: "/dashboard" },
         { title: "Friends", link: "/dashboard/friends" },
         { title: "Groups", link: "/dashboard/groups" },
         { title: "Events", link: "/dashboard/events" },
         { title: "Tags", link: "/dashboard/tags" },
     ]);
     const userStore = useSelector((store: StoreInterface) => store.user);
-    const [showModal, setShowModal] = useState(false);
-    const toggleModal = () => setShowModal(!showModal);
 
-    const subText = userStore.friend_count === 1 ? "1 friend" : `${userStore.friend_count} friends`;
+    const otherData = [
+        { icon: <FaUserFriends />, text: `${userStore.friend_count} friends` },
+        { icon: <AiFillCalendar />, text: `Joined ${userStore.joined_at}` },
+        { icon: <FaBirthdayCake />, text: `${userStore.birthday} (${userStore.age} years old)` },
+    ];
 
     return (
         <main>
-            <PageHeader />
+            <Banner
+                cover="/profile-cover.jpg"
+                image={userStore.profile_picture}
+                mainText={userStore.full_name}
+                subText={userStore.intro}
+                otherData={otherData}
+            />
             <Tabs tabs={tabList} changeTab={changeTab} currentTab={currentTab} />
             {children}
         </main>

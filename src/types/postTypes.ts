@@ -1,14 +1,18 @@
 import { BriefTagSummary } from "./tagTypes";
-import { Reaction } from "./modelTypes/modelTypeHelpers";
-import { ReactionDisplay, CreatedAt, ReactionSummary, CommentData } from "./otherTypes";
+import { ID, Change, CreatedAt } from "./helperTypes";
+import {
+    ReactionSubmodel,
+    CommentSubmodel,
+    Reaction,
+    ReactionSummary,
+    ReactionDisplay,
+    CommentData,
+} from "./submodelTypes";
+import { BriefUserSummary } from "./userTypes";
 
 export interface PostSummary {
     post_id: string;
-    author: {
-        id: string;
-        full_name: string;
-        profile_picture: string;
-    };
+    author: BriefUserSummary;
     content: string;
     media?: string;
     tags: BriefTagSummary[];
@@ -21,14 +25,9 @@ export interface PostSummary {
     is_edited: boolean;
     is_mine: boolean;
 }
-
 export interface PostData {
     post_id: string;
-    author: {
-        id: string;
-        full_name: string;
-        profile_picture: string;
-    };
+    author: BriefUserSummary;
     group?: {
         id: string;
         name: string;
@@ -44,8 +43,31 @@ export interface PostData {
     is_edited: boolean;
     is_mine: boolean;
 }
-
 export interface GetPostsResponse {
     next_skip_timestamp: number;
     posts: PostSummary[];
+}
+
+export interface MoreComments {
+    next_skip_timestamp: number;
+    comments: CommentData[];
+}
+
+export interface PostModel {
+    _id: ID;
+    author_id: ID;
+    group_id?: ID;
+    content: string;
+    media?: string;
+    tags: ID[];
+    reactions: ReactionSubmodel[];
+    comments: CommentSubmodel[];
+    created_at: Date;
+    last_change: {
+        user_id: ID;
+        change: Change;
+        changed_at: Date;
+    };
+    is_edited: boolean;
+    is_public: boolean;
 }

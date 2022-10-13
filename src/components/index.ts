@@ -11,7 +11,11 @@ import ConfirmIdentity from "./forms/ConfirmIdentity";
 import TagCard from "./cards/TagCard";
 import UserCard from "./cards/UserCard";
 import GroupCard from "./cards/GroupCard";
-import PostCard from "./cards/PostCard";
+import EventCard from "./cards/EventCard";
+import Post from "./Post/Post";
+import Comment from "./Comment/Comment";
+import Tag from "./Tag/Tag";
+import ReactionModal from "./ReactionModal/ReactionModal";
 
 export {
     Navbar,
@@ -23,7 +27,11 @@ export {
     ConfirmIdentity,
     Loading,
     TagCard,
-    PostCard,
+    Post,
     UserCard,
     GroupCard,
+    Comment,
+    Tag,
+    ReactionModal,
+    EventCard,
 };

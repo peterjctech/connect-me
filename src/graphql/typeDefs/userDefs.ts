@@ -26,6 +26,11 @@ export default gql`
     }
 
     # Responses
+    type BriefUserSummary {
+        user_id: String!
+        full_name: String!
+        profile_picture: String!
+    }
     type UserSummary {
         user_id: String!
         full_name: String!
@@ -38,7 +43,6 @@ export default gql`
         full_name: String!
         profile_picture: String!
         friend_count: TotalAndMutualCount!
-        friendship_status: FriendStatus
         joined_at: String!
         intro: String!
         birthday: String!
@@ -46,6 +50,7 @@ export default gql`
         friend_privacy: PrivacyOption!
         group_privacy: PrivacyOption!
         event_privacy: PrivacyOption!
+        friendship_status: FriendStatus
     }
     type UserStoreData {
         user_id: String!
@@ -82,6 +87,7 @@ export default gql`
         getUserGroups(userId: String!, isFriend: Boolean!, privacy: PrivacyOption!): [GroupSummary]
         getUserTags(userId: String!): [TagSummary]
         getUserEvents(userId: String!, isFriend: Boolean!, privacy: PrivacyOption!): [EventSummary]
+        exploreUsers(skipNumber: Int!): [UserSummary]
     }
     type Mutation {
         updateUserSettings(

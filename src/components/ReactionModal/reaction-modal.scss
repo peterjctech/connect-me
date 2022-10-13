@@ -1,0 +1,33 @@
+.reaction-modal {
+    height: 70%;
+    width: 30rem;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    header {
+        display: flex;
+
+        span {
+            cursor: pointer;
+            font-size: 2rem;
+            margin-right: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .active {
+            position: relative;
+
+            &::after {
+                position: absolute;
+                bottom: -0.3rem;
+                left: 0;
+                content: "";
+                background-color: $primary;
+                width: 2.7rem;
+                height: 0.15rem;
+                border-radius: 0.1rem;
+            }
+        }
+    }
+}

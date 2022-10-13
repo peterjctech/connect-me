@@ -7,7 +7,7 @@ export const GET_TAG_POSTS = gql`
             posts {
                 post_id
                 author {
-                    id
+                    user_id
                     full_name
                     profile_picture
                 }
@@ -34,8 +34,8 @@ export const GET_TAG_POSTS = gql`
                         count
                     }
                     created_at {
-                        absolute
                         relative
+                        absolute
                     }
                     is_liked
                     is_edited
@@ -48,6 +48,75 @@ export const GET_TAG_POSTS = gql`
                 is_edited
                 is_mine
             }
+        }
+    }
+`;
+export const GET_TAG_LAYOUT_DATA = gql`
+    query ($tagId: String!) {
+        getTagLayoutData(tagId: $tagId) {
+            tag_id
+            name
+            color
+            is_added
+            user_count
+            friends {
+                list
+                count
+            }
+        }
+    }
+`;
+export const GET_TAG_USERS = gql`
+    query ($tagId: String!) {
+        getTagUsers(tagId: $tagId) {
+            user_id
+            full_name
+            profile_picture
+            mutual_friend_count
+            friendship_status
+        }
+    }
+`;
+export const GET_TAG_GROUPS = gql`
+    query ($tagId: String!) {
+        getTagGroups(tagId: $tagId) {
+            group_id
+            name
+            group_image
+            member_count {
+                total
+                friends
+            }
+            restriction
+            my_status
+        }
+    }
+`;
+export const GET_TAG_EVENTS = gql`
+    query ($tagId: String!) {
+        getTagEvents(tagId: $tagId) {
+            event_id
+            name
+            user_id
+            group_id
+            picture
+            reference_name
+            confirmed_count {
+                total
+                friends
+            }
+            datetime
+            my_status
+        }
+    }
+`;
+export const EXPLORE_TAGS = gql`
+    query ($skipNumber: Int!) {
+        exploreTags(skipNumber: $skipNumber) {
+            tag_id
+            name
+            color
+            is_added
         }
     }
 `;

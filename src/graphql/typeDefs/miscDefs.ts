@@ -18,6 +18,11 @@ export default gql`
         type: Reaction!
         list: [String!]!
     }
+    type ReactionData {
+        type: Reaction!
+        count: Int!
+        users: [UserSummary!]!
+    }
     type CommentData {
         comment_id: String!
         user_id: String!

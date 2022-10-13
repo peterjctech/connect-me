@@ -2,11 +2,6 @@ import { gql } from "apollo-server-micro";
 
 export default gql`
     # Helpers
-    type PostAuthor {
-        id: String!
-        full_name: String!
-        profile_picture: String!
-    }
     type PostGroup {
         id: String!
         name: String!
@@ -15,7 +10,7 @@ export default gql`
     # Responses
     type PostSummary {
         post_id: String!
-        author: PostAuthor!
+        author: BriefUserSummary!
         content: String!
         media: String
         tags: [BriefTagSummary]!
@@ -30,7 +25,7 @@ export default gql`
     }
     type PostData {
         post_id: String!
-        author: PostAuthor!
+        author: BriefUserSummary!
         group: PostGroup
         content: String!
         media: String
@@ -47,9 +42,17 @@ export default gql`
         next_skip_timestamp: Int!
         posts: [PostSummary]!
     }
+    type MoreCommentsResponse {
+        next_skip_timestamp: Int!
+        comments: [CommentData]!
+    }
 
     # Main
     type Query {
         getPost(postId: String!): PostData
+        getPostReactions(postId: String!): [ReactionData]
+        getPostCommentLikes(postId: String!, commentId: String!): [UserSummary]
+        getMorePostComments(postId: String!, skipTimestamp: Int!): MoreCommentsResponse
+        getFeed(skipTimestamp: Int!): GetPostsResponse
     }
 `;

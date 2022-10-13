@@ -18,3 +18,34 @@
         border-radius: 0.5rem;
     }
 }
+
+.button.success {
+    background-color: $success;
+    &:hover {
+        background-color: darken($success, 10%);
+    }
+}
+.button.info {
+    background-color: $info;
+    &:hover {
+        background-color: darken($info, 10%);
+    }
+}
+.button.warning {
+    background-color: $warning;
+    &:hover {
+        background-color: darken($warning, 10%);
+    }
+}
+.button.help {
+    background-color: $help;
+    &:hover {
+        background-color: darken($help, 10%);
+    }
+}
+.button.error {
+    background-color: $error;
+    &:hover {
+        background-color: darken($error, 10%);
+    }
+}

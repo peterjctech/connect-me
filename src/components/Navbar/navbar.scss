@@ -63,3 +63,13 @@
         }
     }
 }
+
+.app--light .navbar {
+    @include lightTheme;
+}
+.app--void .navbar {
+    @include voidTheme;
+}
+.app--dark .navbar {
+    @include darkTheme;
+}

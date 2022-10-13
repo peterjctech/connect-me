@@ -53,3 +53,27 @@
         }
     }
 }
+
+.app--light .input {
+    background-color: $neutral-1;
+}
+.app--void .input {
+    background-color: $neutral-6;
+
+    input {
+        color: $neutral-2;
+    }
+    svg {
+        fill: $neutral-2;
+    }
+}
+.app--dark .input {
+    background-color: $neutral-4;
+
+    input {
+        color: $neutral-1;
+    }
+    svg {
+        fill: $neutral-1;
+    }
+}

@@ -40,9 +40,8 @@ export const GET_USER_LAYOUT_DATA = gql`
             profile_picture
             friend_count {
                 total
-                mututal
+                mutual
             }
-            friendship_status
             joined_at
             intro
             birthday
@@ -50,6 +49,7 @@ export const GET_USER_LAYOUT_DATA = gql`
             friend_privacy
             group_privacy
             event_privacy
+            friendship_status
         }
     }
 `;
@@ -70,11 +70,11 @@ export const GET_USER_GROUPS = gql`
             group_id
             name
             group_image
-            restriction
             member_count {
                 total
                 friends
             }
+            restriction
             my_status
         }
     }
@@ -96,7 +96,7 @@ export const GET_USER_POSTS = gql`
             posts {
                 post_id
                 author {
-                    id
+                    user_id
                     full_name
                     profile_picture
                 }
@@ -123,8 +123,8 @@ export const GET_USER_POSTS = gql`
                         count
                     }
                     created_at {
-                        absolute
                         relative
+                        absolute
                     }
                     is_liked
                     is_edited
@@ -144,25 +144,28 @@ export const GET_USER_EVENTS = gql`
     query ($userId: String!, $isFriend: Boolean!, $privacy: PrivacyOption!) {
         getUserEvents(userId: $userId, isFriend: $isFriend, privacy: $privacy) {
             event_id
-            user {
-                id
-                full_name
-                profile_picture
-            }
-            group {
-                id
-                name
-                group_image
-            }
             name
+            user_id
+            group_id
+            picture
+            reference_name
             confirmed_count {
                 total
                 friends
             }
             datetime
-            can_edit
-            restriction
             my_status
+        }
+    }
+`;
+export const EXPLORE_USERS = gql`
+    query ($skipNumber: Int!) {
+        exploreUsers(skipNumber: $skipNumber) {
+            user_id
+            full_name
+            profile_picture
+            mutual_friend_count
+            friendship_status
         }
     }
 `;

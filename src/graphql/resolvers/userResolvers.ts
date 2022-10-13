@@ -1,12 +1,13 @@
 import dayjs from "dayjs";
 import cloudinary from "cloudinary";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { Resolvers } from "@apollo/client";
+import { setCookie, deleteCookie } from "cookies-next";
 import { User, Post } from "models";
 import { validateUserRegistration, validateUpdateSettings } from "validators";
 import { UserModel } from "types";
-import { Resolvers } from "@apollo/client";
-import jwt from "jsonwebtoken";
-import { setCookie, deleteCookie } from "cookies-next";
-import bcrypt from "bcrypt";
+import { formatDate, getCreatedAt, getListAndCount, getReactionDisplay, formatDatetime } from "utils";
 import {
     initializeStorePipeline,
     userSettingsPipeline,
@@ -16,30 +17,34 @@ import {
     userGroupsPipeline,
     userPostsPipeline,
     userTagsPipeline,
+    exploreUsersPipeline,
+    exploreUsersPrepipeline,
 } from "services";
-import { formatDate, getCreatedAt, getListAndCount, getReactionDisplay, formatEventDatetime } from "utils";
 
 const userResolvers: Resolvers = {
     Query: {
         initializeStore: async (_, __, context) => {
             if (!context.auth) return null;
-            const pipeline = initializeStorePipeline({ selfId: context.auth });
+            const pipeline = initializeStorePipeline({ authId: context.auth });
             const response = await User.aggregate(pipeline).then((data) => {
                 if (!data[0]) return null;
-                return { ...data[0], joined_at: formatDate(data[0].joined_at), birthday: formatDate(data[0].birthday) };
+                deleteCookie(process.env.SERVER_KEY!, { req: context.req, res: context.res });
+                return {
+                    ...data[0],
+                    joined_at: formatDate(data[0].joined_at),
+                    birthday: formatDate(data[0].birthday),
+                };
             });
             return response;
         },
         getUserSettings: async (_, __, context) => {
-            const pipeline = userSettingsPipeline({ selfId: context.auth });
+            const pipeline = userSettingsPipeline({ authId: context.auth });
             const response = await User.aggregate(pipeline).then((data) => data[0]);
             return response;
         },
         getUserLayoutData: async (_, args, context) => {
-            const pipeline = userLayoutDataPipeline({
-                selfId: context.auth,
-                userId: args.userId,
-            });
+            console.time("getUserLayoutData");
+            const pipeline = userLayoutDataPipeline({ authId: context.auth, userId: args.userId });
             const response = await User.aggregate(pipeline).then((data) => {
                 if (data[0]) {
                     return {
@@ -51,20 +56,21 @@ const userResolvers: Resolvers = {
 
                 return null;
             });
+            console.timeEnd("getUserLayoutData");
             return response;
         },
         getUserPosts: async (_, args, context) => {
+            console.time("getUserPosts");
+            let next_skip_timestamp = dayjs().unix();
             const pipeline = userPostsPipeline({
-                selfId: context.auth,
+                authId: context.auth,
                 userId: args.userId,
                 isFriend: args.isFriend,
-                skipDate: dayjs.unix(args.skipTimestamp).toDate(),
+                skipTimestamp: args.skipTimestamp,
             });
 
-            let next_skip_timestamp = new Date();
-
             const posts = await Post.aggregate(pipeline).then((data) => {
-                if (data.length > 0) next_skip_timestamp = data[data.length - 1].created_at;
+                if (data.length > 0) next_skip_timestamp = dayjs(data[data.length - 1].created_at).unix();
                 return data.map((post) => {
                     return {
                         ...post,
@@ -81,23 +87,22 @@ const userResolvers: Resolvers = {
                 });
             });
 
-            const response = { posts, next_skip_timestamp: dayjs(next_skip_timestamp).unix() };
-
-            return response;
+            console.timeEnd("getUserPosts");
+            return { posts, next_skip_timestamp };
         },
         getUserFriends: async (_, args, context) => {
             const pipeline = userFriendsPipeline({
-                selfId: context.auth,
+                authId: context.auth,
                 userId: args.userId,
-                privacy: args.privacy,
                 isFriend: args.isFriend,
+                privacy: args.privacy,
             });
             const response = await User.aggregate(pipeline);
             return response;
         },
         getUserGroups: async (_, args, context) => {
             const pipeline = userGroupsPipeline({
-                selfId: context.auth,
+                authId: context.auth,
                 userId: args.userId,
                 privacy: args.privacy,
                 isFriend: args.isFriend,
@@ -106,22 +111,30 @@ const userResolvers: Resolvers = {
             return response;
         },
         getUserTags: async (_, args, context) => {
-            const pipeline = userTagsPipeline({ selfId: context.auth, userId: args.userId });
+            const pipeline = userTagsPipeline({ authId: context.auth, userId: args.userId });
             const response = await User.aggregate(pipeline);
             return response;
         },
         getUserEvents: async (_, args, context) => {
             const pipeline = userEventsPipeline({
-                selfId: context.auth,
+                authId: context.auth,
                 userId: args.userId,
                 privacy: args.privacy,
                 isFriend: args.isFriend,
             });
             const response = await User.aggregate(pipeline).then((data) => {
                 return data.map((event) => {
-                    return { ...event, datetime: formatEventDatetime(event.datetime) };
+                    return { ...event, datetime: formatDatetime(event.datetime) };
                 });
             });
+            return response;
+        },
+        exploreUsers: async (_, args, context) => {
+            const prePipeline = exploreUsersPrepipeline(context.auth);
+            const authFriends = await User.aggregate(prePipeline).then((data) => data[0].friends);
+            const pipeline = exploreUsersPipeline({ authId: context.auth, authFriends, skipNumber: args.skipNumber });
+            const response = await User.aggregate(pipeline);
+
             return response;
         },
     },
@@ -134,6 +147,10 @@ const userResolvers: Resolvers = {
             });
             const user = await User.findById(context.auth);
             if (!user) throw new Error("Logged in user does not exist!");
+            if (user.username === "hackerman123")
+                throw new Error(
+                    "hackerman123 cannot be updated for showcase purposes. If you would like to test out this feature, please register with a new account."
+                );
             let newSettings = await validateUpdateSettings(args, user);
             if (args.profile_picture) {
                 const profilePicture = user.profile_picture;

@@ -1,0 +1,40 @@
+.user-card {
+    width: 12rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+        width: 12rem;
+        height: 12rem;
+        object-fit: cover;
+    }
+
+    &__content {
+        min-height: 4rem;
+        padding: 0.5rem;
+    }
+
+    p {
+        font-size: 0.8rem;
+    }
+
+    &:hover {
+        box-shadow: 0px 0px 5px 3px $primary;
+    }
+
+    .button {
+        margin-top: 0.5rem;
+    }
+}
+
+.app--light .user-card {
+    @include lightTheme;
+}
+.app--void .user-card {
+    @include voidTheme;
+}
+.app--dark .user-card {
+    @include darkTheme;
+}

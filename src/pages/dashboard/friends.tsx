@@ -8,7 +8,9 @@ import { Loading, UserCard } from "components";
 
 const DashboardFriends = () => {
     const userStore = useSelector((store: StoreInterface) => store.user);
-    const { loading, data } = useQuery(GET_USER_FRIENDS, { variables: { userId: userStore.user_id } });
+    const { loading, data } = useQuery(GET_USER_FRIENDS, {
+        variables: { userId: userStore.user_id, isFriend: false, privacy: "Everyone" },
+    });
 
     if (loading) {
         return <Loading />;

@@ -18,7 +18,7 @@ export const clearDatabase = async () => {
 export const seedUsers = async () => {
     console.time("seedUsers");
 
-    const props = faker.helpers.uniqueArray(faker.internet.userName, 1000).map((username) => {
+    const props = faker.helpers.uniqueArray(faker.internet.userName, 700).map((username) => {
         return {
             username,
             password: faker.internet.password(),
