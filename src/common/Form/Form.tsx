@@ -19,7 +19,9 @@ const Form = ({ title, submit, children, link }: FormProps) => {
             <h1 className="form__title">{title}</h1>
             <div className="form__content">{children}</div>
             <footer>
-                <Button click={submit.func}>{submit.text || "Submit"}</Button>
+                <Button click={submit.func} type="success">
+                    {submit.text || "Submit"}
+                </Button>
                 {link && (
                     <p onClick={link.func} className="form__link">
                         {link.text}

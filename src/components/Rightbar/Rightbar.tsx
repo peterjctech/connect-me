@@ -1,25 +1,28 @@
 import { LOGOUT_USER } from "@mutations";
 import { client } from "utils";
 import { useDispatch } from "react-redux";
-import { testTheme, testColor } from "store";
-import { BsFillPaletteFill } from "react-icons/bs";
-import { BiColorFill } from "react-icons/bi";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Rightbar = () => {
-    const dispatch = useDispatch();
+    const router = useRouter();
     const logout = async () => {
-        const response = await client.mutate({ mutation: LOGOUT_USER });
-        console.log(response);
+        await client.mutate({ mutation: LOGOUT_USER });
+        router.reload();
     };
     return (
         <div className="rightbar">
+            <Link href="/info">
+                <h1 className="link">README</h1>
+            </Link>
+            <p>
+                This website is a work in progress. Complete functionality is not yet complete. Almost all data is
+                artificially seeded. Login with the following credentials to fully experience this project so far:
+            </p>
+            <br />
+            <p>Username: hackerman123</p>
+            <p>Password: 12345</p>
             <aside>
-                <div onClick={() => dispatch(testTheme())}>
-                    <BsFillPaletteFill />
-                </div>
-                <div onClick={() => dispatch(testColor())}>
-                    <BiColorFill />
-                </div>
                 <button onClick={logout}>Logout</button>
             </aside>
         </div>

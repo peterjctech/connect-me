@@ -45,6 +45,7 @@
         object-fit: cover;
         border-color: $neutral-6;
         border-style: solid;
+        overflow: hidden;
     }
 
     &--sm {

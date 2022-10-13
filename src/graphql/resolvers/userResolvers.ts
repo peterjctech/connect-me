@@ -3,10 +3,9 @@ import cloudinary from "cloudinary";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Resolvers } from "@apollo/client";
-import { setCookie, deleteCookie } from "cookies-next";
+import { setCookie, deleteCookie, getCookie } from "cookies-next";
 import { User, Post } from "models";
 import { validateUserRegistration, validateUpdateSettings } from "validators";
-import { UserModel } from "types";
 import { formatDate, getCreatedAt, getListAndCount, getReactionDisplay, formatDatetime } from "utils";
 import {
     initializeStorePipeline,
@@ -28,7 +27,6 @@ const userResolvers: Resolvers = {
             const pipeline = initializeStorePipeline({ authId: context.auth });
             const response = await User.aggregate(pipeline).then((data) => {
                 if (!data[0]) return null;
-                deleteCookie(process.env.SERVER_KEY!, { req: context.req, res: context.res });
                 return {
                     ...data[0],
                     joined_at: formatDate(data[0].joined_at),
@@ -180,7 +178,8 @@ const userResolvers: Resolvers = {
             }
         },
         loginUser: async (_, args, { req, res }) => {
-            const user: UserModel | null = await User.findOne({ username: args.username });
+            const user = await User.findOne({ username: args.username });
+            console.log(user._id);
             if (!user) throw new Error("Invalid credentials");
 
             const compareHash = await bcrypt.compare(args.password, user.password);

@@ -18,7 +18,7 @@ const DashboardGroups = () => {
 
     return (
         <div className="list-container lg theme box">
-            <h1>{userStore.full_name}'s Groups</h1>
+            <h1>{userStore.full_name}&apos;s Groups</h1>
             <section>
                 {data.getUserGroups.map((group: GroupSummary) => {
                     return <GroupCard key={group.group_id} group={group} />;

@@ -12,8 +12,6 @@ const Tabs = ({ tabs, changeTab, currentTab }: TabsProps) => {
     if (!currentTab)
         return (
             <div>
-                <button onClick={() => console.log(currentTab, tabs)}>Tab</button>
-
                 <Loading />
             </div>
         );

@@ -17,7 +17,7 @@ const DashboardEvents = () => {
 
     return (
         <div className="list-container lg theme box">
-            <h1>{userStore.full_name}'s Events</h1>
+            <h1>{userStore.full_name}&apos;s Events</h1>
             <section>
                 {data.getUserEvents.map((event: EventSummary) => {
                     return <EventCard key={event.event_id} event={event} />;

@@ -18,7 +18,7 @@ const DashboardFriends = () => {
 
     return (
         <div className="list-container theme box">
-            <h1>{userStore.full_name}'s Friends</h1>
+            <h1>{userStore.full_name}&apos;s Friends</h1>
             <section>
                 {data.getUserFriends.map((user: UserSummary) => {
                     return <UserCard key={user.user_id} user={user} />;

@@ -33,7 +33,7 @@ const UserUserIdTags = () => {
 
     return (
         <div className="list-container theme box">
-            <h1>{context.full_name}'s Tags</h1>
+            <h1>{context.full_name}&apos;s Tags</h1>
             <section>
                 {data.map((tag: TagSummary) => {
                     return <TagCard key={tag.tag_id} tag={tag} />;

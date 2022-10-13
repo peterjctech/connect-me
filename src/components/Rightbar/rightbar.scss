@@ -1,5 +1,11 @@
 .rightbar {
+    padding: 0.5rem;
     border-left: solid $neutral-4 2px;
+
+    h1 {
+        margin: 1rem;
+        text-align: center;
+    }
 
     aside {
         display: flex;

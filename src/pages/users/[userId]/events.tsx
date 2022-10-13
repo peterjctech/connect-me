@@ -35,7 +35,7 @@ const UserUserIdEvents = () => {
 
     return (
         <div className="list-container lg theme box">
-            <h1>{context.full_name}'s Events</h1>
+            <h1>{context.full_name}&apos;s Events</h1>
             <section>
                 {data.map((event: EventSummary) => {
                     return <EventCard key={event.event_id} event={event} />;

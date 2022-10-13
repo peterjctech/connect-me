@@ -17,7 +17,6 @@ const HomePage: NextPage = () => {
     return (
         <main>
             <div className="box theme">
-                <button onClick={seed}>Seed</button>
                 {dialog && <Dialog {...dialogProps} />}
                 <LoginForm toggleModal={toggleModal} openDialog={openDialog} />
                 {showModal && <RegisterForm closeModal={toggleModal} openDialog={openDialog} />}

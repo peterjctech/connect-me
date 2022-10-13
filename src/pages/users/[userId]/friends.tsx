@@ -38,7 +38,7 @@ const UsersUserIdFriends = () => {
 
     return (
         <div className="list-container theme box">
-            <h1>{context.full_name}'s Friends</h1>
+            <h1>{context.full_name}&apos;s Friends</h1>
             <section>
                 {data.map((user: UserSummary) => {
                     return <UserCard key={user.user_id} user={user} />;

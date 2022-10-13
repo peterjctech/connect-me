@@ -29,7 +29,7 @@ const ReactionModal = ({ closeModal, reactions }: ReactionModalProps) => {
             </header>
             <section>
                 {users.map((user) => {
-                    return <h1>UserInModal</h1>;
+                    return <h1 key={user.user_id}>UserInModal</h1>;
                 })}
             </section>
         </Modal>

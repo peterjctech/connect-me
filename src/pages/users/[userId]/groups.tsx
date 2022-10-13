@@ -39,7 +39,7 @@ const UsersUserIdGroups = () => {
 
     return (
         <div className="list-container lg theme box">
-            <h1>{context.full_name}'s Groups</h1>
+            <h1>{context.full_name}&apos;s Groups</h1>
             <section>
                 {data.map((group: GroupSummary) => {
                     return <GroupCard key={group.group_id} group={group} />;
