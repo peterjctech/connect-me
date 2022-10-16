@@ -26,6 +26,7 @@ export default gql`
         my_status: GroupMemberOrUserStatus
     }
     type GroupLayoutData {
+        group_id: String!
         owner: BriefUserSummary!
         name: String!
         description: String!

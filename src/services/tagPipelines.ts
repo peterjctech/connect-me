@@ -64,17 +64,6 @@ export const tagLayoutDataPipeline = (props: { authId: string; tagId: string }) 
             },
         },
         {
-            $addFields: {
-                action: {
-                    $cond: {
-                        if: { $eq: [{ $size: "$my_status" }, 1] },
-                        then: { text: "Remove Tag", color: "error" },
-                        else: { text: "Add Tag", color: "success" },
-                    },
-                },
-            },
-        },
-        {
             $lookup: {
                 from: "users",
                 localField: "friends",
@@ -88,9 +77,8 @@ export const tagLayoutDataPipeline = (props: { authId: string; tagId: string }) 
                 tag_id: 1,
                 name: 1,
                 color: 1,
-                action: "$action.text",
-                action_color: "$action.color",
-                user_count: 1,
+                is_added: { $cond: { if: { $eq: ["$my_status", []] }, then: false, else: true } },
+                user_count: { $size: "$users" },
                 friends: { $map: { input: "$friends", as: "f", in: "$$f.full_name" } },
             },
         },

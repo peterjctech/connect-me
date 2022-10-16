@@ -124,6 +124,7 @@ export const groupLayoutDataPipeline = (props: { authId: string; groupId: string
         {
             $project: {
                 _id: 0,
+                group_id: "$_id",
                 owner_id: 1,
                 name: 1,
                 description: 1,
@@ -148,6 +149,7 @@ export const groupLayoutDataPipeline = (props: { authId: string; groupId: string
                 },
             },
         },
+        ...getAuthFriends,
         {
             $addFields: {
                 is_admin: { $cond: [{ $in: ["$auth_id", "$admins"] }, true, false] },
@@ -157,6 +159,10 @@ export const groupLayoutDataPipeline = (props: { authId: string; groupId: string
                         then: true,
                         else: false,
                     },
+                },
+                member_count: {
+                    total: "$member_count",
+                    friends: { $size: { $setIntersection: ["$members", "$auth_friends"] } },
                 },
             },
         },
@@ -182,6 +188,7 @@ export const groupLayoutDataPipeline = (props: { authId: string; groupId: string
         },
         {
             $project: {
+                group_id: 1,
                 owner: { $first: "$owner" },
                 name: 1,
                 description: 1,

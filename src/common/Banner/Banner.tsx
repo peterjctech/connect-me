@@ -6,13 +6,13 @@ interface BannerProps {
     image: string;
     mainText: string;
     subText: string;
-    otherData: {
+    otherData?: {
         text: string;
         icon: React.ReactElement;
     }[];
     action?: {
         action: Function;
-        button: "success" | "warning" | "info" | "help" | "error";
+        button: "success" | "warning" | "info" | "help" | "error" | "disabled";
         text: string;
     };
 }
@@ -20,9 +20,7 @@ interface BannerProps {
 const Banner = ({ cover, image, mainText, subText, otherData, action }: BannerProps) => {
     return (
         <div className="banner">
-            <div className="banner__cover">
-                <Image src={cover} layout="fill" className="banner__cover" />
-            </div>
+            <img src={cover} className="banner__cover" />
             <section>
                 <div className="wrapper">
                     <div className="banner__image img--lg">
@@ -31,13 +29,14 @@ const Banner = ({ cover, image, mainText, subText, otherData, action }: BannerPr
                     <h3>{mainText}</h3>
                     <p>{subText}</p>
                     <div className="banner__info">
-                        {otherData.map((data) => {
-                            return (
-                                <span key={data.text}>
-                                    {data.icon} {data.text}
-                                </span>
-                            );
-                        })}
+                        {otherData &&
+                            otherData.map((data) => {
+                                return (
+                                    <span key={data.text}>
+                                        {data.icon} {data.text}
+                                    </span>
+                                );
+                            })}
                     </div>
                     {action && (
                         <Button click={() => action.action()} type={action.button} squared>

@@ -119,3 +119,60 @@ input[type="file"] {
 .emoji {
     cursor: pointer;
 }
+
+.tag-bg {
+    border: solid $neutral-3 1px;
+    height: 30rem;
+    position: relative;
+
+    h3 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    h5 {
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .button {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    &.red {
+        background-color: red;
+    }
+    &.orange {
+        background-color: orange;
+    }
+    &.yellow {
+        background-color: yellow;
+    }
+    &.green {
+        background-color: green;
+    }
+    &.cyan {
+        background-color: cyan;
+    }
+    &.blue {
+        background-color: blue;
+    }
+    &.purple {
+        background-color: purple;
+    }
+    &.magenta {
+        background-color: magenta;
+    }
+    &.pink {
+        background-color: pink;
+    }
+    &.white {
+        background-color: white;
+    }
+}

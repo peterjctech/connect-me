@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 export const GET_GROUP_LAYOUT_DATA = gql`
     query ($groupId: String!) {
         getGroupLayoutData(groupId: $groupId) {
+            group_id
             owner {
                 user_id
                 full_name
@@ -79,7 +80,7 @@ export const GET_GROUP_POSTS = gql`
 `;
 export const GET_GROUP_MEMBERS = gql`
     query ($groupId: String!) {
-        getGroupMembers(groupId: $groupId, skipTimestamp: $skipTimestamp) {
+        getGroupMembers(groupId: $groupId) {
             admins {
                 user_id
                 full_name

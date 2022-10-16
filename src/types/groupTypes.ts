@@ -16,6 +16,7 @@ export interface GroupSummary {
 }
 
 export interface GroupLayoutData {
+    group_id: string;
     owner: BriefUserSummary;
     name: string;
     description: string;

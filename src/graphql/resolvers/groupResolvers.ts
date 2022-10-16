@@ -18,7 +18,7 @@ const groupResolvers: Resolvers = {
             const pipeline = groupLayoutDataPipeline({ authId: context.auth, groupId: args.groupId });
             const response = await Group.aggregate(pipeline).then((data) => {
                 if (!data[0]) return null;
-                return { ...data[0], created_at: formatDate(data[0].created_at) };
+                return { ...data[0], created_at: getCreatedAt(data[0].created_at) };
             });
             return response;
         },
@@ -32,7 +32,7 @@ const groupResolvers: Resolvers = {
             });
 
             const posts = await Post.aggregate(pipeline).then((data) => {
-                if (data.length > 0) next_skip_timestamp = data[data.length - 1].created_at;
+                if (data.length > 0) next_skip_timestamp = dayjs(data[data.length - 1].created_at).unix();
                 return data.map((post) => {
                     return {
                         ...post,
@@ -48,6 +48,8 @@ const groupResolvers: Resolvers = {
                     };
                 });
             });
+
+            console.log(next_skip_timestamp);
 
             return { posts, next_skip_timestamp };
         },
