@@ -20,8 +20,8 @@ const InfoPage = () => {
             {!isChangeListDone && <h6>This list is not conclusive</h6>}
             <br />
             <div className="change-list">
-                {changeList.map((str) => (
-                    <p>{str}</p>
+                {changeList.map((str, index) => (
+                    <p key={index}>{str}</p>
                 ))}
             </div>
         </main>
