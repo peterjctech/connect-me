@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { AiFillBell, AiOutlineSearch } from "react-icons/ai";
+import { AiFillBell, AiOutlineSearch, AiFillInfoCircle } from "react-icons/ai";
 import { IoMailSharp } from "react-icons/io5";
 
 import { useForm } from "hooks";
@@ -16,7 +16,9 @@ const Topbar = () => {
 
     return (
         <div className="topbar">
-            <h1 onClick={() => router.push("/feed")}>CM</h1>
+            <h1 onClick={() => router.push("/info")}>
+                <AiFillInfoCircle style={{ color: "white" }} />
+            </h1>
             <Input
                 name="search"
                 value={formData.search}

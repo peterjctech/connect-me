@@ -34,6 +34,10 @@
     main {
         background-color: black;
     }
+
+    a {
+        color: white;
+    }
 }
 
 .app--dark {
@@ -52,5 +56,9 @@
 
     main {
         background-color: $neutral-6;
+    }
+
+    a {
+        color: white;
     }
 }

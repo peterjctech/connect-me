@@ -1,8 +1,9 @@
 import { LOGOUT_USER } from "@mutations";
 import { client } from "utils";
-import { useDispatch } from "react-redux";
+import { readme } from "helpers";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { Button } from "common";
 
 const Rightbar = () => {
     const router = useRouter();
@@ -15,16 +16,18 @@ const Rightbar = () => {
             <Link href="/info">
                 <h1 className="link">README</h1>
             </Link>
-            <p>
-                This website is a work in progress. Complete functionality is not yet complete. Almost all data is
-                artificially seeded. Login with the following credentials to fully experience this project so far:
-            </p>
+            <p>{readme}</p>
             <br />
             <p>Username: hackerman123</p>
             <p>Password: 12345</p>
             <aside>
-                <button onClick={logout}>Logout</button>
+                <Button click={logout} type="error">
+                    Logout
+                </Button>
             </aside>
+            <Link href="/info">
+                <a className="link">Click here to see the current list of upcoming changes</a>
+            </Link>
         </div>
     );
 };

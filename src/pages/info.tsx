@@ -1,11 +1,10 @@
+import { changeList, isChangeListDone, lastUpdated, readme } from "helpers";
+
 const InfoPage = () => {
     return (
         <main className="container theme">
             <h1 style={{ textAlign: "center" }}>README</h1>
-            <p>
-                This website is a work in progress. Complete functionality is not yet complete. Almost all data is
-                artificially seeded. Login with the following credentials to fully experience this project so far:
-            </p>
+            <p>{readme}</p>
             <br />
             <hr />
             <br />
@@ -14,6 +13,17 @@ const InfoPage = () => {
             <br />
             <hr />
             <br />
+            <h1>Upcoming Changes</h1>
+            <br />
+            <h3>Last Updated: {lastUpdated}</h3>
+            <br />
+            {!isChangeListDone && <h6>This list is not conclusive</h6>}
+            <br />
+            <div className="change-list">
+                {changeList.map((str) => (
+                    <p>{str}</p>
+                ))}
+            </div>
         </main>
     );
 };
