@@ -9,16 +9,6 @@ interface RegisterFormProps {
     openDialog: (message: string, variant?: "error") => void;
 }
 
-// username: string;
-// password: string;
-// confirmPassword: string;
-// firstName: string;
-// lastName: string;
-// birthDate: number;
-// birthMonth: number;
-// birthYear: number;
-// intro: string;
-
 const RegisterForm = ({ closeModal, openDialog }: RegisterFormProps) => {
     const { showPassword, updateShowPassword } = usePassword();
     const { formData, handleChange } = useForm({

@@ -1,10 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { useQuery } from "@apollo/client";
-import { useSelector } from "react-redux";
-
 import { GET_USER_GROUPS } from "@queries";
 import { UserLayout, UserContext } from "layouts";
-import { StoreInterface, GroupSummary } from "types";
+import { GroupSummary } from "types";
 import { Loading, GroupCard } from "components";
 import { client } from "utils";
 
@@ -33,9 +30,7 @@ const UsersUserIdGroups = () => {
         getData();
     }, []);
 
-    if (!data) {
-        return <Loading />;
-    }
+    if (!data) return <Loading />;
 
     return (
         <div className="list-container lg theme box">

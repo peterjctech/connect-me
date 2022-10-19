@@ -9,18 +9,20 @@ interface DropdownProps {
 }
 
 const Dropdown = ({ name, value, options, placeholder, handleChange }: DropdownProps) => {
+    const menu = options.map((option) => {
+        return (
+            <option value={option.value} key={option.value}>
+                {option.label}
+            </option>
+        );
+    });
+
     return (
         <div className="dropdown">
             <label htmlFor={name}>{placeholder}</label>
             <AiOutlineCaretDown />
             <select name={name} value={value} onChange={handleChange}>
-                {options.map((obj) => {
-                    return (
-                        <option value={obj.value} key={obj.value}>
-                            {obj.label}
-                        </option>
-                    );
-                })}
+                {menu}
             </select>
         </div>
     );

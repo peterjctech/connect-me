@@ -23,14 +23,16 @@ interface UserActionReturn {
     action: (props: { userId: string }) => void;
 }
 
-export const userFriendAction = (user: UserSummary): UserActionReturn => {
+export const userFriendAction = (user: UserSummary): UserActionReturn | null => {
     if (user.friendship_status === "Accepted") {
         return { action: removeFriend, button: "error", text: "Remove Friend" };
     } else if (user.friendship_status === "Sent") {
-        return { action: cancelFriendRequest, button: "warning", text: "Cancel Friend Requst" };
+        return { action: cancelFriendRequest, button: "warning", text: "Cancel Request" };
     } else if (user.friendship_status === "Recieved") {
-        return { action: acceptFriendRequest, button: "success", text: "Accept Friend Request" };
-    } else {
+        return { action: acceptFriendRequest, button: "success", text: "Accept Request" };
+    } else if (user.mutual_friend_count !== null) {
         return { action: addFriend, button: "info", text: "Add Friend" };
+    } else {
+        return null;
     }
 };

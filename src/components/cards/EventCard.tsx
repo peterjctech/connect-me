@@ -15,13 +15,14 @@ const EventCard = ({ event }: EventCardProps) => {
     return (
         <Card title={event.name} link={`/events/${event.event_id}`} image={event.picture}>
             <h6 onClick={handleClick} className="link">
+                {event.user_id ? "User: " : "Group: "}
                 {event.reference_name}
             </h6>
             <p>{event.datetime}</p>
             <p>
                 {event.confirmed_count.total} going ({event.confirmed_count.friends} friends)
             </p>
-            <p>My Status: {event.my_status}</p>
+            {event.my_status && <p>My Status: {event.my_status}</p>}
         </Card>
     );
 };

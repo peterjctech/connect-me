@@ -11,9 +11,7 @@ const DashboardEvents = () => {
         variables: { userId: userStore.user_id, isFriend: false, privacy: "Everyone" },
     });
 
-    if (loading) {
-        return <Loading />;
-    }
+    if (loading) return <Loading />;
 
     return (
         <div className="list-container lg theme box">

@@ -22,7 +22,7 @@ const FeedPage = () => {
         getData();
     }, []);
 
-    if (!data) return <Loading />;
+    if (!data) return <Loading variant="page" />;
 
     return (
         <main>

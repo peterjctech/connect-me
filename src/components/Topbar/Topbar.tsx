@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { AiFillBell, AiOutlineSearch, AiFillInfoCircle } from "react-icons/ai";
 import { IoMailSharp } from "react-icons/io5";
-
 import { useForm } from "hooks";
 import { Input } from "common";
 import { StoreInterface } from "types";
@@ -31,7 +30,7 @@ const Topbar = () => {
                 <div>
                     <AiFillBell />
                 </div>
-                <div>
+                <div onClick={() => router.push("/messages")}>
                     <IoMailSharp />
                 </div>
                 {userStore.profile_picture && (

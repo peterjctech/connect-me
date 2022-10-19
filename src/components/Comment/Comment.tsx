@@ -15,17 +15,8 @@ interface CommentProps {
 
 const Comment = ({ comment, parent }: CommentProps) => {
     const [showModal, setShowModal] = useState(false);
-    const [likers, setLikers] = useState([]);
     const router = useRouter();
 
-    // TODO: showLikes
-    const showLikes = async () => {
-        if (parent.type === "Post") {
-            console.log("get post comment likes");
-        } else {
-            console.log("get event comment likes");
-        }
-    };
     // TODO: likeComment
     const likeComment = async () => {
         console.log("likeComment");
@@ -43,11 +34,19 @@ const Comment = ({ comment, parent }: CommentProps) => {
                     <Tooltip hover={comment.created_at.absolute}>{comment.created_at.relative}</Tooltip>
                     <p>&#x2022;</p>
                     <Tooltip hover={comment.likes.list}>
-                        {<FaThumbsUp onClick={likeComment} />} <span onClick={showLikes}>{comment.likes.count}</span>
+                        {<FaThumbsUp onClick={likeComment} />}{" "}
+                        <span onClick={() => setShowModal(true)}>{comment.likes.count}</span>
                     </Tooltip>
                 </div>
             </section>
-            {showModal && <ReactionModal closeModal={() => setShowModal(false)} reactions={likers} />}
+            {showModal && (
+                <ReactionModal
+                    closeModal={() => setShowModal(false)}
+                    eventId={parent.type === "Event" ? parent.id : undefined}
+                    postId={parent.type === "Post" ? parent.id : undefined}
+                    commentId={comment.comment_id}
+                />
+            )}
         </div>
     );
 };

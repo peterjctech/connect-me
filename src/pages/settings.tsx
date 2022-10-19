@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-
 import { Dialog } from "common";
 import { client } from "utils";
 import { GET_USER_SETTINGS } from "@queries";

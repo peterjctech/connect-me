@@ -72,6 +72,17 @@ export const GET_POST_REACTIONS = gql`
 export const GET_POST_COMMENT_LIKES = gql`
     query ($postId: String!, $commentId: String!) {
         getPostCommentLikes(postId: $postId, commentId: $commentId) {
+            user_id
+            full_name
+            profile_picture
+            mutual_friend_count
+            friendship_status
+        }
+    }
+`;
+export const GET_MORE_POST_COMMENTS = gql`
+    query ($postId: String!, $skipTimestamp: Int!) {
+        getMorePostComments(postId: $postId, skipTimestamp: $skipTimestamp) {
             next_skip_timestamp
             comments {
                 comment_id

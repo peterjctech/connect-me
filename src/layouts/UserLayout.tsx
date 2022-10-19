@@ -43,7 +43,7 @@ const UserLayout = ({ children }: UserLayoutProps) => {
         if (router.query.userId) fetchData();
     }, [router.query]);
 
-    if (!data) return <Loading />;
+    if (!data) return <Loading variant="page" />;
 
     const action = userFriendAction(data);
 
@@ -73,7 +73,7 @@ const UserLayout = ({ children }: UserLayoutProps) => {
                     mainText={data.full_name}
                     subText={data.intro}
                     otherData={otherData}
-                    action={action}
+                    action={action || undefined}
                 />
                 <Tabs tabs={tabList} changeTab={changeTab} currentTab={currentTab} />
                 {children}

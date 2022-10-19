@@ -1,0 +1,126 @@
+.loading-fill,
+.loading-page,
+.loading-default {
+    position: relative;
+
+    svg {
+        position: absolute;
+        left: 50%;
+    }
+}
+
+.loading-fill,
+.loading-page {
+    svg {
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.loading-fill {
+    width: 100%;
+    height: 100%;
+}
+
+.loading-default svg {
+    top: 8rem;
+}
+
+.loading-svg {
+    $radius: 10;
+    $num1: 10;
+    $num2: 15.358983848622458;
+    $num3: 30;
+    $num4: 50;
+    $num5: 70;
+    $num6: 84.64101615137754;
+    $num7: 90;
+
+    width: 6rem;
+    height: 6rem;
+
+    ellipse {
+        fill: black;
+        ry: 0;
+        rx: 0;
+    }
+
+    .e1 {
+        cx: $num5;
+        cy: $num2;
+        animation: loading 2.4s infinite;
+    }
+    .e2 {
+        cx: $num6;
+        cy: $num3;
+        animation: loading 2.4s infinite 200ms;
+    }
+    .e3 {
+        cx: $num7;
+        cy: $num4;
+        animation: loading 2.4s infinite 400ms;
+    }
+    .e4 {
+        cx: $num6;
+        cy: $num5;
+        animation: loading 2.4s infinite 600ms;
+    }
+    .e5 {
+        cx: $num5;
+        cy: $num6;
+        animation: loading 2.4s infinite 800ms;
+    }
+    .e6 {
+        cx: $num4;
+        cy: $num7;
+        animation: loading 2.4s infinite 1000ms;
+    }
+    .e7 {
+        cx: $num3;
+        cy: $num6;
+        animation: loading 2.4s infinite 1200ms;
+    }
+    .e8 {
+        cx: $num2;
+        cy: $num5;
+        animation: loading 2.4s infinite 1400ms;
+    }
+    .e9 {
+        cx: $num1;
+        cy: $num4;
+        animation: loading 2.4s infinite 1600ms;
+    }
+    .e10 {
+        cx: $num2;
+        cy: $num3;
+        animation: loading 2.4s infinite 1800ms;
+    }
+    .e11 {
+        cx: $num3;
+        cy: $num2;
+        animation: loading 2.4s infinite 2000ms;
+    }
+    .e12 {
+        cx: $num4;
+        cy: $num1;
+        animation: loading 2.4s infinite 2200ms;
+    }
+}
+
+@keyframes loading {
+    0% {
+        rx: 10;
+        ry: 10;
+    }
+    40% {
+        rx: 0;
+        ry: 0;
+    }
+}
+
+.app--void,
+.app--dark {
+    .loading-svg ellipse {
+        fill: white;
+    }
+}

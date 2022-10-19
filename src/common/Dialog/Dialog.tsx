@@ -2,7 +2,6 @@ import { AiFillWarning } from "react-icons/ai";
 import { BiCheckCircle } from "react-icons/bi";
 import { BsExclamationLg, BsQuestion } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
-
 import { Button } from "common";
 
 interface DialogProps {

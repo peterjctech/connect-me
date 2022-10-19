@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { useSelector } from "react-redux";
-
 import { GET_USER_GROUPS } from "@queries";
 import { DashboardLayout } from "layouts";
 import { StoreInterface, GroupSummary } from "types";
@@ -12,9 +11,7 @@ const DashboardGroups = () => {
         variables: { userId: userStore.user_id, isFriend: false, privacy: "Everyone" },
     });
 
-    if (loading) {
-        return <Loading />;
-    }
+    if (loading) return <Loading />;
 
     return (
         <div className="list-container lg theme box">

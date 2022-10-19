@@ -1,6 +1,5 @@
 import { useState } from "react";
 import type { NextPage } from "next";
-
 import { Dialog } from "common";
 import { LoginForm, RegisterForm } from "components";
 import { useDialog } from "hooks";

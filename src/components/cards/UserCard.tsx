@@ -17,7 +17,7 @@ const UserCard = ({ user }: UserCardProps) => {
             <div className="user-card__content">
                 <h6 className="user-card__title">{user.full_name}</h6>
                 {user.mutual_friend_count && <p>{user.mutual_friend_count} mutual friends</p>}
-                {user.mutual_friend_count && (
+                {user.mutual_friend_count && action && (
                     <Button click={() => action.action({ userId: user.user_id })} type={action.button} squared>
                         {action.text}
                     </Button>

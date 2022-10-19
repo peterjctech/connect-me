@@ -28,7 +28,6 @@ export const userSummaryPartial: any[] = [
     },
     {
         $addFields: {
-            mutual_friend_count: { $cond: [{ $eq: ["$mutual_friend_count", 0] }, "$$REMOVE", "$mutual_friend_count"] },
             friendship_status: { $first: "$friendship_status.status" },
         },
     },

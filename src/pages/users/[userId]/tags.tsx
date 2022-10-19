@@ -27,9 +27,7 @@ const UserUserIdTags = () => {
         getData();
     }, []);
 
-    if (!data) {
-        return <Loading />;
-    }
+    if (!data) return <Loading />;
 
     return (
         <div className="list-container theme box">

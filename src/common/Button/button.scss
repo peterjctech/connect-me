@@ -21,7 +21,6 @@
 
 .button.success {
     background-color: $success;
-    color: white;
     &:hover {
         background-color: darken($success, 10%);
     }

@@ -28,9 +28,7 @@ const GroupEventsPage = () => {
         getData();
     }, []);
 
-    if (!data) {
-        return <Loading />;
-    }
+    if (!data) return <Loading />;
 
     return (
         <div className="list-container lg theme box">

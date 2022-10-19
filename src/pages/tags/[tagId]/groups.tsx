@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-
 import { GET_TAG_GROUPS } from "@queries";
 import { TagLayout, TagContext } from "layouts";
 import { GroupSummary } from "types";
@@ -28,9 +27,7 @@ const TagGroups = () => {
         getData();
     }, []);
 
-    if (!data) {
-        return <Loading />;
-    }
+    if (!data) return <Loading />;
 
     return (
         <div className="list-container lg theme box">

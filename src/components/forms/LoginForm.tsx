@@ -1,5 +1,4 @@
 import { FaUserAlt, FaLock } from "react-icons/fa";
-
 import { Input, Form } from "common";
 import { useForm, usePassword } from "hooks";
 import { LOGIN_USER } from "@mutations";

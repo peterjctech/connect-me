@@ -1,11 +1,9 @@
 import { useSelector } from "react-redux";
-import { useQuery } from "@apollo/client";
-
 import { useState, useEffect } from "react";
 import { DashboardLayout } from "layouts";
 import { PostSummary, StoreInterface } from "types";
 import { GET_USER_POSTS } from "@queries";
-import { Post } from "components";
+import { Loading, Post } from "components";
 import dayjs from "dayjs";
 import { client } from "utils";
 
@@ -29,9 +27,7 @@ const DashboardPage = () => {
         getData();
     }, []);
 
-    if (!data) {
-        return <h1>Loading</h1>;
-    }
+    if (!data) return <Loading />;
 
     return (
         <>

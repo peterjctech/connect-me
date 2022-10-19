@@ -3,7 +3,6 @@ import { FaThumbsUp } from "react-icons/fa";
 import { HiPencil } from "react-icons/hi";
 import { BsDot, BsFillReplyFill } from "react-icons/bs";
 import { useRouter } from "next/router";
-
 import { PostSummary } from "types";
 import { Tooltip, Input } from "common";
 import { Comment, Tag, ReactionModal } from "components";
@@ -81,16 +80,16 @@ const Post = ({ post }: PostProps) => {
                                 </div>
                             );
                         })}
-                        <span className="post__react--extended" onClick={handleShowReactions}>
+                        <span className="post__react--extended" onClick={toggleModal}>
                             {post.reaction_display.extended}
                         </span>
-                        <span className="post__react--standard" onClick={handleShowReactions}>
+                        <span className="post__react--standard" onClick={toggleModal}>
                             {post.reaction_display.standard}
                         </span>
                         <div className="post__like">{<FaThumbsUp />}</div>
                     </summary>
                     <hr />
-                    {showModal && <ReactionModal closeModal={toggleModal} reactions={reactionData} />}
+                    {showModal && <ReactionModal closeModal={toggleModal} postId={post.post_id} />}
                 </>
             )}
             {post.recent_comments.length > 0 && (

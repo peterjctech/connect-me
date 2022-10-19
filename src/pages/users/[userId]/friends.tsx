@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-
 import { GET_USER_FRIENDS } from "@queries";
 import { UserLayout, UserContext } from "layouts";
 import { UserSummary } from "types";
@@ -30,9 +29,7 @@ const UsersUserIdFriends = () => {
         getData();
     }, []);
 
-    if (!data) {
-        return <Loading />;
-    }
+    if (!data) return <Loading />;
 
     return (
         <div className="list-container theme box">

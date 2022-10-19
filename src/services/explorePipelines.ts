@@ -1,5 +1,5 @@
 import { Types, PipelineStage } from "mongoose";
-import { getAcceptedFriends, userSummaryPartial, concatNames } from "./helpers";
+import { getAcceptedFriends, concatNames } from "./helpers";
 
 export const exploreUsersPrepipeline = (authId: string) => {
     const pipeline: PipelineStage[] = [

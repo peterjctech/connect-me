@@ -43,7 +43,7 @@ const TagLayout = ({ children }: TagLayoutProps) => {
         if (router.query.tagId) fetchData();
     }, [router.query]);
 
-    if (!data) return <Loading />;
+    if (!data) return <Loading variant="page" />;
 
     const action = tagAction(data);
 

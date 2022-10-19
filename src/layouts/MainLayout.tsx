@@ -5,7 +5,7 @@ import { client } from "utils";
 import { INITIALIZE_STORE } from "@queries";
 import { StoreInterface } from "types";
 import { setUserStore } from "store";
-import { Navbar, Topbar, Rightbar } from "components";
+import { Navbar, Topbar, Rightbar, Loading } from "components";
 
 interface MainLayoutProps {
     children: React.ReactNode;
@@ -35,7 +35,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     }, []);
 
     if (loading) {
-        return <h1>Loading</h1>;
+        return <Loading variant="init" />;
     }
 
     return (

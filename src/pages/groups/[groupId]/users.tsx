@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-
 import { GET_GROUP_MEMBERS } from "@queries";
 import { GroupLayout, GroupContext } from "layouts";
 import { UserSummary } from "types";
@@ -28,9 +27,7 @@ const GroupMembersPage = () => {
         getData();
     }, []);
 
-    if (!data) {
-        return <Loading />;
-    }
+    if (!data) return <Loading />;
 
     return (
         <div className="list-container theme box">

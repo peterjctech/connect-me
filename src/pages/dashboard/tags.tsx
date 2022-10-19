@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { useSelector } from "react-redux";
-
 import { GET_USER_TAGS } from "@queries";
 import { DashboardLayout } from "layouts";
 import { StoreInterface, TagSummary } from "types";
@@ -10,9 +9,7 @@ const DashboardTags = () => {
     const userStore = useSelector((store: StoreInterface) => store.user);
     const { loading, data } = useQuery(GET_USER_TAGS, { variables: { userId: userStore.user_id } });
 
-    if (loading) {
-        return <Loading />;
-    }
+    if (loading) return <Loading />;
 
     return (
         <div className="list-container theme box">

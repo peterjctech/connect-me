@@ -42,7 +42,7 @@ const GroupLayout = ({ children }: GroupLayoutProps) => {
         if (router.query.groupId) fetchData();
     }, [router.query]);
 
-    if (!data) return <Loading />;
+    if (!data) return <Loading variant="page" />;
 
     const action = groupAction(data);
 
