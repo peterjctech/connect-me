@@ -39,7 +39,7 @@ const Post = ({ post }: PostProps) => {
     return (
         <div className="post theme box">
             <header>
-                <img src={post.author.profile_picture} className="img--md" />
+                <img src={post.author.profile_picture} className="img--md" alt="" />
                 <h6 onClick={() => router.push(`/users/${post.author.user_id}`)} className="link">
                     {post.author.full_name}
                 </h6>
@@ -57,7 +57,7 @@ const Post = ({ post }: PostProps) => {
             <hr />
             <section>
                 <p>{post.content}</p>
-                {post.media && <img src={post.media} />}
+                {post.media && <img src={post.media} alt="" />}
             </section>
             <hr />
             {post.tags.length > 0 && (

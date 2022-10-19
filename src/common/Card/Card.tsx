@@ -14,7 +14,7 @@ const Card = ({ children, title, link, image }: CardProps) => {
     return (
         <div className="card bordered">
             <div className="card__heading">
-                <img src={image} className="img--sm" />
+                <img src={image} className="img--sm" alt="" />
                 <h6 className="card__title" onClick={() => router.push(link)}>
                     {title}
                 </h6>

@@ -52,7 +52,7 @@ const ReactionModal = ({ closeModal, postId, eventId, commentId }: ReactionModal
             if (postId) getPostReactions({ postId: postId });
             if (eventId) getEventReactions({ eventId: eventId });
         }
-    }, []);
+    }, [commentId, eventId, postId]);
 
     if (loading) {
         return (
@@ -85,7 +85,7 @@ const ReactionModal = ({ closeModal, postId, eventId, commentId }: ReactionModal
 
                     return (
                         <div className="reaction-modal__user" key={user.user_id}>
-                            <img src={user.profile_picture} className="img--mdlg" />
+                            <img src={user.profile_picture} className="img--mdlg" alt="" />
                             <Link href={`/users/${user.user_id}`}>{user.full_name}</Link>
                             {user.mutual_friend_count && <p>{user.mutual_friend_count} mutual friends</p>}
                             {action && (

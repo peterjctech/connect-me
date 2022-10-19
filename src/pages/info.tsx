@@ -21,7 +21,7 @@ const InfoPage = () => {
             <br />
             <div className="change-list">
                 {changeList.map((str) => (
-                    <p>{str}</p>
+                    <p key={str}>{str}</p>
                 ))}
             </div>
         </main>

@@ -20,7 +20,7 @@ interface BannerProps {
 const Banner = ({ cover, image, mainText, subText, otherData, action }: BannerProps) => {
     return (
         <div className="banner">
-            <img src={cover} className="banner__cover" />
+            <img src={cover} className="banner__cover" alt="" />
             <section>
                 <div className="wrapper">
                     <div className="banner__image img--lg">

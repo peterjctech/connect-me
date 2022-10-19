@@ -6,7 +6,7 @@ interface UseDialogProps {
     closeDialog: () => void;
 }
 
-export default function () {
+const useDialog = () => {
     const [dialog, setDialog] = useState(false);
     const [dialogProps, setDialogProps] = useState<UseDialogProps>({
         message: "",
@@ -20,4 +20,6 @@ export default function () {
     };
 
     return { dialog, openDialog, dialogProps };
-}
+};
+
+export default useDialog;

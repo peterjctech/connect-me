@@ -38,6 +38,7 @@ const Topbar = () => {
                         src={userStore.profile_picture}
                         onClick={() => router.push("/dashboard")}
                         className="img--sm"
+                        alt=""
                     />
                 )}
             </section>

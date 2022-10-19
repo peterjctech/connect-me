@@ -26,20 +26,20 @@ const TagLayout = ({ children }: TagLayoutProps) => {
         { title: "Events", link: `/tags/${router.query.tagId}/events` },
     ]);
 
-    const fetchData = async () => {
-        try {
-            const response = await client.query({
-                query: GET_TAG_LAYOUT_DATA,
-                variables: { tagId: router.query.tagId },
-            });
-            console.log(response);
-            setData(response.data.getTagLayoutData);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await client.query({
+                    query: GET_TAG_LAYOUT_DATA,
+                    variables: { tagId: router.query.tagId },
+                });
+                console.log(response);
+                setData(response.data.getTagLayoutData);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
         if (router.query.tagId) fetchData();
     }, [router.query]);
 

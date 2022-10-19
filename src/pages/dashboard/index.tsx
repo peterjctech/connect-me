@@ -25,7 +25,7 @@ const DashboardPage = () => {
         };
 
         getData();
-    }, []);
+    }, [userStore.user_id]);
 
     if (!data) return <Loading />;
 

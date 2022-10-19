@@ -24,7 +24,7 @@ const Comment = ({ comment, parent }: CommentProps) => {
 
     return (
         <div className={`comment${comment.is_liked ? " liked" : ""}`}>
-            <img src={comment.profile_picture} />
+            <img src={comment.profile_picture} alt="" />
             <section>
                 <h6 onClick={() => router.push(`/users/${comment.user_id}`)} className="link">
                     {comment.full_name}

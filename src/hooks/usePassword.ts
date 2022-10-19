@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-export default function () {
+const usePassword = () => {
     const [showPassword, setShowPassword] = useState({
         main: { icon: AiFillEye, show: false },
         confirm: { icon: AiFillEye, show: false },
@@ -18,4 +18,6 @@ export default function () {
     };
 
     return { showPassword, updateShowPassword };
-}
+};
+
+export default usePassword;

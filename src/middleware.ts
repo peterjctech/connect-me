@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export default function (req: NextRequest) {
+const middleware = (req: NextRequest) => {
     const cookie = req.cookies.get(process.env.SERVER_KEY!);
     const PUBLIC_FILE = /\.(.*)$/;
     const isPublicFile = PUBLIC_FILE.test(req.nextUrl.pathname);
@@ -16,4 +16,6 @@ export default function (req: NextRequest) {
     } else {
         return NextResponse.next();
     }
-}
+};
+
+export default middleware;

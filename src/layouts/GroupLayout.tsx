@@ -26,19 +26,19 @@ const GroupLayout = ({ children }: GroupLayoutProps) => {
         { title: "Tags", link: `/groups/${router.query.groupId}/tags` },
     ]);
 
-    const fetchData = async () => {
-        try {
-            const response = await client.query({
-                query: GET_GROUP_LAYOUT_DATA,
-                variables: { groupId: router.query.groupId },
-            });
-            setData(response.data.getGroupLayoutData);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await client.query({
+                    query: GET_GROUP_LAYOUT_DATA,
+                    variables: { groupId: router.query.groupId },
+                });
+                setData(response.data.getGroupLayoutData);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
         if (router.query.groupId) fetchData();
     }, [router.query]);
 

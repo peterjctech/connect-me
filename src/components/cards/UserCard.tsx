@@ -13,7 +13,7 @@ const UserCard = ({ user }: UserCardProps) => {
 
     return (
         <div className="user-card bordered">
-            <img src={user.profile_picture} onClick={() => router.push(`/users/${user.user_id}`)} />
+            <img src={user.profile_picture} onClick={() => router.push(`/users/${user.user_id}`)} alt="" />
             <div className="user-card__content">
                 <h6 className="user-card__title">{user.full_name}</h6>
                 {user.mutual_friend_count && <p>{user.mutual_friend_count} mutual friends</p>}

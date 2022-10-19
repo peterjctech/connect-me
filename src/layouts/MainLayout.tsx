@@ -32,7 +32,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         } else {
             init();
         }
-    }, []);
+    }, [dispatch, userStore.is_initialized]);
 
     if (loading) {
         return <Loading variant="init" />;

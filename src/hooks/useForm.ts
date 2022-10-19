@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function (obj: Record<string, any>) {
+const useForm = (obj: Record<string, any>) => {
     const [formData, setFormData] = useState(obj);
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> = (event): void => {
@@ -9,4 +9,6 @@ export default function (obj: Record<string, any>) {
     };
 
     return { formData, handleChange, setFormData };
-}
+};
+
+export default useForm;

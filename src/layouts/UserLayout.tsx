@@ -27,19 +27,19 @@ const UserLayout = ({ children }: UserLayoutProps) => {
         { title: "Tags", link: `/users/${router.query.userId}/tags` },
     ]);
 
-    const fetchData = async () => {
-        try {
-            const response = await client.query({
-                query: GET_USER_LAYOUT_DATA,
-                variables: { userId: router.query.userId },
-            });
-            setData(response.data.getUserLayoutData);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await client.query({
+                    query: GET_USER_LAYOUT_DATA,
+                    variables: { userId: router.query.userId },
+                });
+                setData(response.data.getUserLayoutData);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
         if (router.query.userId) fetchData();
     }, [router.query]);
 
