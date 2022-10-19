@@ -1,7 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { connectDB, seedDatabase } from "database";
 
-const seed = async (req: NextApiRequest, res: NextApiResponse) => {
+const seed = async () => {
     await connectDB();
     await seedDatabase();
 };
