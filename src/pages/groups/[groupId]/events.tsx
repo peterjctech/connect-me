@@ -9,22 +9,22 @@ const GroupEventsPage = () => {
     const [data, setData] = useState<null | EventSummary[]>(null);
     const context = useContext(GroupContext);
 
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const response = await client.query({
-                    query: GET_GROUP_EVENTS,
-                    variables: {
-                        groupId: context.group_id,
-                        isMember: context.is_member,
-                    },
-                });
-                setData(response.data.getGroupEvents);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    const getData = async () => {
+        try {
+            const response = await client.query({
+                query: GET_GROUP_EVENTS,
+                variables: {
+                    groupId: context.group_id,
+                    isMember: context.is_member,
+                },
+            });
+            setData(response.data.getGroupEvents);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
+    useEffect(() => {
         getData();
     }, []);
 

@@ -39,6 +39,7 @@ export const GET_TAG_POSTS = gql`
                     }
                     is_liked
                     is_edited
+                    is_mine
                 }
                 comment_count
                 created_at {

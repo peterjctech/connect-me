@@ -1,4 +1,5 @@
 export * from "./chatTypes";
+export * from "./clientTypes";
 export * from "./eventTypes";
 export * from "./groupTypes";
 export * from "./postTypes";

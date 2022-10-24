@@ -51,6 +51,7 @@ export const GET_EVENT = gql`
                 }
                 is_liked
                 is_edited
+                is_mine
             }
         }
     }

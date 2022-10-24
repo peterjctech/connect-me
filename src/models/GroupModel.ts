@@ -34,7 +34,7 @@ const GroupSchema = new Schema<GroupModel>({
             new_owner: { type: ObjectID, ref: "User" },
             new_description: String,
             new_image: String,
-            date: { type: Date, default: new Date() },
+            date: { type: Date, default: () => new Date() },
             reactions: [ReactionSubschema],
         },
     ],
@@ -43,11 +43,11 @@ const GroupSchema = new Schema<GroupModel>({
             _id: false,
             user_id: { type: ObjectID, required: true, ref: "User" },
             message: { type: String, required: true },
-            date: { type: Date, default: new Date() },
+            date: { type: Date, default: () => new Date() },
         },
     ],
     tags: [{ type: ObjectID, ref: "Tag" }],
-    created_at: { type: Date, default: new Date() },
+    created_at: { type: Date, default: () => new Date() },
     restriction: { type: String, required: true, enum: groupRestrictionEnum },
 });
 

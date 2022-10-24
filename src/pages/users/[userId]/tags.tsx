@@ -25,7 +25,7 @@ const UserUserIdTags = () => {
         };
 
         getData();
-    }, []);
+    }, [context]);
 
     if (!data) return <Loading />;
 

@@ -8,8 +8,12 @@ interface TagProps {
 const Tag = ({ tag }: TagProps) => {
     const router = useRouter();
 
+    const route = () => {
+        router.push(`/tags/${tag.tag_id}`);
+    };
+
     return (
-        <p onClick={() => router.push(`/tags/${tag.tag_id}`)} className="tag">
+        <p onClick={route} className="tag">
             #{tag.name}
         </p>
     );

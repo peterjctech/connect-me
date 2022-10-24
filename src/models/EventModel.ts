@@ -23,13 +23,13 @@ const EventSchema = new Schema<EventModel>({
     tags: [{ type: ObjectID, ref: "Tag" }],
     reactions: [ReactionSubschema],
     comments: [CommentSubschema],
-    created_at: { type: Date, default: new Date() },
+    created_at: { type: Date, default: () => new Date() },
     starts_at: { type: Date, required: true },
     ends_at: Date,
     last_change: {
         user_id: { type: ObjectID, required: true, ref: "User" },
         change: { type: String, required: true, enum: changeEnum },
-        changed_at: { type: Date, default: new Date() },
+        changed_at: { type: Date, default: () => new Date() },
     },
     restriction: { type: String, required: true, enum: eventRestrictionEnum },
 });

@@ -44,4 +44,7 @@ export default gql`
         getTagEvents(tagId: String!): [EventSummary]
         exploreTags(skipNumber: Int!): [TagSummary]
     }
+    type Mutation {
+        addTag(tagId: String!): Message
+    }
 `;

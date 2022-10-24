@@ -36,12 +36,14 @@ const Dialog = ({ closeDialog, variant, message }: DialogProps) => {
     };
 
     return (
-        <div className="dialog">
+        <div onClick={handleClick} className="dialog">
             <div className="dialog__content">
                 <section className={`dialog__header ${variant || "success"}`}>{icon}</section>
                 <p>{message}</p>
                 <section className="dialog__footer">
-                    <Button click={closeDialog}>OK</Button>
+                    <Button type="info" click={closeDialog}>
+                        OK
+                    </Button>
                 </section>
             </div>
         </div>

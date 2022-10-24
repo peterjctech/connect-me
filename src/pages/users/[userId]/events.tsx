@@ -27,7 +27,7 @@ const UserUserIdEvents = () => {
         };
 
         getData();
-    }, []);
+    }, [context]);
 
     if (!data) return <Loading />;
 

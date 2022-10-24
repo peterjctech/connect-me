@@ -1,0 +1,29 @@
+.toast {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 99;
+    color: white;
+    width: 20rem;
+    border-radius: 0.5rem;
+    min-height: 5rem;
+    padding: 1rem;
+    display: grid;
+    align-items: center;
+}
+
+.toast.success {
+    background-color: $success;
+}
+.toast.info {
+    background-color: $info;
+}
+.toast.warning {
+    background-color: $warning;
+}
+.toast.error {
+    background-color: $error;
+}
+.toast.help {
+    background-color: $help;
+}

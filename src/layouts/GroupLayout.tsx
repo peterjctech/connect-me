@@ -1,5 +1,4 @@
-import { AiFillCalendar } from "react-icons/ai";
-import { FaBirthdayCake, FaUserFriends } from "react-icons/fa";
+import { FaBirthdayCake } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { GET_GROUP_LAYOUT_DATA } from "@queries";
 import { Loading } from "components";
@@ -55,7 +54,7 @@ const GroupLayout = ({ children }: GroupLayoutProps) => {
         <GroupContext.Provider value={data}>
             <main>
                 <Banner
-                    cover="/group-cover.jpg"
+                    cover="/profile-cover.jpg"
                     image={data.group_image}
                     mainText={data.name}
                     subText={data.description}

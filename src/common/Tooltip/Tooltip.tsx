@@ -19,7 +19,7 @@ const Tooltip = ({ hover, children, click }: TooltipProps) => {
             onClick={handleClick}
         >
             <p className={`tooltip__main${click ? " can-click" : ""}`}>{children}</p>
-            {showTooltip && (
+            {showTooltip && hover.length > 0 && (
                 <div className="tooltip__content">
                     <p className="tooltip__hover">
                         {typeof hover === "string"

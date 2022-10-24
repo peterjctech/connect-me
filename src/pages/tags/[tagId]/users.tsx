@@ -25,7 +25,7 @@ const TagUsersPage = () => {
         };
 
         getData();
-    }, []);
+    }, [context]);
 
     if (!data) return <Loading />;
 

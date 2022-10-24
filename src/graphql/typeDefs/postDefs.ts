@@ -55,4 +55,10 @@ export default gql`
         getMorePostComments(postId: String!, skipTimestamp: Int!): MoreCommentsResponse
         getFeed(skipTimestamp: Int!): GetPostsResponse
     }
+    type Mutation {
+        likePostComment(postId: String!, commentId: String!): Message
+        unlikePostComment(postId: String!, commentId: String!): Message
+        deletePostComment(postId: String!, commentId: String!): Message
+        commentOnPost(postId: String!, content: String!): CommentData
+    }
 `;

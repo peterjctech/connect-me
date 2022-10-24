@@ -9,21 +9,21 @@ const TagEventsPage = () => {
     const [data, setData] = useState<null | EventSummary[]>(null);
     const context = useContext(TagContext);
 
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const response = await client.query({
-                    query: GET_TAG_EVENTS,
-                    variables: {
-                        tagId: context.tag_id,
-                    },
-                });
-                setData(response.data.getTagEvents);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    const getData = async () => {
+        try {
+            const response = await client.query({
+                query: GET_TAG_EVENTS,
+                variables: {
+                    tagId: context.tag_id,
+                },
+            });
+            setData(response.data.getTagEvents);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
+    useEffect(() => {
         getData();
     }, []);
 

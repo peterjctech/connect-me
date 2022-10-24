@@ -41,7 +41,6 @@ const userResolvers: Resolvers = {
             return response;
         },
         getUserLayoutData: async (_, args, context) => {
-            console.time("getUserLayoutData");
             const pipeline = userLayoutDataPipeline({ authId: context.auth, userId: args.userId });
             const response = await User.aggregate(pipeline).then((data) => {
                 if (data[0]) {
@@ -54,11 +53,9 @@ const userResolvers: Resolvers = {
 
                 return null;
             });
-            console.timeEnd("getUserLayoutData");
             return response;
         },
         getUserPosts: async (_, args, context) => {
-            console.time("getUserPosts");
             let next_skip_timestamp = dayjs().unix();
             const pipeline = userPostsPipeline({
                 authId: context.auth,
@@ -85,7 +82,6 @@ const userResolvers: Resolvers = {
                 });
             });
 
-            console.timeEnd("getUserPosts");
             return { posts, next_skip_timestamp };
         },
         getUserFriends: async (_, args, context) => {

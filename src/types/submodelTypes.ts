@@ -26,6 +26,7 @@ export interface CommentData {
     created_at: CreatedAt;
     is_liked: boolean;
     is_edited: boolean;
+    is_mine: boolean;
 }
 
 export interface ChatMessageSubmodel {

@@ -33,6 +33,7 @@ export default gql`
         created_at: CreatedAt!
         is_liked: Boolean!
         is_edited: Boolean!
+        is_mine: Boolean!
     }
     type ListAndCount {
         list: [String]!

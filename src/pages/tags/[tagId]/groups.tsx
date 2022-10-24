@@ -25,7 +25,7 @@ const TagGroups = () => {
         };
 
         getData();
-    }, []);
+    }, [context]);
 
     if (!data) return <Loading />;
 

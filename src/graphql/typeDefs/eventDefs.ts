@@ -67,4 +67,7 @@ export default gql`
         getEventSettings(eventId: String!): EventSettings
         exploreEvents(skipNumber: Int!): [EventSummary]
     }
+    type Mutation {
+        likeEventComment(eventId: String!, commentId: String!): Message
+    }
 `;

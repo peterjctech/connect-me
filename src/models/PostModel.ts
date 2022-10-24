@@ -16,11 +16,11 @@ const PostSchema = new Schema<PostModel>({
     tags: [{ type: ObjectID, ref: "Tag" }],
     reactions: [ReactionSubschema],
     comments: [CommentSubschema],
-    created_at: { type: Date, default: new Date() },
+    created_at: { type: Date, default: () => new Date() },
     last_change: {
         user_id: { type: ObjectID, required: true, ref: "User" },
         change: { type: String, required: true, enum: changeEnum },
-        changed_at: { type: Date, default: new Date() },
+        changed_at: { type: Date, default: () => new Date() },
     },
     is_edited: { type: Boolean, default: false },
     is_public: { type: Boolean, required: true },

@@ -8,6 +8,8 @@ import { Tooltip, Input } from "common";
 import { Comment, Tag, ReactionModal } from "components";
 import { useForm } from "hooks";
 import { htmlEmojis } from "helpers";
+import { client } from "utils";
+import { COMMENT_ON_POST, DELETE_POST_COMMENT } from "@mutations";
 
 interface PostProps {
     post: PostSummary;
@@ -15,9 +17,9 @@ interface PostProps {
 
 const Post = ({ post }: PostProps) => {
     const [showModal, setShowModal] = useState(false);
-    const [reactionData, setReactionData] = useState([]);
+    const [recentComments, setRecentComments] = useState(post.recent_comments);
     const router = useRouter();
-    const { formData, handleChange } = useForm({
+    const { formData, handleChange, setFormData } = useForm({
         comment: "",
     });
     const toggleModal = () => setShowModal(!showModal);
@@ -31,9 +33,31 @@ const Post = ({ post }: PostProps) => {
         console.log("handleShowReactions");
     };
 
-    // TODO: commentOnPost
     const commentOnPost = async () => {
-        console.log(formData.comment);
+        const response = await client.mutate({
+            mutation: COMMENT_ON_POST,
+            variables: {
+                postId: post.post_id,
+                content: formData.comment,
+            },
+        });
+        if (response.data) {
+            setRecentComments([...recentComments, response.data.commentOnPost]);
+            setFormData({ comment: "" });
+        }
+    };
+
+    const deleteComment = async (commentId: string) => {
+        const response = await client.mutate({
+            mutation: DELETE_POST_COMMENT,
+            variables: {
+                postId: post.post_id,
+                commentId,
+            },
+        });
+        if (response.data) {
+            setRecentComments(recentComments.filter((c) => c.comment_id !== commentId));
+        }
     };
 
     return (
@@ -92,19 +116,20 @@ const Post = ({ post }: PostProps) => {
                     {showModal && <ReactionModal closeModal={toggleModal} postId={post.post_id} />}
                 </>
             )}
-            {post.recent_comments.length > 0 && (
+            {recentComments.length > 0 && (
                 <footer>
-                    {post.recent_comments.length > 3 && (
+                    {recentComments.length > 3 && (
                         <div className="post__expand link" onClick={navigateToMain}>
                             See all {post.comment_count} comments
                         </div>
                     )}
-                    {post.recent_comments.map((comment) => {
+                    {recentComments.map((comment) => {
                         return (
                             <Comment
                                 comment={comment}
                                 parent={{ id: post.post_id, type: "Post" }}
                                 key={comment.comment_id}
+                                deleteComment={comment.is_mine ? deleteComment : undefined}
                             />
                         );
                     })}

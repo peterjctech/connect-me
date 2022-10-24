@@ -11,11 +11,15 @@ const UserCard = ({ user }: UserCardProps) => {
     const router = useRouter();
     const action = userFriendAction(user);
 
+    const navigate = () => router.push(`/users/${user.user_id}`);
+
     return (
         <div className="user-card bordered">
-            <img src={user.profile_picture} onClick={() => router.push(`/users/${user.user_id}`)} alt="" />
+            <img src={user.profile_picture} onClick={navigate} alt="" />
             <div className="user-card__content">
-                <h6 className="user-card__title">{user.full_name}</h6>
+                <h6 onClick={navigate} className="user-card__title">
+                    {user.full_name}
+                </h6>
                 {user.mutual_friend_count && <p>{user.mutual_friend_count} mutual friends</p>}
                 {user.mutual_friend_count && action && (
                     <Button click={() => action.action({ userId: user.user_id })} type={action.button} squared>

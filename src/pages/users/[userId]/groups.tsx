@@ -28,7 +28,7 @@ const UsersUserIdGroups = () => {
         };
 
         getData();
-    }, []);
+    }, [context]);
 
     if (!data) return <Loading />;
 

@@ -44,6 +44,7 @@ export const GET_POST = gql`
                 }
                 is_liked
                 is_edited
+                is_mine
             }
             created_at {
                 absolute
@@ -100,6 +101,7 @@ export const GET_MORE_POST_COMMENTS = gql`
                 }
                 is_liked
                 is_edited
+                is_mine
             }
         }
     }
@@ -143,6 +145,7 @@ export const GET_FEED = gql`
                     }
                     is_liked
                     is_edited
+                    is_mine
                 }
                 comment_count
                 created_at {

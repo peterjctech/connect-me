@@ -41,4 +41,7 @@ export default gql`
         getChatData(chatId: String!): ChatData
         getMoreChatMessages(chatId: String!, skipTimestamp: Int!): MoreChatMessages
     }
+    type Mutation {
+        sendChatMessage(chatId: String!, content: String!): ChatMessage
+    }
 `;

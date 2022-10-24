@@ -1,5 +1,6 @@
 .comment {
     display: flex;
+    position: relative;
 
     > img {
         border-radius: 50%;
@@ -29,9 +30,18 @@
     }
 
     &.liked {
-        svg {
+        .comment__thumbs {
             fill: $primary;
         }
+    }
+
+    &__delete {
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        fill: red;
+        width: 1.5rem;
+        height: 1.5rem;
     }
 }
 

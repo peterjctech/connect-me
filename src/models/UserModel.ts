@@ -14,7 +14,7 @@ const UserSchema = new Schema<UserModel>({
     profile_picture: { type: String, default: "/default-user-picture.jpg" },
     birthday: { type: Date, required: true },
     intro: String,
-    joined_at: { type: Date, default: new Date() },
+    joined_at: { type: Date, default: () => new Date() },
     friends: [
         {
             _id: false,

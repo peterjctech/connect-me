@@ -175,6 +175,7 @@ export const postSummaryPartial = (authId?: string) => {
                         created_at: "$comments.created_at",
                         is_edited: "$comments.is_edited",
                         is_liked: "$is_liked",
+                        is_mine: { $eq: [auth, { $first: "$comments.author.user_id" }] },
                     },
                 },
             },

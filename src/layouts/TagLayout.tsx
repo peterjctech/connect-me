@@ -1,14 +1,12 @@
-import { AiFillCalendar } from "react-icons/ai";
-import { FaBirthdayCake, FaUserFriends } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { GET_TAG_LAYOUT_DATA } from "@queries";
 import { Loading } from "components";
 import { useTabs } from "hooks";
 import { TagLayoutData } from "types";
-import { Banner, Button, Tabs } from "common";
+import { Button, Tabs } from "common";
 import { useEffect, useState, createContext } from "react";
 import { client } from "utils";
-import { tagAction, userFriendAction } from "helpers";
+import { tagAction } from "helpers";
 
 interface TagLayoutProps {
     children: React.ReactNode;
@@ -33,7 +31,6 @@ const TagLayout = ({ children }: TagLayoutProps) => {
                     query: GET_TAG_LAYOUT_DATA,
                     variables: { tagId: router.query.tagId },
                 });
-                console.log(response);
                 setData(response.data.getTagLayoutData);
             } catch (error) {
                 console.log(error);
@@ -41,7 +38,7 @@ const TagLayout = ({ children }: TagLayoutProps) => {
         };
 
         if (router.query.tagId) fetchData();
-    }, [router.query]);
+    }, [router.query.tagId]);
 
     if (!data) return <Loading variant="page" />;
 

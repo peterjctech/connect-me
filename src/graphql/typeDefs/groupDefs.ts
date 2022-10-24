@@ -55,4 +55,7 @@ export default gql`
         getGroupTags(groupId: String!): [TagSummary]
         exploreGroups(skipNumber: Int!): [GroupSummary]
     }
+    type Mutation {
+        joinGroup(groupId: String!): Message
+    }
 `;

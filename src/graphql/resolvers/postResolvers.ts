@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { Types } from "mongoose";
 import { Resolvers } from "@apollo/client";
 import { Post, User } from "models";
 import { getListAndCount, getCreatedAt, getReactionDisplay, getTooltipList } from "utils";
@@ -9,6 +10,7 @@ import {
     morePostCommentsPipeline,
     feedPipeline,
     feedPrepipeline,
+    newCommentPipeline,
 } from "services";
 
 const postResolvers: Resolvers = {
@@ -99,6 +101,51 @@ const postResolvers: Resolvers = {
                 });
             });
             return { posts, next_skip_timestamp };
+        },
+    },
+    Mutation: {
+        likePostComment: async (_, args, context) => {
+            await Post.updateOne(
+                { _id: new Types.ObjectId(args.postId), "comments._id": new Types.ObjectId(args.commentId) },
+                { $addToSet: { "comments.$.likes": new Types.ObjectId(context.auth) } }
+            );
+            return { message: "Liked comment" };
+        },
+        unlikePostComment: async (_, args, context) => {
+            await Post.updateOne(
+                { _id: new Types.ObjectId(args.postId), "comments._id": new Types.ObjectId(args.commentId) },
+                { $pull: { "comments.$.likes": new Types.ObjectId(context.auth) } }
+            );
+            return { message: "Unliked comment" };
+        },
+        deletePostComment: async (_, args) => {
+            await Post.updateOne(
+                { _id: new Types.ObjectId(args.postId) },
+                {
+                    $pull: {
+                        comments: {
+                            _id: new Types.ObjectId(args.commentId),
+                        },
+                    },
+                }
+            );
+            return { message: "Deleted comment" };
+        },
+        commentOnPost: async (_, args, context) => {
+            const newCommentId = new Types.ObjectId();
+            await Post.updateOne(
+                { _id: new Types.ObjectId(args.postId) },
+                { $push: { comments: { _id: newCommentId, author_id: context.auth, content: args.content } } }
+            );
+            const pipeline = newCommentPipeline({ parentId: args.postId, commentId: newCommentId });
+            const response = await Post.aggregate(pipeline).then((data) => {
+                return {
+                    ...data[0],
+                    likes: getListAndCount(data[0].likes),
+                    created_at: getCreatedAt(data[0].created_at),
+                };
+            });
+            return response;
         },
     },
 };

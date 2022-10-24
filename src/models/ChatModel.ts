@@ -18,7 +18,7 @@ const ChatSchema = new Schema<ChatModel>({
         {
             _id: false,
             message: { type: String, required: true },
-            date: { type: Date, default: new Date() },
+            date: { type: Date, default: () => new Date() },
         },
     ],
 });

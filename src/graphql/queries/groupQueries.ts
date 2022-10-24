@@ -66,6 +66,7 @@ export const GET_GROUP_POSTS = gql`
                     }
                     is_liked
                     is_edited
+                    is_mine
                 }
                 comment_count
                 created_at {

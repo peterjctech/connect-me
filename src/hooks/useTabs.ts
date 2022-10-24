@@ -13,7 +13,7 @@ const useTabs = (tabList: Tab[]) => {
     useEffect(() => {
         const index = tabList.findIndex((tab) => tab.link === router.asPath);
         setCurrentTab(tabList[index]);
-    }, [router.query, tabList, router.asPath]);
+    }, [router.isReady, router.asPath]);
 
     const changeTab = (tab: Tab) => {
         router.push(tab.link);

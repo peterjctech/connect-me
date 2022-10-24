@@ -20,12 +20,10 @@ interface BannerProps {
 const Banner = ({ cover, image, mainText, subText, otherData, action }: BannerProps) => {
     return (
         <div className="banner">
-            <img src={cover} className="banner__cover" alt="" />
+            <img src={cover} alt="" className="banner__cover" />
             <section>
                 <div className="wrapper">
-                    <div className="banner__image img--lg">
-                        <Image src={image} layout="fill" />
-                    </div>
+                    <img src={image} alt="" className="banner__image img--lg" />
                     <h3>{mainText}</h3>
                     <p>{subText}</p>
                     <div className="banner__info">

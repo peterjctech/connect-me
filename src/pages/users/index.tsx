@@ -7,16 +7,17 @@ import { client } from "utils";
 const UsersPage = () => {
     const [skipNumber, setSkipNumber] = useState(0);
     const [data, setData] = useState<null | UserSummary[]>(null);
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const response = await client.query({ query: EXPLORE_USERS, variables: { skipNumber } });
-                setData(response.data.exploreUsers);
-            } catch (error) {
-                console.log(error);
-            }
-        };
 
+    const getData = async () => {
+        try {
+            const response = await client.query({ query: EXPLORE_USERS, variables: { skipNumber } });
+            setData(response.data.exploreUsers);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
         getData();
     }, []);
 

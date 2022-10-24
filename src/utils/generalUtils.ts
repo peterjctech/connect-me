@@ -1,6 +1,6 @@
 export const getTooltipList = (list: string[]) => {
     const count = list.length;
-    if (count === 0) return undefined;
+    if (count === 0) return [];
     if (count > 10) {
         list = list.slice(0, 9);
         list.push(`and ${count - 9} others...`);

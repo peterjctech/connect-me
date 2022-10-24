@@ -27,7 +27,7 @@ const UsersUserIdFriends = () => {
         };
 
         getData();
-    }, []);
+    }, [context]);
 
     if (!data) return <Loading />;
 

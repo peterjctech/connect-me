@@ -8,5 +8,6 @@ import Banner from "./Banner/Banner";
 import Tabs from "./Tabs/Tabs";
 import Tooltip from "./Tooltip/Tooltip";
 import Card from "./Card/Card";
+import Toast from "./Toast/Toast";
 
-export { Input, Button, Form, Dialog, Modal, Dropdown, Tabs, Banner, Tooltip, Card };
+export { Input, Button, Form, Dialog, Modal, Dropdown, Tabs, Banner, Tooltip, Card, Toast };
